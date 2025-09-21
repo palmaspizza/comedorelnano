@@ -1,443 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>El Ñaño</title>
- 
- <style>
-    #cart-count {
- position: absolute;
- top: -5px;
- right: -5px;
- background-color: white;
- color: var(--rojo);
- font-weight: bold;
- font-size: 1.1em;
- padding: 4px 8px;
- border-radius: 50px;
- box-shadow: 0 2px 6px rgba(0,0,0,0.2);
- transition: transform 0.2s ease;
-}
-
-.open-cart-btn:active #cart-count {
- transform: scale(1.2);
-}
-.open-cart-btn {
-position: fixed;
-bottom: 20px;
-right: 20px;
-background-color: #d32f2f;
-color: white;
-border: none;
-padding: 1em;
-border-radius: 50%;
-cursor: pointer;
-font-size: 1.5em;
-box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.open-cart-btn:hover {
-transform: scale(1.1);
-background-color: #b71c1c;
-}
-:root {
---rojo: #c62828;
---rojo-oscuro: #b71c1c;
---gris-claro: #f5f5f5;
---negro: #212121;
---fuente: 'Segoe UI', 'Roboto', sans-serif;
-}
-
-body {
-margin: 0;
-font-family: var(--fuente);
-background-color: var(--gris-claro);
-color: var(--negro);
-transition: background-color 0.3s ease;
-}
-
-header {
-background-color: var(--rojo);
-color: white;
-padding: 1em;
-text-align: center;
-box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-header img {
-max-height: 80px;
-transition: transform 0.3s ease;
-}
-header img:hover {
-transform: scale(1.05);
-}
-.product-img {
-width: 100%;
-height: 160px;
-object-fit: cover;
-border-radius: 8px;
-margin-bottom: 1em;
-transition: transform 0.3s ease;
-}
-.product-img:hover {
-transform: scale(1.03);
-}
-
-.products {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-padding: 2em;
-gap: 1.5em;
-}
-
-.product {
-background-color: white;
-border-radius: 12px;
-padding: 1.5em;
-width: 260px;
-text-align: center;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-transition: transform 0.3s ease;
-}
-.product:hover {
-transform: translateY(-5px);
-}
-
-.product button {
-background-color: var(--rojo);
-color: white;
-border: none;
-padding: 0.6em 1.2em;
-border-radius: 6px;
-cursor: pointer;
-font-weight: bold;
-transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.product button:active {
-transform: scale(0.95);
-}
-.product button:hover {
-background-color: var(--rojo-oscuro);
-}
-
-.open-cart-btn {
-position: fixed;
-bottom: 20px;
-right: 20px;
-background-color: var(--rojo);
-color: white;
-border: none;
-padding: 1em;
-border-radius: 50%;
-cursor: pointer;
-font-size: 1.5em;
-box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.open-cart-btn:hover {
-transform: scale(1.1);
-background-color: var(--rojo-oscuro);
-}
-.open-cart-btn:active {
-transform: scale(0.95);
-}
-
-/* Modal styles */
-.modal {
-display: none;
-position: fixed;
-z-index: 1000;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.5);
-animation: fadeIn 0.3s ease forwards;
-}
-@keyframes fadeIn {
-from { opacity: 0; }
-to { opacity: 1; }
-}
-
-.modal-content {
-background-color: white;
-margin: 10% auto;
-padding: 2em;
-border-radius: 12px;
-width: 90%;
-max-width: 400px;
-box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-animation: slideUp 0.4s ease forwards;
-}
-@keyframes slideUp {
-from { transform: translateY(50px); opacity: 0; }
-to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-content h2 {
-margin-top: 0;
-color: var(--rojo);
-}
-
-.modal-content input, .modal-content select {
-width: 100%;
-margin: 0.5em 0;
-padding: 0.7em;
-border: 1px solid #ccc;
-border-radius: 6px;
-font-size: 1em;
-}
-
-.modal-content button {
-background-color: var(--rojo);
-color: white;
-border: none;
-padding: 0.8em;
-width: 100%;
-border-radius: 6px;
-font-weight: bold;
-margin-top: 1em;
-transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.modal-content button:hover {
-background-color: var(--rojo-oscuro);
-}
-.modal-content button:active {
-transform: scale(0.97);
-}
-
-.close-btn {
-float: right;
-font-size: 1.5em;
-cursor: pointer;
-color: #888;
-transition: color 0.3s ease;
-}
-.close-btn:hover {
-color: var(--rojo);
-}
-
-#animacion-contador {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-font-size: 8rem;
-font-weight: bold;
-color: var(--rojo);
-opacity: 0;
-z-index: 10000;
-pointer-events: none;
-}
-
-.animacion-activa {
-animation: animacion-plus-one 1s ease-out;
-}
-
-@keyframes animacion-plus-one {
-0% {
-transform: translate(-50%, -50%) scale(0.5);
-opacity: 0;
-}
-20% {
-transform: translate(-50%, -50%) scale(1.1);
-opacity: 1;
-}
-50% {
-transform: translate(-50%, -50%) scale(1.2);
-opacity: 1;
-}
-100% {
-transform: translate(-50%, -50%) scale(1.5);
-opacity: 0;
-}
-}
-    body {
-      margin: 0;
-     font-family: 'Playfair Display', serif;
-
-      background-color: #f4f4f4;
-      color: #212121;
-    }
-    header {
-      background-color: #d32f2f;
-      color: white;
-      padding: 1em;
-      text-align: center;
-    }
-    header img {
-      max-height: 80px;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 1em;
-    }
-    .product {
-      background-color: #ffffff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      margin: 1em;
-      padding: 1em;
-      width: 250px;
-      text-align: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .product button {
-      background-color: #d32f2f;
-      color: white;
-      border: none;
-      padding: 0.5em 1em;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .open-cart-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #212121;
-      color: white;
-      border: none;
-      padding: 0.7em 1.2em;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .modal-content h2 {
-      margin-top: 0;
-      color: #d32f2f;
-    }
-    .modal-content input, .modal-content select {
-      width: 100%;
-      margin: 0.5em 0;
-      padding: 0.5em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .modal-content button {
-      background-color: #d32f2f;
-      color: white;
-      border: none;
-      padding: 0.7em;
-      width: 100%;
-      border-radius: 4px;
-      margin-top: 1em;
-    }
-    .close-btn {
-      float: right;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: #888;
-    }
-  </style>
- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-</head>
-<body>
-<style>
-  header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff8f0; /* Fondo suave y cálido */
-  padding: 20px;
-  border-bottom: 2px solid #b22222; /* Línea decorativa en rojo vino */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-header img {
-  height: 80px;
-  margin-right: 15px;
-  transition: transform 0.3s ease;
-}
-
-header img:hover {
-  transform: scale(1.05); /* Efecto sutil al pasar el mouse */
-}
-
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5em;
-  color: #b22222; /* Rojo vino */
-  margin: 0;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-</style>
-<header>
-  <img src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" alt="Logo El Ñaño">
-  <h1>El Ñaño</h1>
-</header>
-<div></div>
-<script>
-  // CAMBIAR PRECIOS
-const precios = {
-    'LOMO SALTADO': 6000,
-    'POLLO AL JUGO': 2000,
-    'TALLARINES SALTADOS': 6000
-};
-</script>
-<section class="products">
- <div class="product">
-  <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
-  <h3>LOMO SALTADO</h3>
-  <p class="descripcion-product">Tiras de carne o pollo salteadas con cebolla, tomate y un toque de soya.</p>
-  <p class="price">$6.000</p>
-  <button onclick="addToCart('LOMO SALTADO')">Agregar 1</button>
-</div>
-<style>
-  body{
-    font-weight: bold; /
-  }
-  .price{
-    color: red;
-  }
-</style>
-  <div class="product">
-    <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
-    <h3>POLLO AL JUGO</h3>
-     <p class="descripcion-product">Pollo tierno cocido en su propio jugo y aliños caseros.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('POLLO AL JUGO')">Agregar 1</button>
-  </div>
-  <div class="product">
-    <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
-    <h3>TALLARINES SALTADOS</h3>
-     <p class="descripcion-product">Fideos salteados al wok con <span style="color: red;">Carne</span>, <span style="color: red;">Pollo</span> o <span style="color: red;">Camarón</span>. cebollín y huevo</p>
-   
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('TALLARINES SALTADOS')">Agregar 1</button>
-  </div>
-
-</section>
-<style>
-    #cart-count {
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>El Ñaño</title>
+  
+  <style>
+      #cart-count {
   position: absolute;
   top: -5px;
   right: -5px;
@@ -449,93 +18,1086 @@ const precios = {
   border-radius: 50px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition: transform 0.2s ease;
-}
+  }
 
-.open-cart-btn:active #cart-count {
+  .open-cart-btn:active #cart-count {
   transform: scale(1.2);
-}
+  }
+  .open-cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  }
 
-</style>
-<button class="open-cart-btn" onclick="openCart()" title="Ver carrito">
-  🛒
-  <span id="cart-count">0</span>
-</button>
-<script>
- // La función original de tu código
-const cart = {};
+  .open-cart-btn:hover {
+  transform: scale(1.1);
+  background-color: #b71c1c;
+  }
+  :root {
+  --rojo: #c62828;
+  --rojo-oscuro: #b71c1c;
+  --gris-claro: #f5f5f5;
+  --negro: #212121;
+  --fuente: 'Segoe UI', 'Roboto', sans-serif;
+  }
 
-function sumarContador() {
-    // A. Lógica para sumar +1 al contador
+  body {
+  margin: 0;
+  font-family: var(--fuente);
+  background-color: var(--gris-claro);
+  color: var(--negro);
+  transition: background-color 0.3s ease;
+  }
+
+  header {
+  background-color: var(--rojo);
+  color: white;
+  padding: 1em;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  header img {
+  max-height: 80px;
+  transition: transform 0.3s ease;
+  }
+  header img:hover {
+  transform: scale(1.05);
+  }
+  .product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  transition: transform 0.3s ease;
+  }
+  .product-img:hover {
+  transform: scale(1.03);
+  }
+
+  .products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2em;
+  gap: 1.5em;
+  }
+
+  .product {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5em;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  }
+  .product:hover {
+  transform: translateY(-5px);
+  }
+
+  .product button {
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .product button:active {
+  transform: scale(0.95);
+  }
+  .product button:hover {
+  background-color: var(--rojo-oscuro);
+  }
+
+  .open-cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  .open-cart-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--rojo-oscuro);
+  }
+  .open-cart-btn:active {
+  transform: scale(0.95);
+  }
+
+  /* Modal styles */
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+  }
+
+  .modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 2em;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  animation: slideUp 0.4s ease forwards;
+  }
+  @keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-content h2 {
+  margin-top: 0;
+  color: var(--rojo);
+  }
+
+  .modal-content input, .modal-content select {
+  width: 100%;
+  margin: 0.5em 0;
+  padding: 0.7em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  }
+
+  .modal-content button {
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 0.8em;
+  width: 100%;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .modal-content button:hover {
+  background-color: var(--rojo-oscuro);
+  }
+  .modal-content button:active {
+  transform: scale(0.97);
+  }
+
+  .close-btn {
+  float: right;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+  }
+  .close-btn:hover {
+  color: var(--rojo);
+  }
+
+  #animacion-contador {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: bold;
+  color: var(--rojo);
+  opacity: 0;
+  z-index: 10000;
+  pointer-events: none;
+  }
+
+  .animacion-activa {
+  animation: animacion-plus-one 1s ease-out;
+  }
+
+  @keyframes animacion-plus-one {
+  0% {
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  }
+  20% {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+  }
+  50% {
+  transform: translate(-50%, -50%) scale(1.2);
+  opacity: 1;
+  }
+  100% {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
+  }
+  }
+      body {
+        margin: 0;
+      font-family: 'Playfair Display', serif;
+
+        background-color: #f4f4f4;
+        color: #212121;
+      }
+      header {
+        background-color: #d32f2f;
+        color: white;
+        padding: 1em;
+        text-align: center;
+      }
+      header img {
+        max-height: 80px;
+      }
+      .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 1em;
+      }
+      .product {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 1em;
+        padding: 1em;
+        width: 250px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .product button {
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .open-cart-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #212121;
+        color: white;
+        border: none;
+        padding: 0.7em 1.2em;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      }
+      .modal-content h2 {
+        margin-top: 0;
+        color: #d32f2f;
+      }
+      .modal-content input, .modal-content select {
+        width: 100%;
+        margin: 0.5em 0;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .modal-content button {
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        padding: 0.7em;
+        width: 100%;
+        border-radius: 4px;
+        margin-top: 1em;
+      }
+      .close-btn {
+        float: right;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #888;
+      }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  <style>
+    header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff8f0; /* Fondo suave y cálido */
+    padding: 20px;
+    border-bottom: 2px solid #b22222; /* Línea decorativa en rojo vino */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  header img {
+    height: 80px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+  }
+
+  header img:hover {
+    transform: scale(1.05); /* Efecto sutil al pasar el mouse */
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+    color: #b22222; /* Rojo vino */
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  </style>
+  <header>
+    <img src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" alt="Logo El Ñaño">
+    <h1>El Ñaño</h1>
+  </header>
+  <div></div>
+  <script>
+    // CAMBIAR PRECIOS
+  const precios = {
+      'LOMO SALTADO': 6000,
+      'POLLO AL JUGO': 2000,
+      'TALLARINES SALTADOS': 6000
+  };
+  </script>
+  <section class="products">
+  <div class="product">
+    <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
+    <h3>LOMO SALTADO</h3>
+    <p class="descripcion-product">Tiras de carne o pollo salteadas con cebolla, tomate y un toque de soya.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('LOMO SALTADO')">Agregar 1</button>
+  </div>
+  <style>
+    body{
+      font-weight: bold; /
+    }
+    .price{
+      color: red;
+    }
+  </style>
+    <div class="product">
+      <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
+      <h3>POLLO AL JUGO</h3>
+      <p class="descripcion-product">Pollo tierno cocido en su propio jugo y aliños caseros.</p>
+      <p class="price">$6.000</p>
+      <button onclick="addToCart('POLLO AL JUGO')">Agregar 1</button>
+    </div>
+    <div class="product">
+      <img src="LINK-DE-LA-IMAGEN" alt="Imagen del producto" class="product-img">
+      <h3>TALLARINES SALTADOS</h3>
+      <p class="descripcion-product">Fideos salteados al wok con <span style="color: red;">Carne</span>, <span style="color: red;">Pollo</span> o <span style="color: red;">Camarón</span>. cebollín y huevo</p>
+    
+      <p class="price">$6.000</p>
+      <button onclick="addToCart('TALLARINES SALTADOS')">Agregar 1</button>
+    </div>
+
+
+
+
+
+    [6:06 p.m., 21/9/2025] +56 9 6450 9663: <div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>AJÍ DE GALLINA</h3>
+    <p class="descripcion-product">Crema de pollo deshilachado con ají amarillo, nueces y pan, servido con arroz.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('AJÍ DE GALLINA')">Agregar 1</button>
+</div>
+[6:08 p.m., 21/9/2025] +56 9 6450 9663: Pollo Al Jugo:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>POLLO AL JUGO</h3>
+    <p class="descripcion-product">Pollo tierno cocido en su propio jugo y aliños caseros.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('POLLO AL JUGO')">Agregar 1</button>
+</div>
+[6:10 p.m., 21/9/2025] +56 9 6450 9663: CARNE AL JUGO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CARNE AL JUGO</h3>
+    <p class="descripcion-product">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('CARNE AL JUGO')">Agregar 1</button>
+</div>
+[6:11 p.m., 21/9/2025] +56 9 6450 9663: POLLO AL HORNO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>POLLO AL HORNO</h3>
+    <p class="descripcion-product">Muslo horneado con especias, jugoso por dentro y dorado por fuera.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('POLLO AL HORNO')">Agregar 1</button>
+</div>
+[6:12 p.m., 21/9/2025] +56 9 6450 9663: PECHUGA A LA PLANCHA:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>PECHUGA A LA PLANCHA</h3>
+    <p class="descripcion-product">Pechuga de pollo grillada, liviana y sabrosa.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('PECHUGA A LA PLANCHA')">Agregar 1</button>
+</div>
+[6:13 p.m., 21/9/2025] +56 9 6450 9663: COSTILLAR DE CERDO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COSTILLAR DE CERDO</h3>
+    <p class="descripcion-product">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('COSTILLAR DE CERDO')">Agregar 1</button>
+</div>
+[6:14 p.m., 21/9/2025] +56 9 6450 9663: PAPA A LA HUANCAÍNA:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>PAPA A LA HUANCAÍNA</h3>
+    <p class="descripcion-product">Papa con salsa huancaína cremosa, acompañada de pechuga de pollo.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('PAPA A LA HUANCAÍNA')">Agregar 1</button>
+</div>
+[6:15 p.m., 21/9/2025] +56 9 6450 9663: SALCHIPAPAS:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>SALCHIPAPAS</h3>
+    <p class="descripcion-product">Papas fritas con salchichas doradas, ideal para algo rápido y rico.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('SALCHIPAPAS')">Agregar 1</button>
+</div>
+[6:16 p.m., 21/9/2025] +56 9 6450 9663: CARNE MECHADA CON PURÉ:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CARNE MECHADA CON PURÉ</h3>
+    <p class="descripcion-product">Tradicional carne deshilachada en su jugo con puré casero.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('CARNE MECHADA CON PURÉ')">Agregar 1</button>
+</div>
+[6:32 p.m., 21/9/2025] +56 9 6450 9663: BBQ BACON ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>BBQ BACON ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa, queso cheddar, tocino crujiente y salsa BBQ. Ahumada y poderosa. El sabor americano, a lo Ñaño.</p>
+    <p class="price">$4.800</p>
+    <button onclick="addToCart('BBQ BACON ÑAÑO')">Agregar 1</button>
+</div>
+[6:38 p.m., 21/9/2025] +56 9 6450 9663: COMPLETA ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETA ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa, palta, tomate, chucrut, mayo casera y mostaza. Una mezcla chilena con toda la fuerza del completo, pero burguer.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('COMPLETA ÑAÑO')">Agregar 1</button>
+</div>
+[6:39 p.m., 21/9/2025] +56 9 6450 9663: PICANTITA ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>PICANTITA ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa con jalapeños, queso, tomate y mayonesa de ají. Para los valientes que les gusta sudar con gusto.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('PICANTITA ÑAÑO')">Agregar 1</button>
+</div>
+[6:40 p.m., 21/9/2025] +56 9 6450 9663: HUEVONA ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>HUEVONA ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa, huevo frito, jamón, queso y mayo. Una bomba de sabor que no falla. Ideal para los de buen diente.</p>
+    <p class="price">$4.800</p>
+    <button onclick="addToCart('HUEVONA ÑAÑO')">Agregar 1</button>
+</div>
+[6:40 p.m., 21/9/2025] +56 9 6450 9663: COMPLETOS EL ÑAÑO:
+[6:42 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO ITALIANO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO ITALIANO</h3>
+    <p class="descripcion-product">Vienesa, palta fresca, tomate y mayo casera. Verde, rojo y blanco. Como la bandera, pero más rico.</p>
+    <p class="price">$3.000</p>
+    <button onclick="addToCart('COMPLETO ITALIANO')">Agregar 1</button>
+</div>
+[6:43 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO CLÁSICO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO CLÁSICO</h3>
+    <p class="descripcion-product">Vienesa, tomate picado y mayo casera. El básico que nunca falla.</p>
+    <p class="price">$2.500</p>
+    <button onclick="addToCart('COMPLETO CLÁSICO')">Agregar 1</button>
+</div>
+[6:44 p.m., 21/9/2025] +56 9 6450 9663: CLOMPLETO CHACARERO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CLOMPLETO CHACARERO</h3>
+    <p class="descripcion-product">Vienesa, porotos verdes, tomate, ají verde y mayo. Bien chileno y con carácter.</p>
+    <p class="price">$3.500</p>
+    <button onclick="addToCart('CLOMPLETO CHACARERO')">Agregar 1</button>
+</div>
+[6:45 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO VENEZOLANO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO VENEZOLANO</h3>
+    <p class="descripcion-product">Vienesa, papas hilo, queso rallado, salsas mixtas. Una mezcla sabrosa con texturas que crujen.</p>
+    <p class="price">$3.000</p>
+    <button onclick="addToCart('COMPLETO VENEZOLANO')">Agregar 1</button>
+</div>
+[6:46 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO DINÁMICO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO DINÁMICO</h3>
+    <p class="descripcion-product">Vienesa, chucrut, tomate, palta, mayo, salsa verde y mostaza. Para el que quiere todo sin dejar nada.</p>
+    <p class="price">$3.500</p>
+    <button onclick="addToCart('COMPLETO DINÁMICO')">Agregar 1</button>
+</div>
+[6:48 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO AS (CARNE ASADA):
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO AS (CARNE ASADA)</h3>
+    <p class="descripcion-product">Pan frica, carne asada en vez de vienesa, palta, tomate y mayo. Un lujo callejero. Carne de verdad.</p>
+    <p class="price">$4.000</p>
+    <button onclick="addToCart('COMPLETO AS (CARNE ASADA)')">Agregar 1</button>
+</div>
+[6:49 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO QUESO FUNDIDO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO QUESO FUNDIDO</h3>
+    <p class="descripcion-product">Vienesa, tomate, queso derretido y mayonesa. El toque cremoso que no sabías que necesitabas.</p>
+    <p class="price">$3.500</p>
+    <button onclick="addToCart('COMPLETO QUESO FUNDIDO')">Agregar 1</button>
+</div>
+[6:50 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO PICANTE ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>COMPLETO PICANTE ÑAÑO</h3>
+    <p class="descripcion-product">Vienesa, tomate, ají verde picado, mayo de merkén. Para los que no le temen al fuego.</p>
+    <p class="price">$3.500</p>
+    <button onclick="addToCart('COMPLETO PICANTE ÑAÑO')">Agregar 1</button>
+</div>
+[6:50 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO EL ÑAÑO:
+[6:51 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO CLÁSICO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO CLÁSICO</h3>
+    <p class="descripcion-product">Carne a la plancha en pan frica con mayonesa. Simple, directo y sabroso. No necesita más.</p>
+    <p class="price">$4.000</p>
+    <button onclick="addToCart('CHURRASCO CLÁSICO')">Agregar 1</button>
+</div>
+[6:52 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO ITALIANO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO ITALIANO</h3>
+    <p class="descripcion-product">Palta, tomate y mayo sobre carne jugosa. El favorito de siempre, pero con carne.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('CHURRASCO ITALIANO')">Agregar 1</button>
+</div>
+[6:53 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO DINÁMICO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO DINÁMICO</h3>
+    <p class="descripcion-product">Chucrut, tomate, palta, ají verde, mayonesa y mostaza. El combo completo en un solo pan.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('CHURRASCO DINÁMICO')">Agregar 1</button>
+</div>
+[6:54 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO LUCO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO LUCO</h3>
+    <p class="descripcion-product">Churrasco con queso derretido. Sabor tradicional chileno con extra cremosidad.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('CHURRASCO LUCO')">Agregar 1</button>
+</div>
+[6:55 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO CHACARERO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO CHACARERO</h3>
+    <p class="descripcion-product">Carne, tomate, ají verde, porotos verdes y mayo. Sabroso y con personalidad. Bien chileno.</p>
+    <p class="price">$5.000</p>
+    <button onclick="addToCart('CHURRASCO CHACARERO')">Agregar 1</button>
+</div>
+[6:56 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO BACON-QUESO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO BACON-QUESO</h3>
+    <p class="descripcion-product">Carne, tocino crujiente, queso cheddar y mayonesa. Para los que quieren más sabor en cada mordida.</p>
+    <p class="price">$5.200</p>
+    <button onclick="addToCart('CHURRASCO BACON-QUESO')">Agregar 1</button>
+</div>
+[6:57 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO HUEVO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO HUEVO</h3>
+    <p class="descripcion-product">Churrasco con huevo frito, tomate y mayo. Potente y salvador. Ideal para reponerse.</p>
+    <p class="price">$5.000</p>
+    <button onclick="addToCart('CHURRASCO HUEVO')">Agregar 1</button>
+</div>
+[6:58 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO ESPECIAL ÑAÑO:
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHURRASCO ESPECIAL ÑAÑO</h3>
+    <p class="descripcion-product">Carne, queso fundido, palta, ají verde, tomate, mayo casera. El top de la casa. Si vas con hambre, este es.</p>
+    <p class="price">$5.500</p>
+    <button onclick="addToCart('CHURRASCO ESPECIAL ÑAÑO')">Agregar 1</button>
+</div>
+  </section>
+  <style>
+      #cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: white;
+    color: var(--rojo);
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 4px 8px;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .open-cart-btn:active #cart-count {
+    transform: scale(1.2);
+  }
+
+  </style>
+  <button class="open-cart-btn" onclick="openCart()" title="Ver carrito">
+    🛒
+    <span id="cart-count">0</span>
+  </button>
+  <script>
+  // La función original de tu código
+  const cart = {};
+
+  function sumarContador() {
+      // A. Lógica para sumar +1 al contador
+      const contadorElemento = document.getElementById('cart-count');
+      let valorActual = parseInt(contadorElemento.textContent);
+      valorActual++;
+      contadorElemento.textContent = valorActual;
+
+      // B. Lógica para la animación
+      const animacionElemento = document.getElementById('animacion-contador');
+
+      // Primero, elimina la clase para poder reactivarla
+      animacionElemento.classList.remove('animacion-activa');
+
+      // Forzar un "reflow" para que la animación se reinicie
+      void animacionElemento.offsetWidth;
+
+      // Agrega la clase para activar la animación
+      animacionElemento.classList.add('animacion-activa');
+  }
+
+  // Ahora, tu función addToCart() debe llamar a la nueva función
+  function addToCart(item) {
+      cart[item] = (cart[item] || 0) + 1;
+      updateCart();
+      sumarContador(); // Llama a la nueva función para actualizar el contador con animación
+  }
+
+  // ... el resto de tu código JavaScript ...
+  </script>
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCart()">×</span>
+      <h2>Tu Pedido</h2>
+      <ul id="cartItems"></ul>
+      <label for="total">Total:</label>
+      <input type="text" id="total" readonly> 
+      
+      <input type="text" id="clientName" placeholder="Tu nombre">
+      <select id="paymentMethod">
+        <option value="">Forma de pago</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="Tarjeta">Tarjeta</option>
+      </select>
+      <button onclick="sendOrder()">Pedir</button>
+    </div>
+  </div>
+
+  <script>
+
+
+  function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      cartList.innerHTML = '';
+      let total = 0; // Inicializa el total en 0
+
+      // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
+      for (const item in cart) {
+          const li = document.createElement('li');
+          const precioUnitario = precios[item];
+          const subtotalProducto = cart[item] * precioUnitario;
+          
+          li.textContent = `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}`; // Formato de moneda chilena
+          cartList.appendChild(li);
+
+          total += subtotalProducto; // Suma el subtotal al total
+      }
+      
+      // Actualiza el input del total
+      document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
+  }
+
+
+    function addToCart(item) {
+      cart[item] = (cart[item] || 0) + 1;
+      updateCart();
+      sumarContador();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      cartList.innerHTML = '';
+      for (const item in cart) {
+        const li = document.createElement('li');
+        li.textContent = `${item} x${cart[item]}`;
+        cartList.appendChild(li);
+      }
+    }
+
+    function openCart() {
+      document.getElementById('cartModal').style.display = 'block';
+      updateCart();
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function sendOrder() {
+      const name = document.getElementById('clientName').value;
+      const payment = document.getElementById('paymentMethod').value;
+      if (!name || !payment || Object.keys(cart).length === 0) {
+        alert('Completa todos los campos y agrega productos.');
+        return;
+      }
+
+      let orderText = '';
+      for (const item in cart) {
+        orderText += `${item} x${cart[item]}\n`;
+      }
+
+      const message = `Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    }
+  </script>
+  <style>
+      .open-cart-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 1em;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+
+  .open-cart-btn:hover {
+    transform: scale(1.1);
+    background-color: #b71c1c;
+  }
+  :root {
+    --rojo: #c62828;
+    --rojo-oscuro: #b71c1c;
+    --gris-claro: #f5f5f5;
+    --negro: #212121;
+    --fuente: 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--fuente);
+    background-color: var(--gris-claro);
+    color: var(--negro);
+    transition: background-color 0.3s ease;
+    
+  }
+
+
+  h1 {
+    font-weight: bold;
+    font-size: 3em;
+    color: lightgrey; /* rojo vino */
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1.2em;
+  }
+
+
+  .product-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    transition: transform 0.3s ease;
+  }
+  .product-img:hover {
+    transform: scale(1.03);
+  }
+
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2em;
+    gap: 1.5em;
+  }
+
+  .product {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5em;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product button {
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .product button:active {
+    transform: scale(0.95);
+  }
+  .product button:hover {
+    background-color: var(--rojo-oscuro);
+  }
+
+  .open-cart-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    padding: 1em;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  .open-cart-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--rojo-oscuro);
+  }
+  .open-cart-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2em;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: slideUp 0.4s ease forwards;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    color: var(--rojo);
+  }
+
+  .modal-content input, .modal-content select {
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+  }
+
+  .modal-content button {
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    padding: 0.8em;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .modal-content button:hover {
+    background-color: var(--rojo-oscuro);
+  }
+  .modal-content button:active {
+    transform: scale(0.97);
+  }
+
+  .close-btn {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+  }
+  .close-btn:hover {
+    color: var(--rojo);
+  }
+
+  </style>
+  <script></script>
+  <body>
+      <div style="color: green;" id="animacion-contador">✔</div>
+
+  </body>
+  <style>
+    #animacion-contador {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem; /* Tamaño grande para que sea llamativo */
+      font-weight: bold;
+      color: var(--rojo); /* O el color que prefieras */
+      opacity: 0;
+      z-index: 10000;
+      pointer-events: none; /* Permite hacer clic a través del elemento */
+  }
+
+  .animacion-activa {
+      animation: animacion-plus-one 1s ease-out;
+  }
+
+  @keyframes animacion-plus-one {
+      0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0;
+      }
+      20% {
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 1;
+      }
+      50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 1;
+      }
+      100% {
+          transform: translate(-50%, -50%) scale(1.5);
+          opacity: 0;
+      }
+  }
+  </style>
+  <script>
+  
+  function sumarContador() {
     const contadorElemento = document.getElementById('cart-count');
     let valorActual = parseInt(contadorElemento.textContent);
     valorActual++;
     contadorElemento.textContent = valorActual;
 
-    // B. Lógica para la animación
     const animacionElemento = document.getElementById('animacion-contador');
-
-    // Primero, elimina la clase para poder reactivarla
     animacionElemento.classList.remove('animacion-activa');
-
-    // Forzar un "reflow" para que la animación se reinicie
     void animacionElemento.offsetWidth;
-
-    // Agrega la clase para activar la animación
     animacionElemento.classList.add('animacion-activa');
-}
-
-// Ahora, tu función addToCart() debe llamar a la nueva función
-function addToCart(item) {
-    cart[item] = (cart[item] || 0) + 1;
-    updateCart();
-    sumarContador(); // Llama a la nueva función para actualizar el contador con animación
-}
-
-// ... el resto de tu código JavaScript ...
-</script>
-<div id="cartModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeCart()">×</span>
-    <h2>Tu Pedido</h2>
-    <ul id="cartItems"></ul>
-    <label for="total">Total:</label>
-    <input type="text" id="total" readonly> 
-    
-    <input type="text" id="clientName" placeholder="Tu nombre">
-    <select id="paymentMethod">
-      <option value="">Forma de pago</option>
-      <option value="Efectivo">Efectivo</option>
-      <option value="Transferencia">Transferencia</option>
-      <option value="Tarjeta">Tarjeta</option>
-    </select>
-    <button onclick="sendOrder()">Pedir</button>
-  </div>
-</div>
-
-<script>
-
-
-function updateCart() {
-    const cartList = document.getElementById('cartItems');
-    cartList.innerHTML = '';
-    let total = 0; // Inicializa el total en 0
-
-    // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
-    for (const item in cart) {
-        const li = document.createElement('li');
-        const precioUnitario = precios[item];
-        const subtotalProducto = cart[item] * precioUnitario;
-        
-        li.textContent = `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}`; // Formato de moneda chilena
-        cartList.appendChild(li);
-
-        total += subtotalProducto; // Suma el subtotal al total
-    }
-    
-    // Actualiza el input del total
-    document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
-}
-
+  }
 
   function addToCart(item) {
     cart[item] = (cart[item] || 0) + 1;
@@ -546,11 +1108,22 @@ function updateCart() {
   function updateCart() {
     const cartList = document.getElementById('cartItems');
     cartList.innerHTML = '';
+    let total = 0; // Inicializa el total en 0
+
+    // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
     for (const item in cart) {
-      const li = document.createElement('li');
-      li.textContent = `${item} x${cart[item]}`;
-      cartList.appendChild(li);
+    const li = document.createElement('li');
+    const precioUnitario = precios[item];
+    const subtotalProducto = cart[item] * precioUnitario;
+    
+    li.textContent = `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}`;
+    cartList.appendChild(li);
+
+    total += subtotalProducto; // Suma el subtotal al total
     }
+
+    // Actualiza el input del total
+    document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
   }
 
   function openCart() {
@@ -565,334 +1138,26 @@ function updateCart() {
   function sendOrder() {
     const name = document.getElementById('clientName').value;
     const payment = document.getElementById('paymentMethod').value;
+    const total = document.getElementById('total').value; // Obtiene el valor del total
+
     if (!name || !payment || Object.keys(cart).length === 0) {
-      alert('Completa todos los campos y agrega productos.');
-      return;
+    alert('Completa todos los campos y agrega productos.');
+    return;
     }
 
     let orderText = '';
     for (const item in cart) {
-      orderText += `${item} x${cart[item]}\n`;
+    const precioUnitario = precios[item];
+    const subtotalProducto = cart[item] * precioUnitario;
+    orderText += `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
     }
 
-    const message = `Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
+    // Incluye el total en el mensaje
+    const message = `Hola, soy ${name}. Quiero pedir:\n\n${orderText}\nTotal: ${total}\nForma de pago: ${payment}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
   }
-</script>
-<style>
-    .open-cart-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #d32f2f;
-  color: white;
-  border: none;
-  padding: 1em;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5em;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease, background-color 0.3s ease;
-}
-
-.open-cart-btn:hover {
-  transform: scale(1.1);
-  background-color: #b71c1c;
-}
-:root {
-  --rojo: #c62828;
-  --rojo-oscuro: #b71c1c;
-  --gris-claro: #f5f5f5;
-  --negro: #212121;
-  --fuente: 'Segoe UI', 'Roboto', sans-serif;
-}
-
-body {
-  margin: 0;
-  font-family: var(--fuente);
-  background-color: var(--gris-claro);
-  color: var(--negro);
-  transition: background-color 0.3s ease;
-  
-}
-
-
-h1 {
-  font-weight: bold;
-  font-size: 3em;
-  color: lightgrey; /* rojo vino */
-}
-
-p {
-  font-weight: 400;
-  font-size: 1.2em;
-}
-
-
-.product-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1em;
-  transition: transform 0.3s ease;
-}
-.product-img:hover {
-  transform: scale(1.03);
-}
-
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 2em;
-  gap: 1.5em;
-}
-
-.product {
-  background-color: white;
-  border-radius: 12px;
-  padding: 1.5em;
-  width: 260px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-.product:hover {
-  transform: translateY(-5px);
-}
-
-.product button {
-  background-color: var(--rojo);
-  color: white;
-  border: none;
-  padding: 0.6em 1.2em;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.product button:active {
-  transform: scale(0.95);
-}
-.product button:hover {
-  background-color: var(--rojo-oscuro);
-}
-
-.open-cart-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: var(--rojo);
-  color: white;
-  border: none;
-  padding: 1em;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5em;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.open-cart-btn:hover {
-  transform: scale(1.1);
-  background-color: var(--rojo-oscuro);
-}
-.open-cart-btn:active {
-  transform: scale(0.95);
-}
-
-/* Modal styles */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  animation: fadeIn 0.3s ease forwards;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-content {
-  background-color: white;
-  margin: 10% auto;
-  padding: 2em;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  animation: slideUp 0.4s ease forwards;
-}
-@keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  color: var(--rojo);
-}
-
-.modal-content input, .modal-content select {
-  width: 100%;
-  margin: 0.5em 0;
-  padding: 0.7em;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1em;
-}
-
-.modal-content button {
-  background-color: var(--rojo);
-  color: white;
-  border: none;
-  padding: 0.8em;
-  width: 100%;
-  border-radius: 6px;
-  font-weight: bold;
-  margin-top: 1em;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.modal-content button:hover {
-  background-color: var(--rojo-oscuro);
-}
-.modal-content button:active {
-  transform: scale(0.97);
-}
-
-.close-btn {
-  float: right;
-  font-size: 1.5em;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.3s ease;
-}
-.close-btn:hover {
-  color: var(--rojo);
-}
-
-</style>
-<script></script>
-<body>
-    <div style="color: green;" id="animacion-contador">✔</div>
-
-</body>
-<style>
-  #animacion-contador {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 8rem; /* Tamaño grande para que sea llamativo */
-    font-weight: bold;
-    color: var(--rojo); /* O el color que prefieras */
-    opacity: 0;
-    z-index: 10000;
-    pointer-events: none; /* Permite hacer clic a través del elemento */
-}
-
-.animacion-activa {
-    animation: animacion-plus-one 1s ease-out;
-}
-
-@keyframes animacion-plus-one {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-    20% {
-        transform: translate(-50%, -50%) scale(1.1);
-        opacity: 1;
-    }
-    50% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.5);
-        opacity: 0;
-    }
-}
-</style>
-<script>
- 
- function sumarContador() {
-  const contadorElemento = document.getElementById('cart-count');
-  let valorActual = parseInt(contadorElemento.textContent);
-  valorActual++;
-  contadorElemento.textContent = valorActual;
-
-  const animacionElemento = document.getElementById('animacion-contador');
-  animacionElemento.classList.remove('animacion-activa');
-  void animacionElemento.offsetWidth;
-  animacionElemento.classList.add('animacion-activa');
- }
-
- function addToCart(item) {
-  cart[item] = (cart[item] || 0) + 1;
-  updateCart();
-  sumarContador();
- }
-
- function updateCart() {
-  const cartList = document.getElementById('cartItems');
-  cartList.innerHTML = '';
-  let total = 0; // Inicializa el total en 0
-
-  // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
-  for (const item in cart) {
-   const li = document.createElement('li');
-   const precioUnitario = precios[item];
-   const subtotalProducto = cart[item] * precioUnitario;
-   
-   li.textContent = `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}`;
-   cartList.appendChild(li);
-
-   total += subtotalProducto; // Suma el subtotal al total
-  }
-
-  // Actualiza el input del total
-  document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
- }
-
- function openCart() {
-  document.getElementById('cartModal').style.display = 'block';
-  updateCart();
- }
-
- function closeCart() {
-  document.getElementById('cartModal').style.display = 'none';
- }
-
- function sendOrder() {
-  const name = document.getElementById('clientName').value;
-  const payment = document.getElementById('paymentMethod').value;
-  const total = document.getElementById('total').value; // Obtiene el valor del total
-
-  if (!name || !payment || Object.keys(cart).length === 0) {
-   alert('Completa todos los campos y agrega productos.');
-   return;
-  }
-
-  let orderText = '';
-  for (const item in cart) {
-   const precioUnitario = precios[item];
-   const subtotalProducto = cart[item] * precioUnitario;
-   orderText += `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
-  }
-
-  // Incluye el total en el mensaje
-  const message = `Hola, soy ${name}. Quiero pedir:\n\n${orderText}\nTotal: ${total}\nForma de pago: ${payment}`;
-  const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
- }
-</script>
-</html>
-</body>
-</html>
+  </script>
+  </html>
+  </body>
+  </html>
