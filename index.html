@@ -1205,9 +1205,13 @@ function updateCart() {
 
     // Crea el botón ❌ para eliminar 1 unidad
     const removeBtn = document.createElement('button');
-    removeBtn.textContent = '❌';
+    removeBtn.textContent = '❌ borrar';
+    removeBtn.style.color = 'red';
     removeBtn.style.marginLeft = '10px';
     removeBtn.style.width = '50px';
+    removeBtn.style.textShadow = '1px 0px 3px black';
+    removeBtn.style.background = '#fff';
+    removeBtn.style.border = '0px solid red';
     removeBtn.style.cursor = 'pointer';
     removeBtn.onclick = function () {
       cart[item]--;
