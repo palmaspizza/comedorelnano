@@ -257,7 +257,7 @@
   }
       body {
         margin: 0;
-      font-family: 'Playfair Display', serif;
+      font-family: Georgia, 'Times New Roman', Times, serif !important;
 
         background: linear-gradient(to bottom, rgba(255, 81, 81, 0.911), grey) !important;
         color: #212121;
@@ -359,7 +359,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   </head>
   <body>
-  <style>
+  <script>
+    function buscarProducto() {
+      const input = document.getElementById('buscador').value.toLowerCase();
+      const productos = document.querySelectorAll('.producto');
+
+      productos.forEach(prod => {
+        const texto = prod.textContent;
+        const textoLower = texto.toLowerCase();
+
+        if (input && textoLower.includes(input)) {
+          const inicio = textoLower.indexOf(input);
+          const fin = inicio + input.length;
+          const resaltado = texto.substring(inicio, fin);
+          const nuevoHTML = texto.substring(0, inicio) +
+                            `<span class="resaltado">${resaltado}</span>` +
+                            texto.substring(fin);
+          prod.innerHTML = nuevoHTML;
+        } else {
+          prod.innerHTML = texto;
+        }
+      });
+    }
+  </script>
+    <style>
     header {
     display: flex;
     align-items: center;
@@ -381,7 +404,6 @@
   }
 
   header h1 {
-    font-family: 'Playfair Display', serif;
     font-size: 2.5em;
     color: #c00000; /* Rojo vino */
     margin: 0;
@@ -389,10 +411,35 @@
     letter-spacing: 1px;
   }
 
+
+      #buscador {
+      margin-bottom: 20px;
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+    }
+
+    .producto {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .resaltado {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
   </style>
+  
   <header>
+    
     <img src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" alt="Logo El Ñaño">
+
     <h1>El Ñaño</h1>
+
+   
   </header>
   <div></div>
   <script>
@@ -403,15 +450,207 @@
       'TALLARINES SALTADOS': 6000
   };
   </script>
+  <style>
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: white;
+  border: 2px solid #ff1c1c;
+  color: #000;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content button {
+  background-color: #ff1c1c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button {
+  font-size: 120%;
+}
+
+  </style>
+  <script>
+    
+  </script>
   <section class="products">
   <div class="product">
     
     <h3>LOMO SALTADO</h3>
     <img class="product-img" src="" alt="">
-       
+       <!-- Modal de selección -->
+<div id="ventanaProteina" class="modal-proteina">
+  <div class="contenido-proteina">
+    <h2 class="titulo-proteina">Elige tu proteína</h2>
+    <div class="opciones-proteina">
+      <button id="btnCarne" onclick="cerrarModalProteina();addToCart('LOMO SALTADO DE CARNE')">CARNE</button>
+      <button id="btnPollo" onclick="cerrarModalProteina();addToCart('LOMO SALTADO DE POLLO')">POLLO</button>
+    </div>
+    
+  </div>
+</div>
+<style>
+  .modal-proteina {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.contenido-proteina {
+  background-color: white;
+  border: 2px solid red;
+  color: red;
+  margin: 15% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.titulo-proteina {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.opciones-proteina button {
+  background-color: white;
+  color: red;
+  border: 2px solid red;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.opciones-proteina button.seleccionado {
+  background-color: red;
+  color: white;
+  border: 2px solid black;
+}
+
+</style>
+<script>
+  let proteinaElegida = '';
+
+function abrirVentanaProteina() {
+  document.getElementById('ventanaProteina').style.display = 'block';
+}
+
+function abrirVentanaProteina1() {
+  document.getElementById('ventanaProteina1').style.display = 'block';
+}
+
+function seleccionarProteina(tipo) {
+  proteinaElegida = tipo;
+
+  // Intercala estilos
+  document.getElementById('btnCarne').classList.remove('seleccionado');
+  document.getElementById('btnPollo').classList.remove('seleccionado');
+
+  if (tipo === 'Carne') {
+    document.getElementById('btnCarne').classList.add('seleccionado');
+  } else {
+    document.getElementById('btnPollo').classList.add('seleccionado');
+  }
+}
+
+
+let proteinaSeleccionada = '';
+
+function seleccionarProteina1(tipo) {
+  proteinaSeleccionada = tipo;
+
+  // Desactiva todos
+  document.getElementById('btnCarne').classList.remove('seleccionado');
+  document.getElementById('btnPollo').classList.remove('seleccionado');
+  document.getElementById('btnCamaron').classList.remove('seleccionado');
+
+  // Activa el seleccionado
+  if (tipo === 'Carne') {
+    document.getElementById('btnCarne').classList.add('seleccionado');
+  } else if (tipo === 'Pollo') {
+    document.getElementById('btnPollo').classList.add('seleccionado');
+  } else if (tipo === 'Camarón') {
+    document.getElementById('btnCamaron').classList.add('seleccionado');
+  }
+}
+
+function confirmarProteina() {
+  if (!proteinaSeleccionada) {
+    alert('Selecciona una proteína');
+    return;
+  }
+
+  addToCart(`Proteína: ${proteinaSeleccionada}`);
+  cerrarModalProteina();
+}
+
+function cerrarModalProteina() {
+  document.getElementById('modalProteina').style.display = 'none';
+}
+
+
+function confirmarProteina() {
+  if (!proteinaElegida) {
+    alert('Selecciona una opción');
+    return;
+  }
+
+  const input = document.getElementById('orderText');
+  input.value += `Proteína: ${proteinaElegida}\n`;
+
+  document.getElementById('ventanaProteina').style.display = 'none';
+}
+function cerrarModalProteina() {
+  document.getElementById('ventanaProteina').style.display = 'none';
+}
+
+function cerrarModalProteina1() {
+  document.getElementById('ventanaProteina1').style.display = 'none';
+}
+
+
+</script>
     <p class="descripcion-product">Tiras de carne o pollo salteadas con cebolla, tomate y un toque de soya.</p>
     <p class="price">$6.000</p>
-    <button onclick="addToCart('LOMO SALTADO')">AGREGAR</button>
+    <button onclick="abrirVentanaProteina();confirmarProteina();">AGREGAR</button>
+
+
+</div>
+<script>
+  function addToCart(producto) {
+  window.productoSeleccionado = producto;
+  const modal = document.getElementById('opcionModal');
+  modal.style.display = 'block';
+}
+
+  function addToCart1(producto) {
+  window.productoSeleccionado = producto;
+}
+
+</script>
+
   </div>
   <style>
     body{
@@ -433,10 +672,21 @@
       
       <h3>TALLARINES SALTADOS</h3>
           <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Fideos salteados al wok con <span style="color: red;">Carne</span>, <span style="color: red;">Pollo</span> o <span style="color: red;">Camarón</span>. cebollín y huevo</p>
+    <p class="descripcion-product">Fideos salteados al wok con opción de <span style="color: red;">Carne</span>, <span style="color: red;">Pollo</span> o <span style="color: red;">Camarón</span>. cebollín y huevo</p>
     
       <p class="price">$6.000</p>
-      <button onclick="addToCart('TALLARINES SALTADOS')">AGREGAR</button>
+      <button onclick="abrirVentanaProteina1();">AGREGAR</button>
+   <div id="ventanaProteina1" class="modal-proteina">
+  <div class="contenido-proteina">
+    <h2 class="titulo-proteina">Elige tu proteína</h2>
+    <div class="opciones-proteina">
+      <button id="btnCarne" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE CARNE')">CARNE</button>
+      <button id="btnPollo" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE POLLO')">POLLO</button>
+      <button id="btnCamaron" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE CAMARÓN')">CAMARÓN</button>
+    </div>
+    
+  </div>
+</div>
     </div>
 
 
@@ -449,7 +699,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('AJÍ DE GALLINA')">AGREGAR</button>
 </div>
-[6:08 p.m., 21/9/2025] +56 9 6450 9663: Pollo Al Jugo:
 
 <div class="product">
     
@@ -459,7 +708,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('POLLO AL JUGO')">AGREGAR</button>
 </div>
-[6:10 p.m., 21/9/2025] +56 9 6450 9663: CARNE AL JUGO:
 
 <div class="product">
     
@@ -469,7 +717,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('CARNE AL JUGO')">AGREGAR</button>
 </div>
-[6:11 p.m., 21/9/2025] +56 9 6450 9663: POLLO AL HORNO:
 
 <div class="product">
     
@@ -479,7 +726,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('POLLO AL HORNO')">AGREGAR</button>
 </div>
-[6:12 p.m., 21/9/2025] +56 9 6450 9663: PECHUGA A LA PLANCHA:
 
 <div class="product">
     
@@ -489,7 +735,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('PECHUGA A LA PLANCHA')">AGREGAR</button>
 </div>
-[6:13 p.m., 21/9/2025] +56 9 6450 9663: COSTILLAR DE CERDO:
 
 <div class="product">
     
@@ -499,7 +744,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('COSTILLAR DE CERDO')">AGREGAR</button>
 </div>
-[6:14 p.m., 21/9/2025] +56 9 6450 9663: PAPA A LA HUANCAÍNA:
 
 <div class="product">
     
@@ -509,7 +753,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('PAPA A LA HUANCAÍNA')">AGREGAR</button>
 </div>
-[6:15 p.m., 21/9/2025] +56 9 6450 9663: SALCHIPAPAS:
 
 <div class="product">
     
@@ -519,7 +762,6 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('SALCHIPAPAS')">AGREGAR</button>
 </div>
-[6:16 p.m., 21/9/2025] +56 9 6450 9663: CARNE MECHADA CON PURÉ:
 
 <div class="product">
     
@@ -529,17 +771,153 @@
     <p class="price">$6.000</p>
     <button onclick="addToCart('CARNE MECHADA CON PURÉ')">AGREGAR</button>
 </div>
-[6:32 p.m., 21/9/2025] +56 9 6450 9663: BBQ BACON ÑAÑO:
 
 <div class="product">
-    
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHULETA CON ACOMPAÑAMIENTOS</h3>
+    <p class="descripcion-product">Chuleta de cerdo a la plancha o frita con arroz o papas.</p>
+    <p class="price">$6.000</p>
+    <button onclick="abrirModalProteina3();">AGREGAR</button>
+  <!-- Modal principal -->
+<div id="ventanaProteina3" class="modal-proteina">
+  <div class="contenido-proteina">
+    <h2 class="titulo-proteina">Elige cómo quieres tu Chuleta de Cerdo.</h2>
+    <div class="opciones-proteina">
+      <button onclick="abrirModalFrita()">FRITA</button>
+      <button onclick="abrirModalPlancha()">A LA PLANCHA</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal FRITA -->
+<div id="modalFrita" class="modal-proteina" style="display:none;">
+  <div class="contenido-proteina">
+    <h2 class="titulo-proteina">¿Con qué acompañamiento?</h2>
+    <div class="opciones-proteina">
+      <button onclick="addToCart('CHULETA FRITA CON ARROZ'); cerrarModalFrita()">Con Arroz</button>
+      <button onclick="addToCart('CHULETA FRITA CON PAPAS'); cerrarModalFrita()">Con Papas</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal A LA PLANCHA -->
+<div id="modalPlancha" class="modal-proteina" style="display:none;">
+  <div class="contenido-proteina">
+    <h2 class="titulo-proteina">¿Con qué acompañamiento?</h2>
+    <div class="opciones-proteina">
+      <button onclick="addToCart('CHULETA A LA PLANCHA CON PAPAS'); cerrarModalPlancha()">Con Papas</button>
+      <button onclick="addToCart('CHULETA A LA PLANCHA CON ARROZ'); cerrarModalPlancha()">Con Arroz</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts para abrir/cerrar modales -->
+<script>
+  function abrirModalProteina3() {
+  document.getElementById('ventanaProteina3').style.display = 'block';
+}
+
+
+
+
+  function abrirModalFrita() {
+    document.getElementById('ventanaProteina3').style.display = 'none';
+    document.getElementById('modalFrita').style.display = 'block';
+  }
+
+  function cerrarModalFrita() {
+    document.getElementById('modalFrita').style.display = 'none';
+  }
+
+  function abrirModalPlancha() {
+    document.getElementById('ventanaProteina3').style.display = 'none';
+    document.getElementById('modalPlancha').style.display = 'block';
+  }
+
+  function cerrarModalPlancha() {
+    document.getElementById('modalPlancha').style.display = 'none';
+  }
+
+  
+</script>
+
+
+  </div>
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>PESCADO FRITO</h3>
+    <p class="descripcion-product">Filete crujiente con ensalada y acompañamiento.</p>
+    <p class="price">$6.000</p>
+    <button onclick="addToCart('PESCADO FRITO')">AGREGAR</button>
+</div>
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CEVICHE CLÁSICO</h3>
+    <p class="descripcion-product">Reineta marinado en limón con cebolla morada, cilantro y choclo (cancha).</p>
+    <p class="price">$8.000</p>
+    <button onclick="addToCart('CEVICHE CLÁSICO')">AGREGAR</button>
+</div>
+
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>SUSHI ROLLS VARIADOS</h3>
+    <p class="descripcion-product">Roll con pollo, camarón o kanikama, acompañado de salsa de soya y wasabi.</p>
+    <p class="price">CONSULTAR</p>
+    <button onclick="addToCart('SUSHI ROLLS VARIADOS')">AGREGAR</button>
+</div>
+
+<h1>HAMBURGUESAS ÑAÑO</h1>
+
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CLÁSICA ÑAÑO</h3>
+    <p class="descripcion-product">Pan frica, hamburguesa casera, lechuga, tomate y mayonesa. La de toda la vida, sin enredos pero con puro sabor.</p>
+    <p class="price">$3.500</p>
+    <button onclick="addToCart('CLÁSICA ÑAÑO')">AGREGAR</button>
+</div>
+
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>DOBLE QUESO ÑAÑO</h3>
+    <p class="descripcion-product">Dos hamburguesas, doble queso fundido, tomate y mayonesa. Para los que vienen con hambre y sin miedo.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('DOBLE QUESO ÑAÑO')">AGREGAR</button>
+</div>
+
+
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>VENEZOLANA ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa con queso, papas hilo, salsas mixtas, tomate y lechuga. Una fiesta de texturas y sabor en cada mordida.</p>
+    <p class="price">$4.000</p>
+    <button onclick="addToCart('VENEZOLANA ÑAÑO')">AGREGAR</button>
+</div>
+
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>CHACARERA ÑAÑO</h3>
+    <p class="descripcion-product">Hamburguesa con porotos verdes, tomate, ají verde y mayo. Bien chilena, con su toque verde y picantito.</p>
+    <p class="price">$4.500</p>
+    <button onclick="addToCart('CHACARERA ÑAÑO')">AGREGAR</button>
+</div>
+
+
+
+<div class="product">
+  
     <h3>BBQ BACON ÑAÑO</h3>
         <img class="product-img" src="" alt="">
     <p class="descripcion-product">Hamburguesa, queso cheddar, tocino crujiente y salsa BBQ. Ahumada y poderosa. El sabor americano, a lo Ñaño.</p>
     <p class="price">$4.800</p>
     <button onclick="addToCart('BBQ BACON ÑAÑO')">AGREGAR</button>
 </div>
-[6:38 p.m., 21/9/2025] +56 9 6450 9663: COMPLETA ÑAÑO:
 
 <div class="product">
     
@@ -549,7 +927,6 @@
     <p class="price">$4.500</p>
     <button onclick="addToCart('COMPLETA ÑAÑO')">AGREGAR</button>
 </div>
-[6:39 p.m., 21/9/2025] +56 9 6450 9663: PICANTITA ÑAÑO:
 
 <div class="product">
     
@@ -559,7 +936,6 @@
     <p class="price">$4.500</p>
     <button onclick="addToCart('PICANTITA ÑAÑO')">AGREGAR</button>
 </div>
-[6:40 p.m., 21/9/2025] +56 9 6450 9663: HUEVONA ÑAÑO:
 
 <div class="product">
     
@@ -569,8 +945,6 @@
     <p class="price">$4.800</p>
     <button onclick="addToCart('HUEVONA ÑAÑO')">AGREGAR</button>
 </div>
-[6:40 p.m., 21/9/2025] +56 9 6450 9663: COMPLETOS EL ÑAÑO:
-[6:42 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO ITALIANO:
 
 <div class="product">
     
@@ -580,7 +954,6 @@
     <p class="price">$3.000</p>
     <button onclick="addToCart('COMPLETO ITALIANO')">AGREGAR</button>
 </div>
-[6:43 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO CLÁSICO:
 
 <div class="product">
     
@@ -590,7 +963,6 @@
     <p class="price">$2.500</p>
     <button onclick="addToCart('COMPLETO CLÁSICO')">AGREGAR</button>
 </div>
-[6:44 p.m., 21/9/2025] +56 9 6450 9663: CLOMPLETO CHACARERO:
 
 <div class="product">
     
@@ -600,7 +972,6 @@
     <p class="price">$3.500</p>
     <button onclick="addToCart('CLOMPLETO CHACARERO')">AGREGAR</button>
 </div>
-[6:45 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO VENEZOLANO:
 
 <div class="product">
     
@@ -610,7 +981,6 @@
     <p class="price">$3.000</p>
     <button onclick="addToCart('COMPLETO VENEZOLANO')">AGREGAR</button>
 </div>
-[6:46 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO DINÁMICO:
 
 <div class="product">
     
@@ -620,7 +990,6 @@
     <p class="price">$3.500</p>
     <button onclick="addToCart('COMPLETO DINÁMICO')">AGREGAR</button>
 </div>
-[6:48 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO AS (CARNE ASADA):
 
 <div class="product">
     
@@ -630,7 +999,6 @@
     <p class="price">$4.000</p>
     <button onclick="addToCart('COMPLETO AS (CARNE ASADA)')">AGREGAR</button>
 </div>
-[6:49 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO QUESO FUNDIDO:
 
 <div class="product">
     
@@ -640,7 +1008,6 @@
     <p class="price">$3.500</p>
     <button onclick="addToCart('COMPLETO QUESO FUNDIDO')">AGREGAR</button>
 </div>
-[6:50 p.m., 21/9/2025] +56 9 6450 9663: COMPLETO PICANTE ÑAÑO:
 
 <div class="product">
     
@@ -650,8 +1017,6 @@
     <p class="price">$3.500</p>
     <button onclick="addToCart('COMPLETO PICANTE ÑAÑO')">AGREGAR</button>
 </div>
-[6:50 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO EL ÑAÑO:
-[6:51 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO CLÁSICO:
 
 <div class="product">
     
@@ -661,7 +1026,6 @@
     <p class="price">$4.000</p>
     <button onclick="addToCart('CHURRASCO CLÁSICO')">AGREGAR</button>
 </div>
-[6:52 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO ITALIANO:
 
 <div class="product">
     
@@ -671,7 +1035,6 @@
     <p class="price">$4.500</p>
     <button onclick="addToCart('CHURRASCO ITALIANO')">AGREGAR</button>
 </div>
-[6:53 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO DINÁMICO:
 
 <div class="product">
     
@@ -681,7 +1044,6 @@
     <p class="price">$4.500</p>
     <button onclick="addToCart('CHURRASCO DINÁMICO')">AGREGAR</button>
 </div>
-[6:54 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO LUCO:
 
 <div class="product">
     
@@ -691,7 +1053,6 @@
     <p class="price">$4.500</p>
     <button onclick="addToCart('CHURRASCO LUCO')">AGREGAR</button>
 </div>
-[6:55 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO CHACARERO:
 
 <div class="product">
     
@@ -701,7 +1062,6 @@
     <p class="price">$5.000</p>
     <button onclick="addToCart('CHURRASCO CHACARERO')">AGREGAR</button>
 </div>
-[6:56 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO BACON-QUESO:
 
 <div class="product">
     
@@ -711,7 +1071,6 @@
     <p class="price">$5.200</p>
     <button onclick="addToCart('CHURRASCO BACON-QUESO')">AGREGAR</button>
 </div>
-[6:57 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO HUEVO:
 
 <div class="product">
     
@@ -721,7 +1080,6 @@
     <p class="price">$5.000</p>
     <button onclick="addToCart('CHURRASCO HUEVO')">AGREGAR</button>
 </div>
-[6:58 p.m., 21/9/2025] +56 9 6450 9663: CHURRASCO ESPECIAL ÑAÑO:
 
 <div class="product">
     
@@ -732,17 +1090,30 @@
     <button onclick="addToCart('CHURRASCO ESPECIAL ÑAÑO')">AGREGAR</button>
 </div>
 
-EMPANADAS Y DESAYUNOS:
-[7:01 p.m., 21/9/2025] +56 9 6450 9663: <div class="product">
-    
+  <h2 class="titulo-empanada">EMPANADA CHILENA</h2>
+<div class="product">
+    <img class="product-img" src="" alt="">
     <h3>EMPANADA CHILENA</h3>
-        <img class="product-img" src="" alt="">
     <p class="descripcion-product">Rellena de pino tradicional con carne, cebolla, huevo y aceituna.</p>
     <p class="price">$2.500</p>
-    <button onclick="addToCart('EMPANADA CHILENA')">AGREGAR</button>
+    <button onclick="addToCart('EMPANADA CHILENA')">Agregar</button>
 </div>
-[7:02 p.m., 21/9/2025] +56 9 6450 9663: PAN CON PALTA Y CAFÉ:
+<style>
+  .titulo-empanada {
+  font-size: 3em;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to right, #ff1c1c, #000000); /* rojo a negro */
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+  margin: 30px auto;
+  width: fit-content;
+}
 
+</style>
 <div class="product">
     
     <h3>PAN CON PALTA Y CAFÉ</h3>
@@ -751,7 +1122,6 @@ EMPANADAS Y DESAYUNOS:
     <p class="price">$2.500</p>
     <button onclick="addToCart('PAN CON PALTA Y CAFÉ')">AGREGAR</button>
 </div>
-[7:03 p.m., 21/9/2025] +56 9 6450 9663: PAN CON QUESO + TÉ O CAFÉ:
 
 <div class="product">
     
@@ -761,7 +1131,6 @@ EMPANADAS Y DESAYUNOS:
     <p class="price">$2.500</p>
     <button onclick="addToCart('PAN CON QUESO + TÉ O CAFÉ')">AGREGAR</button>
 </div>
-[7:04 p.m., 21/9/2025] +56 9 6450 9663: SÁNDWICH AL DESAYUNO (JAMÓN/QUESO):
 
 <div class="product">
     
@@ -771,7 +1140,6 @@ EMPANADAS Y DESAYUNOS:
     <p class="price">$2.800</p>
     <button onclick="addToCart('SÁNDWICH AL DESAYUNO (JAMÓN/QUESO)')">AGREGAR</button>
 </div>
-[7:05 p.m., 21/9/2025] +56 9 6450 9663: CAFÉ DE MÁQUINA:
 
 <div class="product">
     
@@ -782,6 +1150,14 @@ EMPANADAS Y DESAYUNOS:
     <button onclick="addToCart('CAFÉ DE MÁQUINA')">AGREGAR</button>
 </div>
 
+
+<div class="product">
+    <img src="" alt="Imagen del producto" class="product-img">
+    <h3>TÉ</h3>
+    <p class="descripcion-product">Té calientito.</p>
+    <p class="price">$1.000</p>
+    <button onclick="addToCart('TÉ')">AGREGAR</button>
+</div>
 
   </section>
   <style>
@@ -840,26 +1216,262 @@ EMPANADAS Y DESAYUNOS:
   }
 
   // ... el resto de tu código JavaScript ...
+
+  
   </script>
-  <div id="cartModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeCart()">×</span>
-      <h2>Tu Pedido</h2>
-      <ul id="cartItems"></ul>
-      <label for="total">Total:</label>
-      <input type="text" id="total" readonly> 
-      
+ <div id="cartModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeCart()">×</span>
+
+    <h2>Tu Pedido</h2>
+
+    <ul id="cartItems" class="cart-list"></ul>
+
+<div class="form-group total-row">
+  <label for="total">Total:</label>
+  <input type="text" id="total" readonly>
+</div>
+
+
+    <div class="form-group">
       <input type="text" id="clientName" placeholder="Tu nombre">
+    </div>
+
+    <div class="form-group">
       <select id="paymentMethod">
         <option value="">Forma de pago</option>
         <option value="Efectivo">Efectivo</option>
         <option value="Transferencia">Transferencia</option>
         <option value="Tarjeta">Tarjeta</option>
       </select>
-      <button onclick="sendOrder()">Pedir</button>
     </div>
-  </div>
 
+    <button class="order-btn" onclick="sendOrder()">Pedir</button>
+  </div>
+</div>
+<style>
+.total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.total-row label {
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px;
+}
+
+#total {
+  flex-grow: 1;
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-align: right;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover {
+    color: #e74c3c;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+
+  .cart-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .order-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-btn:hover {
+    background-color: #219150;
+  }
+  
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover {
+    color: #e74c3c;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+
+  .cart-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .order-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-btn:hover {
+    background-color: #219150;
+  }
+</style>
   <script>
 
 
@@ -874,7 +1486,7 @@ EMPANADAS Y DESAYUNOS:
           const precioUnitario = precios[item];
           const subtotalProducto = cart[item] * precioUnitario;
           
-          li.textContent = `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}`; // Formato de moneda chilena
+          li.textContent = `${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}`; // Formato de moneda chilena
           cartList.appendChild(li);
 
           total += subtotalProducto; // Suma el subtotal al total
@@ -896,7 +1508,7 @@ EMPANADAS Y DESAYUNOS:
       cartList.innerHTML = '';
       for (const item in cart) {
         const li = document.createElement('li');
-        li.textContent = `${item} x${cart[item]}`;
+        li.textContent = `${cart[item]} ${item}`;
         cartList.appendChild(li);
       }
     }
@@ -920,7 +1532,7 @@ EMPANADAS Y DESAYUNOS:
 
       let orderText = '';
       for (const item in cart) {
-        orderText += `${item} x${cart[item]}\n`;
+        orderText += `${cart[item]}\n ${item}`;
       }
 
       const message = `Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
@@ -1170,7 +1782,15 @@ EMPANADAS Y DESAYUNOS:
   }
   </style>
   <script>
-  
+  function restar1() {
+  const cartCountElement = document.getElementById('cart-count');
+  let count = parseInt(cartCountElement.textContent, 10);
+
+  if (!isNaN(count) && count > 0) {
+    cartCountElement.textContent = count - 1;
+  }
+}
+
   function sumarContador() {
     const contadorElemento = document.getElementById('cart-count');
     let valorActual = parseInt(contadorElemento.textContent);
@@ -1199,29 +1819,38 @@ function updateCart() {
     const precioUnitario = precios[item];
     const subtotalProducto = cart[item] * precioUnitario;
 
-    // Crea el texto del producto
-    const texto = document.createTextNode(`${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')} `);
-    li.appendChild(texto);
-
     // Crea el botón ❌ para eliminar 1 unidad
     const removeBtn = document.createElement('button');
-    removeBtn.textContent = '❌-1';
+    removeBtn.textContent = '❌ restar 1';
+    removeBtn.title = 'Eliminar 1 unidad de este producto';
     removeBtn.style.color = 'red';
-    removeBtn.style.marginLeft = '10px';
-    removeBtn.style.width = '50px';
-    removeBtn.style.textShadow = '1px 0px 3px black';
-    removeBtn.style.background = '#fff';
-    removeBtn.style.border = '0px solid red';
+    removeBtn.style.marginRight = '10px';
+    removeBtn.style.padding = '4px 8px';
+    removeBtn.style.borderRadius = '5px';
+    removeBtn.style.fontSize = '0.9em';
+    removeBtn.style.backgroundColor = '#ffe5e5';
+    removeBtn.style.border = '1px solid #ff4d4d';
     removeBtn.style.cursor = 'pointer';
+    removeBtn.style.textShadow = '1px 0px 3px black';
+    removeBtn.onmouseover = () => removeBtn.style.backgroundColor = '#ffcccc';
+    removeBtn.onmouseout = () => removeBtn.style.backgroundColor = '#ffe5e5';
+
     removeBtn.onclick = function () {
       cart[item]--;
       if (cart[item] <= 0) {
         delete cart[item];
       }
-      updateCart(); // Vuelve a renderizar el carrito
+      updateCart();
+      restar1();
+      
     };
 
+    // Crea el texto del producto
+    const texto = document.createTextNode(`${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}`);
+
+    // Agrega el botón antes del texto
     li.appendChild(removeBtn);
+    li.appendChild(texto);
     cartList.appendChild(li);
 
     total += subtotalProducto;
@@ -1241,27 +1870,29 @@ function updateCart() {
   }
 
   function sendOrder() {
-    const name = document.getElementById('clientName').value;
-    const payment = document.getElementById('paymentMethod').value;
-    const total = document.getElementById('total').value; // Obtiene el valor del total
+  const name = document.getElementById('clientName').value;
+  const payment = document.getElementById('paymentMethod').value;
+  const total = document.getElementById('total').value;
+  const extraDetails = document.getElementById('orderText')?.value || ''; // Captura el texto adicional
 
-    if (!name || !payment || Object.keys(cart).length === 0) {
+  if (!name || !payment || Object.keys(cart).length === 0) {
     alert('Completa todos los campos y agrega productos.');
     return;
-    }
+  }
 
-    let orderText = '';
-    for (const item in cart) {
+  let orderText = '';
+  for (const item in cart) {
     const precioUnitario = precios[item];
     const subtotalProducto = cart[item] * precioUnitario;
     orderText += `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
-    }
-
-    // Incluye el total en el mensaje
-    const message = `Hola, soy ${name}. Quiero pedir:\n\n${orderText}\nTotal: ${total}\nForma de pago: ${payment}`;
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
   }
+
+  // Incluye detalles adicionales si existen
+  const message = `Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment}`;
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+}
+
   </script>
   </html>
   </body>
