@@ -24,14 +24,13 @@
   transform: scale(1.2);
   }
   .open-cart-btn {
-  position: fixed;
   bottom: 20px;
   right: 20px;
   background-color: #d32f2f;
   color: white;
   border: none;
   padding: 1em;
-  border-radius: 50%;
+  border-radius: 20% !important;
   cursor: pointer;
   font-size: 1.5em;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -52,7 +51,7 @@
 
   body {
   margin: 0;
-  font-family: var(--fuente);
+  font-family: Georgia, 'Times New Roman', Times, serif;
   }
 
 
@@ -107,9 +106,7 @@
   }
 
   .open-cart-btn {
-  position: fixed;
   bottom: 20px;
-  right: 20px;
   background-color: var(--rojo);
   color: white;
   border: none;
@@ -274,9 +271,7 @@
         border-radius: 4px;
       }
       .open-cart-btn {
-        position: fixed;
         bottom: 20px;
-        right: 20px;
         background-color: #212121;
         color: white;
         border: none;
@@ -369,54 +364,81 @@
   overflow-x: hidden !important;
 }
 
-
 header {
-
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* 🔄 Distribuye los elementos */
   background-color: lightgrey;
-  padding: 40px 20px;
+  padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   margin: 0 !important;
+  border-bottom: 1px solid #ccc !important;
   flex-wrap: wrap;
   text-align: center;
-  border-bottom: 1px solid #ccc !important;
- /* 🔴 Quitamos el borde rojo */
+  gap: 10px; /* 🧩 Espacio entre elementos */
 }
 
+/* 🖼 Logo */
 header img {
   height: 50px;
-  margin-right: 15px;
   transition: transform 0.3s ease;
 }
 
+/* 🖱 Hover efecto */
 header img:hover {
   transform: scale(1.05);
 }
 
+/* 📝 Título */
 header h1 {
   font-size: 1.8em;
   color: #c00000;
   margin: 0;
   font-weight: bold;
   letter-spacing: 0.5px;
+  flex: 1;
+  text-align: center;
+}
+
+/* 🔘 Botones */
+header .btn-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+header .btn-container button {
+  padding: 8px 12px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 5px;
+  background-color: #c00000;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 /* 📱 Responsive para pantallas pequeñas */
 @media (max-width: 600px) {
   header {
     flex-direction: column;
-    padding: 30px 10px;
-  }
-
-  header img {
-    margin: 0 0 10px 0;
+    align-items: center;
+    padding: 20px 10px;
   }
 
   header h1 {
     font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  header .btn-container {
+    justify-content: center;
+  }
+
+  header .btn-container button {
+    width: 100%;
+    max-width: 250px;
   }
 }
 
@@ -447,9 +469,8 @@ header h1 {
 
   <nav class="main-nav">
     <ul>
-      <li><a href="#inicio">Inicio</a></li>
+
       <li><a href="#menu">Menú</a></li>
-      <li><a href="#promos">Promociones</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
   </nav>
@@ -458,7 +479,7 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1em 2em;
+  padding: 1em 0em;
   background-color: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   position: sticky;
@@ -468,6 +489,7 @@ header h1 {
 
 .logo img {
   height: 50px;
+  margin-left: 65px;
 }
 
 .main-nav ul {
@@ -518,10 +540,74 @@ header h1 {
 }
 
 </style>
-  <div class="header-actions">
-    <button class="login-btn">Iniciar sesión</button>
+ <script>
+  function formatCurrency(value) {
+    // Elimina todo excepto números
+    const numeric = value.replace(/\D/g, "");
+    if (!numeric) return "";
+
+    // Formatea con puntos cada 3 dígitos
+    const formatted = numeric.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    return formatted;
+  }
+
+  function updateVisuals() {
+    const totalInput = document.getElementById("total");
+    const visualInput = document.getElementById("total-visual");
+
+    const formatted = formatCurrency(totalInput.value);
+    totalInput.value = formatted;
+    visualInput.value = formatted;
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const totalInput = document.getElementById("total");
+    const visualInput = document.getElementById("total-visual");
+
+    totalInput.addEventListener("input", updateVisuals);
+    visualInput.addEventListener("input", () => {
+      visualInput.value = formatCurrency(visualInput.value);
+    });
+  });
+</script>
+
+<!-- 🎨 Estilo para el símbolo $ -->
+<style>
+  .money-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0px;
+    background-color: #f9f9f9;
+  }
+
+  .money-input .currency {
+    color: green;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 1.2em;
+  }
+
+  .money-input input {
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+    width: 80%;
+    background: transparent;
+  }
+</style> <div class="header-actions">
     <div class="cart-icon">
-      🛒 <span class="cart-count">2</span>
+       <button style="font-weight: bold; font-family:  Georgia, 'Times New Roman', Times, serif !important;" id="carrito" class="open-cart-btn" onclick="openCart()" title="Ver carrito">
+    🛒 
+
+ <div class="money-input">
+    <span class="currency">$</span>
+    <input type="text" id="total-visual" style="width: 84px;">
+  </div>
+    <span id="cart-count">0</span>
+  </button>
     </div>
   </div>
 </header>
@@ -616,7 +702,7 @@ button {
     </div>
   <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family:  Georgia, 'Times New Roman', Times, serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
@@ -1398,10 +1484,7 @@ function cerrarModalProteina1() {
   }
 
   </style>
-  <button id="carrito" class="open-cart-btn" onclick="openCart()" title="Ver carrito">
-    🛒
-    <span id="cart-count">0</span>
-  </button>
+
   <script>
   // La función original de tu código
   const cart = {};
@@ -1438,17 +1521,35 @@ function cerrarModalProteina1() {
   
   </script>
  <div id="cartModal" class="modal">
-  <div class="modal-content">
+  <div style="padding-right: 170px !important; max-width: 40% !important;" class="modal-content">
     <span class="close-btn" onclick="closeCart()">×</span>
+<img style="height: 70px; position: absolute;" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" alt="">
+    <h2 style="margin-left: 200px;">Tu Pedido</h2>
 
-    <h2>Tu Pedido</h2>
-
-    <ul id="cartItems" class="cart-list"></ul>
+    <ul style="margin-left: 50%; max-width: 500px; position: absolute; max-height: 400px !important; border-bottom: 2px solid red; border-right: 2px solid red;" id="cartItems" class="cart-list"></ul>
 
 <div class="form-group total-row">
   <label for="total">Total:</label>
   <input type="text" id="total" readonly>
 </div>
+<script>
+  function replicarTotal() {
+    const totalInput = document.getElementById("total");
+    const visualInput = document.getElementById("total-visual");
+
+    if (totalInput && visualInput) {
+      visualInput.value = totalInput.value;
+    }
+  }
+
+  // 🧠 Opcional: actualiza automáticamente cuando el usuario escribe
+  document.addEventListener("DOMContentLoaded", () => {
+    const totalInput = document.getElementById("total");
+    if (totalInput) {
+      totalInput.addEventListener("input", replicarTotal);
+    }
+  });
+</script>
 
 
     <div class="form-group">
@@ -1548,7 +1649,7 @@ function cerrarModalProteina1() {
     list-style: none;
     padding: 0;
     margin: 20px 0;
-    max-height: 350px;
+    max-height: 650px;
     overflow-y: auto;
     border: 1px solid #eee;
     border-radius: 6px;
@@ -1759,21 +1860,31 @@ function cerrarModalProteina1() {
     }
   </script>
   <style>
-      .open-cart-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #ff3131 !important;
-    color: white;
-    border: none;
-    padding: 1em;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5em;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease, background-color 0.3s ease;
-    border: 3px solid white !important;
-  }
+.open-cart-btn {
+  background-color: white;
+  color: red;
+  border: 3px solid red;
+  padding: 6px 6px !important;
+  cursor: pointer;
+  font-size: 100% !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -95px !important;
+  margin-left: -160px;
+}
+
+/* 🖱 Hover efecto */
+.open-cart-btn:hover {
+  transform: scale(1.05);
+  background-color: #e60000;
+}
+
+/* 📱 Responsive para pantallas pequeñas *
+
 
   .open-cart-btn:hover {
     transform: scale(1.1);
@@ -1798,8 +1909,7 @@ function cerrarModalProteina1() {
     font-weight: bold;
     font-size: 3em;
     color: lightgrey; /* rojo vino */
-  }
-
+ 
   p {
     font-weight: 400;
     font-size: 1.2em;
@@ -1856,20 +1966,6 @@ function cerrarModalProteina1() {
     background-color: var(--rojo-oscuro);
   }
 
-  .open-cart-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--rojo);
-    color: white;
-    border: none;
-    padding: 1em;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5em;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
   .open-cart-btn:hover {
     transform: scale(1.1);
     background-color: var(--rojo-oscuro);
