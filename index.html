@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Ñaño</title>
-  
+    <title>Comedor | El Ñaño</title>
+      <link rel="icon" href="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" type="image/x-icon">
+<meta property="og:title" content="COMEDOR | El Ñaño">
+<meta property="og:description" content="Pedir">
+<meta property="og:image" content="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png">
+<meta property="og:type" content="website">
+
   <style>
       #cart-count {
   position: absolute;
@@ -466,7 +471,6 @@
 }
 
 #logo {
-    max-width: 170px; /* Reducir el tamaño del logo */
     border-radius: 50%;
 
     
@@ -512,9 +516,10 @@
             border: none;
             cursor: pointer;
             border: 2px solid white !important;
+            height: 60px;
         }
         #carritoBoton img {
-            width: 40px;
+            width: 40px !important;
         }
   </style>
 <style>
@@ -530,7 +535,7 @@
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
-    box-shadow: 0 4px 61px #ffffff88;
+    box-shadow: 0 4px 0px 1px #ffffff88;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     width: 150px;
   }
@@ -561,7 +566,7 @@
 
 </style>
 
-<header style="height: 100px !important; positiON: fixed;">
+<header style="height: 80px !important; positiON: fixed;">
     <div id="header-top" style="height: 0px;">
         <button id="carritoBoton" onclick="openCart()">
             <span></span>
@@ -575,6 +580,7 @@
             color: white; /* Cambia "green" por el color deseado */
         }
         #categoriasCarrusel {
+          margin-top: -20px !important;
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
@@ -719,7 +725,7 @@ setTimeout(() => {
     }
 }, 100);
 </script>
-        <div d id="categoriasCarrusel" style="width: 100%; margin: 0 !important;">
+        <div d id="categoriasCarrusel" style="width: 100%;">
 
             <div class="categoria"onclick="scrollToSection('hamburguesas')">🍔Hamburguesas</div>
             <div class="categoria" onclick="scrollToSection('bebidas')">🍺Bebidas</div>
@@ -779,7 +785,7 @@ button {
 }
 .category-title {
   color: #fff;
-  font-size: 2em;
+  font-size: 155% !important;
   font-weight: bold;
   text-align: center;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
@@ -791,20 +797,19 @@ button {
 @keyframes latidoSuave {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0px 0px 0px 0px #000;  
   
 }
   
   50% {
     transform: scale(1.05);
-    box-shadow: 1px 1px 2px 3px #fff;
+
 
   }
 }
 
  .categoria-titulo {
     color: #fff;
-    font-size: 2.5em;
+ font-family: Georgia, serif !important;
     font-weight: bold;
     text-align: center;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
@@ -818,7 +823,7 @@ button {
   <br><br><br><br><br><br><br>
   <style>
     body {
-      font-family: sans-serif;
+       font-family: Georgia, serif !important;
     }
     .ventana-emergente, .ventana-direccion {
       position: fixed;
@@ -2277,7 +2282,7 @@ function cerrarModalProteina1() {
 
 /* Estilo general del header */
 header {
-    height: 100px !important;
+    
     background: linear-gradient(90deg, red, #7a0000);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
     color: white;
@@ -2326,8 +2331,7 @@ header {
     position: fixed;
     top: 20px;
     left: 20px;
-    height: 80px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    height: 60px !important;
 }
 
 /* Buscador */
@@ -2356,10 +2360,11 @@ header {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    background: linear-gradient(to right, #000, #7a0000);
+    background: linear-gradient(to right, #530000, #da0000);
     padding: 10px 0;
     border-top: 2px solid #fff;
     border-bottom: 2px solid #fff;
+
 }
 
 .categoria {
@@ -2369,7 +2374,7 @@ header {
     margin: 0 8px;
     background: linear-gradient(145deg, #7a0000, #ff0000);
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: bold;
     color: white;
     border: 2px solid #fff;
