@@ -427,12 +427,7 @@
             color: #ff5e00;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 8px 10px;
-            }
+       
             
             #header-content {
                 flex-direction: column;
@@ -451,13 +446,14 @@
                 width: 100%;
                 justify-content: center;
                 flex-wrap: wrap;
+                margin-top: 89px !important;
 
             }
             
             body {
                 padding-top: 140px; /* Más espacio para header apilado */
             }
-        }
+        
 
 
 
@@ -470,7 +466,7 @@
 }
 
 #logo {
-    max-width: 70px; /* Reducir el tamaño del logo */
+    max-width: 170px; /* Reducir el tamaño del logo */
     border-radius: 50%;
 
     
@@ -493,15 +489,8 @@
 #carritoBoton {
     margin-top: 0; /* Eliminar márgenes innecesarios */
 }
-@media (max-width: 600px) {
-    #header-content {
-        flex-wrap: wrap;
-    }
 
-    #categorias button {
-        font-size: 10px; /* Aún más compacto en móvil */
-    }
-}
+
 
 
     .producto {
@@ -517,11 +506,12 @@
       border-radius: 4px;
     }
      #carritoBoton {
-              top: 40px;
+              top: 5px !important;
             right: 10px;
             background-color: transparent;
             border: none;
             cursor: pointer;
+            border: 2px solid white !important;
         }
         #carritoBoton img {
             width: 40px;
@@ -540,8 +530,9 @@
     font-weight: bold;
     font-size: 1em;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 61px #ffffff88;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 150px;
   }
 
   #carritoBoton:hover {
@@ -567,20 +558,14 @@
     font-size: 0.9em;
   }
 
-  @media (max-width: 600px) {
-    #carritoBoton {
-      width: 100%;
-      justify-content: center;
-      font-size: 1.1em;
-    }
-  }
+
 </style>
 
-<header style="height: 100px !important;">
-    <div id="header-top" style="height: 10px;">
+<header style="height: 100px !important; positiON: fixed;">
+    <div id="header-top" style="height: 0px;">
         <button id="carritoBoton" onclick="openCart()">
             <span></span>
-            <img style="background-color: rgb(172, 0, 0); border: black solid 2px; width: 60px; padding-right: 5px;" src="https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-red-kawaii-shopping-cart-icon-free-download-image_2291261.jpg" alt="Carrito">
+            <img style="border-radius: 30%;  background-color: rgb(172, 0, 0); border: black solid 2px; width: 60px; padding-right: 5px;" src="https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-red-kawaii-shopping-cart-icon-free-download-image_2291261.jpg" alt="Carrito">
             <span id="contador">0</span>
         </button>
     </div>
@@ -593,7 +578,6 @@
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            width: 100%;
             position: a; /* Posiciona el carrusel */
             bottom: 0; /* Lo coloca abajo del header */
             width: 100%; /* Ocupa todo el ancho disponible */
@@ -604,7 +588,6 @@
             display: inline-block;
             text-align: center;
             padding: 10px;
-            margin: 5px;
             background-color: rgb(172, 0, 0);
             border-radius: 5px;
             font-size: 14px;
@@ -612,6 +595,9 @@
             color: #fff;
         }
     </style>
+    
+
+
     
     <script>
         function controlarElementos() {
@@ -632,10 +618,11 @@
         }
     </script>
     <nav style="position: absolute; margin-top: 90px;" id="categorias">
-        <img  style="box-shadow: 1px 1px 15px #000; position: fixed; margin-top: -90px; margin-left: -280px;" id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" alt="Logo Santiago Burger">
      <div style="background-color: red; " id="header-bottom" >
         
-        </div><style>
+        </div>
+           <img  style="box-shadow: 1px 1px 15px #000; position: fixed; " id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
+     <style>
               #buscador-container {
             display: flex;
             flex-direction: column;
@@ -736,11 +723,11 @@ setTimeout(() => {
 
             <div class="categoria"onclick="scrollToSection('hamburguesas')">🍔Hamburguesas</div>
             <div class="categoria" onclick="scrollToSection('bebidas')">🍺Bebidas</div>
-            <div class="categoria" onclick="scrollToSection('menuespecial')">⭐🍔Menu SANTIAGO BURGER ESPECIAL🍔⭐</div>
+            <div class="categoria" onclick="scrollToSection('menuespecial')">⭐🍔Menu ESPECIAL🍔⭐</div>
              <div class="categoria" onclick="scrollToSection('postres')">🧁Postres</div>
-            <div class="categoria" onclick="scrollToSection('perroscalientes')">🌭Perros Calientes</div>
-            <div class="categoria" onclick="scrollToSection('arepones')">🥙Arepones</div>
-            <div class="categoria" onclick="scrollToSection('patacones')">🌯Patacones</div>
+            <div class="categoria" onclick="scrollToSection('perroscalientes')">🌭Completos</div>
+            <div class="categoria" onclick="scrollToSection('arepones')">🥙Tacos</div>
+            <div class="categoria" onclick="scrollToSection('patacones')">🌯Salchipapas</div>
         </div>
     </nav>
 </header>
@@ -750,9 +737,9 @@ setTimeout(() => {
   <script>
     // CAMBIAR PRECIOS
   const precios = {
-      'LOMO SALTADO': 6000,
-      'POLLO AL JUGO': 2000,
-      'TALLARINES SALTADOS': 6000
+      'Fettucho 4 Quesos': 9990,
+      'Fettucho Al Pesto': 2000,
+      'TALLARINES SALTADOS': 6000,
   };
   </script>
   <style>
@@ -790,26 +777,250 @@ setTimeout(() => {
 button {
   font-size: 120%;
 }
+.category-title {
+  color: #fff;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  margin: 1em 0;
+  animation: latidoSuave 2.5s infinite ease-in-out;
+     
 
+}
+@keyframes latidoSuave {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0px 0px 0px 0px #000;  
+  
+}
+  
+  50% {
+    transform: scale(1.05);
+    box-shadow: 1px 1px 2px 3px #fff;
+
+  }
+}
+
+ .categoria-titulo {
+    color: #fff;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    margin: 1em 0;
+    animation: latido 2.5s infinite ease-in-out;
+  }
   </style>
   <script>
     
   </script>
   <br><br><br><br><br><br><br><br><br><br><br><br>
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selector de Pedido</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .ventana-emergente, .ventana-direccion {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+    .fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+    .opcion {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .opcion:hover {
+      background: #f0f0f0;
+    }
+    .opcion img {
+      width: 40px;
+      margin-right: 10px;
+    }
+    #direccionInput {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Fondo oscuro -->
+<div class="fondo" id="fondo"></div>
+
+<!-- Ventana principal -->
+<div class="ventana-emergente" id="selectorPedido">
+  <h2 style="color: red; text-shadow: 0px 0px 0px #000;">¿Cómo quieres pedir?</h2>
+  <div class="opcion" onclick="cerrarVentana()">
+    <img src="https://cdn-icons-png.flaticon.com/512/5131/5131602.png" alt="Local">
+    <span>Pedir en local</span>
+  </div>
+  <div class="opcion" onclick="abrirDireccion()">
+    <img src="https://img.icons8.com/emoji/48/delivery-truck.png" alt="Domicilio">
+    <span>Pedir a domicilio</span>
+  </div>
+</div>
+
+<!-- Ventana de dirección -->
+<div class="ventana-direccion" id="ventanaDireccion">
+  <h3>Ingresa tu dirección</h3>
+  <input type="text" id="direccionInput" placeholder="Ej: Av. Providencia 1234">
+  <button onclick="continuarPedido()">Continuar</button>
+</div>
+<style>
+
+ 
+
+    .fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+      display: none;
+    }
+
+    .ventana-emergente, .ventana-direccion {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 3px solid #8B0000; /* rojo vino */
+      padding: 25px;
+      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      display: none;
+      width: 300px;
+    }
+
+    h2, h3 {
+      color: #D00000; /* rojo fuerte */
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .opcion {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: #f9f9f9;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+           background-color: #fff;
+      border-color: #D00000;
+    }
+
+    .opcion:hover {
+      background-color: #ffe5e5;
+      border-color: #D00000;
+    }
+
+    .opcion img {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+    }
+
+    #direccionInput {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #D00000;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #8B0000;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #8B0000;
+    }
+  </style>
+
+<script>
+  // Mostrar la ventana principal al cargar
+  window.onload = function() {
+    document.getElementById("selectorPedido").style.display = "block";
+    document.getElementById("fondo").style.display = "block";
+  };
+
+  function cerrarVentana() {
+    document.getElementById("selectorPedido").style.display = "none";
+    document.getElementById("fondo").style.display = "none";
+  }
+
+  function abrirDireccion() {
+    document.getElementById("selectorPedido").style.display = "none";
+    document.getElementById("ventanaDireccion").style.display = "block";
+  }
+
+  function continuarPedido() {
+    const direccion = document.getElementById("direccionInput").value;
+    if (direccion.trim() !== "") {
+      document.getElementById("resultado").value = `🚚DELIVERY a -> ${direccion}`;
+      document.getElementById("ventanaDireccion").style.display = "none";
+      document.getElementById("fondo").style.display = "none";
+    } else {
+      alert("Por favor ingresa una dirección.");
+    }
+  }
+</script>
   <section class="products">
+    <input type="text" name="" style="background-color: #ffffff00; color: #fff; border: 0px solid #000;"  id="resultado">
+      <h3 style="border: #ffffff00 solid 3px ;" class="category-title">PLATOS PRINCIPALES</h3>
        <div class="product-card">
         
-  <div class="product-card">
-        <div class="product-image-section">
-            <img src="la imagen" alt="el nombre">
-        </div>
-        <div class="product-details-section elementor">
-            <h3>el nombre</h3>
-            <p class="product-description">la description</p>
-            <p class="product-price">56546</p>
-            <button class="add-to-cart-btn" onclick="addToCart('el nombre')">+</button>
-        </div>
-    </div>
 
         <div class="product-image-section">
             <img src="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg" alt="Fettucho 4 Quesos">
@@ -822,6 +1033,32 @@ button {
         </div>
     </div>
 
+
+
+
+
+
+       <div class="product-card">
+        
+  
+        <div class="product-image-section">
+            <img src="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg" alt="Fettucho 4 Quesos">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>LOMO SALTADO</h3>
+            <p class="product-description">Fideos de pasta fresca en salsa de 4 quesos, gratinado con queso ...</p>
+            <p class="product-price">$9.990</p>
+            <button class="add-to-cart-btn" onclick="abrirVentanaProteina();">+</button>
+        </div>
+    </div>
+
+    
+
+       <div class="product-card">
+        
+  
+  
+    
     <div class="product-card">
         <div class="product-image-section">
             <img src="https://trexperienceperu.com/sites/default/files/aji_de_gallina.jpg" alt="Fettucho Al Pesto">
@@ -2029,12 +2266,6 @@ function cerrarModalProteina1() {
 
   }
 
-  @media (max-width: 768px) {
-    .header-container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
 
     .main-nav ul {
       flex-direction: column;
@@ -2045,7 +2276,118 @@ function cerrarModalProteina1() {
     .header-actions {
       margin-top: 1em;
     }
-  }
+  
+
+
+
+/* Estilo general del header */
+header {
+    height: 100px !important;
+    background: linear-gradient(90deg, red, #7a0000);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    color: white;
+    position: relative;
+    z-index: 100;
+}
+
+/* Parte superior del header */
+#header-top {
+    height: 0px;
+    background: linear-gradient(to right, #7a0000, #ff0000);
+}
+
+/* Botón del carrito */
+#carritoBoton {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#carritoBoton img {
+    border-radius: 50%;
+    background-color: #7a0000;
+    border: 2px solid #fff;
+    width: 50px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+#contador {
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* Logo */
+#logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    height: 80px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Buscador */
+#buscador-container {
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+#buscador {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#buscador::placeholder {
+    color: #7a0000;
+}
+
+/* Carrusel de categorías */
+#categoriasCarrusel {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    background: linear-gradient(to right, #000, #7a0000);
+    padding: 10px 0;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.categoria {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 0 8px;
+    background: linear-gradient(145deg, #7a0000, #ff0000);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.categoria:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #ff0000, #7a0000);
+}
+</style>
+
 </style>
 
   <script>
@@ -2110,10 +2452,10 @@ function cerrarModalProteina1() {
       for (const item in cart) {
         orderText += `${cart[item]}\n ${item}`;
       }
-
-      const message = `Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
+      
+      const message = `${resultado} Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
       const encodedMessage = encodeURIComponent(message);
-      window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+      window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
     }
   </script>
   <style>
@@ -2351,7 +2693,7 @@ position: fixed;
   </style>
   <script>
   function restar1() {
-  const cartCountElement = document.getElementById('cart-count');
+  const cartCountElement = document.getElementById('contador');
   let count = parseInt(cartCountElement.textContent, 10);
 
   if (!isNaN(count) && count > 0) {
@@ -2360,7 +2702,7 @@ position: fixed;
 }
 
   function sumarContador() {
-    const contadorElemento = document.getElementById('cart-count');
+    const contadorElemento = document.getElementById('contador');
     let valorActual = parseInt(contadorElemento.textContent);
     valorActual++;
     contadorElemento.textContent = valorActual;
@@ -2439,6 +2781,7 @@ function updateCart() {
 
   function sendOrder() {
   const name = document.getElementById('clientName').value;
+  const resultado = document.getElementById('resultado').value;
   const payment = document.getElementById('paymentMethod').value;
   const total = document.getElementById('total').value;
   const extraDetails = document.getElementById('orderText')?.value || ''; // Captura el texto adicional
@@ -2452,13 +2795,13 @@ function updateCart() {
   for (const item in cart) {
     const precioUnitario = precios[item];
     const subtotalProducto = cart[item] * precioUnitario;
-    orderText += `${item} x${cart[item]} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
+    orderText += `${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
   }
 
   // Incluye detalles adicionales si existen
-  const message = `Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment}`;
+  const message = `${resultado} Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment}`;
   const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+  window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
 }
 
   </script>
