@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido por WhatsApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .product-image-section img { max-width: 250px; border-radius: 8px; }
+    .product-details-section { margin-top: 10px; }
+    .form-section { margin-top: 20px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 15px; background: green; color: white; border: none; cursor: pointer; }
+    button:hover { background: darkgreen; }
+  </style>
+</head>
+<body>
+
+  <!-- Producto mostrado -->
+  <div class="product-image-section">
+    <img id="productImage" src="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg" alt="Fettucho 4 Quesos">
+  </div>
+  <div class="product-details-section elementor">
+    <h3 id="productName">Fettucho 4 Quesos (A la Rueda)</h3>
+    <p id="productDescription" class="product-description">Fideos de pasta fresca en salsa de 4 quesos, gratinado con queso ...</p>
+    <p id="productPrice" class="product-price">$9.990</p>
+  </div>
+
+  <!-- Inputs para personalizar datos -->
+  <div class="form-section">
+
+    <label>Nombre del producto:</label>
+    <input type="text" id="inputProductName" value="Fettucho 4 Quesos (A la Rueda)">
+
+    <label>Precio:</label>
+    <input type="text" id="inputProductPrice" value="$9.990">
+
+    <label>Ingredientes / descripción:</label>
+    <textarea id="inputProductDescription">Fideos de pasta fresca en salsa de 4 quesos, gratinado con queso ...</textarea>
+
+    <label>Foto (URL):</label>
+    <input type="text" id="inputProductImage" value="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg">
+
+    <!-- Botón de enviar -->
+    <button onclick="sendWhatsApp()">Enviar por WhatsApp</button>
+  </div>
+
+  <script>
+    function sendWhatsApp() {
+      const productName = document.getElementById('inputProductName').value;
+      const productPrice = document.getElementById('inputProductPrice').value;
+      const productDescription = document.getElementById('inputProductDescription').value;
+      const productImage = document.getElementById('inputProductImage').value;
+
+      // Construir el bloque HTML literal
+      const orderHTML = `
+        <div class="product-image-section">
+            <img src="${productImage}" alt="${productName}">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>${productName}</h3>
+            <p class="product-description">${productDescription}</p>
+            <p class="product-price">${productPrice}</p>
+            <button class="add-to-cart-btn" onclick="addToCart('${productName}')">+</button>
+        </div>
+      </div>`;
+
+      const encodedMessage = encodeURIComponent(orderHTML);
+
+      // Abrir WhatsApp con el bloque HTML como mensaje
+      window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
+    }
+  </script>
+
+</body>
+</html>
