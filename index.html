@@ -349,9 +349,9 @@
         if (input && textoLower.includes(input)) {
           const inicio = textoLower.indexOf(input);
           const fin = inicio + input.length;
-          const resaltado = texto.substring(inicio, fin);
+          const reSALTEADO = texto.substring(inicio, fin);
           const nuevoHTML = texto.substring(0, inicio) +
-                            `<span class="resaltado">${resaltado}</span>` +
+                            `<span class="reSALTEADO">${reSALTEADO}</span>` +
                             texto.substring(fin);
           prod.innerHTML = nuevoHTML;
         } else {
@@ -502,7 +502,7 @@
       font-size: 18px;
     }
 
-    .resaltado {
+    .reSALTEADO {
       background-color: rgb(172, 0, 0);
       color: white;
       font-weight: bold;
@@ -672,8 +672,8 @@
 
     if (!contenedor) return;
 
-    // Primero, eliminar cualquier resaltado de una búsqueda anterior
-    contenedor.querySelectorAll(".resaltado").forEach(span => {
+    // Primero, eliminar cualquier reSALTEADO de una búsqueda anterior
+    contenedor.querySelectorAll(".reSALTEADO").forEach(span => {
         const parent = span.parentNode;
         if (parent) {
             parent.replaceChild(document.createTextNode(span.textContent), span);
@@ -698,8 +698,8 @@
                     fragmento.appendChild(document.createTextNode(parte));
                     if (i < partes.length - 1) {
                         const span = document.createElement("span");
-                        span.className = "resaltado";
-                        // Mantener el texto original del filtro en el resaltado
+                        span.className = "reSALTEADO";
+                        // Mantener el texto original del filtro en el reSALTEADO
                         span.textContent = node.textContent.substring(
                             node.textContent.toLowerCase().indexOf(filtro),
                             node.textContent.toLowerCase().indexOf(filtro) + filtro.length
@@ -708,7 +708,7 @@
                     }
                 });
                 
-                // Reemplazar el nodo de texto original con el fragmento que contiene el resaltado
+                // Reemplazar el nodo de texto original con el fragmento que contiene el reSALTEADO
                 el.replaceChild(fragmento, node);
                 if (!primeraCoincidencia) primeraCoincidencia = el;
             }
@@ -727,7 +727,7 @@
 });
 
 setTimeout(() => {
-    const primeraCoincidencia = document.querySelector(".resaltado");
+    const primeraCoincidencia = document.querySelector(".reSALTEADO");
     if (primeraCoincidencia) {
         primeraCoincidencia.scrollIntoView({
             behavior: "smooth",
@@ -738,13 +738,27 @@ setTimeout(() => {
 </script>
         <div d id="categoriasCarrusel" style="width: 100%;">
 
-            <div class="categoria"onclick="scrollToSection('hamburguesas')">🍽️PLATOS PRINCIPALES</div>
-            <div class="categoria" onclick="scrollToSection('bebidas')">🍾Bebidas</div>
-             <div class="categoria"onclick="scrollToSection('hamburguesas')">🍽️PLATOS PRINCIPALES</div>
-            <div class="categoria" onclick="scrollToSection('bebidas')">🍾Bebidas</div>
-        </div>
+            <div class="categoria"onclick="scrollToSection('PLATOSPRINCIPALES')">🍽️PLATOS PRINCIPALES</div>
+              <div class="categoria" onclick="scrollToSection('CHURRASCOS')">CHURRASCOS🍔</div>
+            <div class="categoria" onclick="scrollToSection('BEBIDAS')">🍾BEBIDAS</div>
+               <div class="categoria" onclick="scrollToSection('COMPLETOS')">🌭COMPLETOS</div>
+  </div>
     </nav>
 </header>
+<script>
+    // Scroll suave a secciones
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Actualizar botón activo
+            document.querySelectorAll('#categorias button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+</script>
 <br><br><br>
 
   <div></div>
@@ -752,10 +766,10 @@ setTimeout(() => {
     // CAMBIAR PRECIOS
 const precios = {
       'ENSALADA (ENTRADA)': 0,
-      'LOMO SALTADO DE CARNE': 6000,
-      'LOMO SALTADO DE POLLO': 6000,
-      'TALLARINES SALTADOS DE CARNE': 6000,
-      'TALLARINES SALTADOS DE POLLO': 6000,
+      'LOMO SALTEADO DE CARNE': 6000,
+      'LOMO SALTEADO DE POLLO': 6000,
+      'TALLARINES SALTEADOS DE CARNE': 6000,
+      'TALLARINES SALTEADOS DE POLLO': 6000,
       'ARROZ CHAUFA DE CARNE': 6000,
       'ARROZ CHAUFA DE POLLO': 6000,
       'COSTILLAR AL HORNO': 6000,
@@ -971,23 +985,7 @@ button {
 </script>
 
 
-<!-- Fondo oscuro -->
-<div class="fondo" id="fondo"></div>
 
-<!-- Ventana principal -->
-<div class="ventana-emergente" id="selectorPedido">
-  <h2 style="color: red; text-shadow: 0px 0px 0px #000;">¿Cómo quieres pedir?</h2>
-  <div class="opcion" onclick="cerrarVentana();abrirPanelNumeros();">
-    <img src="https://cdn-icons-png.flaticon.com/512/5131/5131602.png" alt="Local">
-    <span>Para Servir</span>
-  </div>
-<div >
-      <div class="opcion" onclick="document.getElementById('direccionInput').value = '*PARA LLEVAR*';cerrarVentana();marcarParaLlevar();">
-    <img src="https://img.icons8.com/emoji/48/delivery-truck.png" alt="Domicilio">
-    <span>Para llevar</span>
-  </div>
-</div>
-</div>
 
 <!-- Ventana de dirección -->
 <div class="ventana-direccion" id="ventanaDireccion">
@@ -1205,7 +1203,7 @@ button {
         .product-details-section .product-price {
             font-size: 1.1em;
             font-weight: bold;
-            color: #555;
+            color: rgb(153, 27, 27);
             margin-top: auto;
         }
 
@@ -1451,6 +1449,7 @@ button {
   text-align: center;
   margin: 0;
   width: 100%;
+  
 }
 
 h3 span {
@@ -1460,7 +1459,18 @@ h3 span {
 }
 </style>
 
-<h3  class="h33 category-title" style="width: 100% !important;">
+<script>
+// Leer el parámetro "mesa" de la URL
+const params = new URLSearchParams(window.location.search);
+const mesa = params.get("mesa");
+
+// Insertar el valor en el input
+if (mesa) {
+  document.getElementById("resultado").value = mesa;
+}
+</script>
+<section id="PLATOSPRINCIPALES"></section>
+<br><br><br><br><br><h3  class="h33 category-title" style="width: 120% !important; margin: 0px !important;">
   <span  style=" -webkit-text-stroke: 0.5px #000; font-family: impact;">PLATOS PRINCIPALES</span>
 </h3>
 
@@ -1483,26 +1493,26 @@ h3 span {
       </div>   <div class="product-card">
         
 <div class="product-image-section">
-            <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTADO DE CARNE">
+            <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTEADO DE CARNE">
         </div>
         <div class="product-details-section elementor">
-            <h3>LOMO SALTADO DE CARNE</h3>
+            <h3>LOMO SALTEADO DE CARNE</h3>
             <p class="product-description">Tiras de carne salteadas con cebolla, tomate y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTADO DE CARNE');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">+</button>
         </div>
       </div>
 
 
        <div class="product-card">
   <div class="product-image-section">
-            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTADO DE POLLO">
+            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTEADO DE POLLO">
         </div>
         <div class="product-details-section elementor">
-            <h3>LOMO SALTADO DE POLLO</h3>
+            <h3>LOMO SALTEADO DE POLLO</h3>
             <p class="product-description">Tiras de pollo salteadas con cebolla, tomate y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTADO DE POLLO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE POLLO');abrirOverlayGlobal();">+</button>
         </div>
 
 
@@ -1671,13 +1681,13 @@ function cerrarModalProteina1() {
   </style>
   <div class="product-card">
   <div class="product-image-section">
-            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTADOS DE CARNE">
+            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTEADOS DE CARNE">
         </div>
         <div class="product-details-section elementor">
-            <h3>TALLARINES SALTADOS DE CARNE</h3>
+            <h3>TALLARINES SALTEADOS DE CARNE</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTADOS DE CARNE');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE');abrirOverlayGlobal();">+</button>
         </div>
       </div>
 
@@ -1687,13 +1697,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTADOS DE POLLO">
+            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTEADOS DE POLLO">
         </div>
         <div class="product-details-section elementor">
-            <h3>TALLARINES SALTADOS DE POLLO</h3>
+            <h3>TALLARINES SALTEADOS DE POLLO</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTADOS DE POLLO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO');abrirOverlayGlobal();">+</button>
         </div>
     </div>
 
@@ -2053,9 +2063,13 @@ animation: latidogrande 2.5s infinite ease-in-out;
   background-color: transparent;
   border: none;
   outline: none;
-  text-align: right;
+  text-align: left;
   color: #27ae60;
   font-weight: bold;
+padding: 0px;
+width: 90px !important;
+margin-left: 60px;
+position: absolute;
 }
 
   .modal {
@@ -2474,28 +2488,47 @@ header {
 
   <script>
 
+function updateCart() {
+    const cartList = document.getElementById('cartItems');
+    cartList.innerHTML = '';
+    let total = 0; // Inicializa el total en 0
 
-  function updateCart() {
-      const cartList = document.getElementById('cartItems');
-      cartList.innerHTML = '';
-      let total = 0; // Inicializa el total en 0
+    // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
+    for (const item in cart) {
+        const li = document.createElement('li');
 
-      // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
-      for (const item in cart) {
-          const li = document.createElement('li');
-          const precioUnitario = precios[item];
-          const subtotalProducto = cart[item] * precioUnitario;
-          
-          li.textContent = `${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}`; // Formato de moneda chilena
-          cartList.appendChild(li);
+        const precioUnitario = precios[item];
+        const subtotalProducto = cart[item] * precioUnitario;
 
-          total += subtotalProducto; // Suma el subtotal al total
-      }
-      
-      // Actualiza el input del total
-      document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
-  }
+        // Crear elementos separados para cantidad, nombre y precio
+        const cantidadSpan = document.createElement('span');
+        cantidadSpan.textContent = cart[item];
+        cantidadSpan.style.fontSize = "1.5em";   // más grande
+        cantidadSpan.style.fontWeight = "bold";
+        cantidadSpan.style.marginRight = "8px";
 
+        const nombreSpan = document.createElement('span');
+        nombreSpan.textContent = ` ${item} - `;
+
+        const precioSpan = document.createElement('span');
+        precioSpan.textContent = `$${subtotalProducto.toLocaleString('es-CL')}`;
+        precioSpan.style.color = "#8B0000"; // rojo vino claro
+        precioSpan.style.fontWeight = "bold";
+
+        // Añadir los spans al <li>
+        li.appendChild(cantidadSpan);
+        li.appendChild(nombreSpan);
+        li.appendChild(precioSpan);
+
+        cartList.appendChild(li);
+
+        total += subtotalProducto; // Suma el subtotal al total
+    }
+    
+    // Actualiza el input del total
+    const totalInput = document.getElementById('total');
+    totalInput.value = `$${total.toLocaleString('es-CL')}`;
+}
 
     function addToCart(item) {
       cart[item] = (cart[item] || 0) + 1;
@@ -2833,13 +2866,13 @@ function updateCart() {
     const precioUnitario = precios[item];
     const subtotalProducto = cart[item] * precioUnitario;
 
-    // Crea el botón ❌ para eliminar 1 unidad
+    // Botón ❌ restar 1
     const removeBtn = document.createElement('button');
     removeBtn.textContent = '❌ restar 1';
     removeBtn.title = 'Eliminar 1 unidad de este producto';
     removeBtn.style.color = 'rgb(172, 0, 0)';
-    removeBtn.style.marginRight = '10px';
-    removeBtn.style.padding = '4px 8px';
+    removeBtn.style.marginBottom = '8px';
+    removeBtn.style.padding = '6px 10px';
     removeBtn.style.borderRadius = '5px';
     removeBtn.style.fontSize = '0.9em';
     removeBtn.style.backgroundColor = '#ffe5e5';
@@ -2856,21 +2889,76 @@ function updateCart() {
       }
       updateCart();
       restar1();
-      
     };
 
-    // Crea el texto del producto
-    const texto = document.createTextNode(`${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}`);
+    // Cantidad grande
+    const cantidadSpan = document.createElement('div');
+    cantidadSpan.textContent = ` ${cart[item]}`;
+    cantidadSpan.style.fontSize = "2em";
+    cantidadSpan.style.fontWeight = "bold";
+    cantidadSpan.style.marginBottom = "6px";
+    cantidadSpan.style.color = "#2c3e50";
+    cantidadSpan.style.marginLeft = "50px";
+    
 
-    // Agrega el botón antes del texto
+    // Nombre del producto
+    const nombreSpan = document.createElement('div');
+    nombreSpan.textContent = ` ${item}`;
+    nombreSpan.style.marginBottom = "6px";
+    nombreSpan.style.color = "#34495e";
+
+    // Precio en rojo vino claro
+    const precioSpan = document.createElement('div');
+    precioSpan.textContent = ` $${subtotalProducto.toLocaleString('es-CL')}`;
+    precioSpan.style.color = "#8B0000";
+    precioSpan.style.fontWeight = "bold";
+    precioSpan.style.textDecoration = "underline #fff";
+
+    // Estilo del bloque <li>
+    li.style.background = "linear-gradient(180deg, #fff3e0, #ffe0b2, #ffccbc)";
+    li.style.margin = "12px 0";
+    li.style.padding = "12px";
+    li.style.borderRadius = "10px";
+    li.style.boxShadow = "0 4px 5px #000";
+    li.style.display = "flex";
+    li.style.flexDirection = "column"; // 👈 apila los elementos hacia abajo
+    li.style.alignItems = "flex-start";
+li.style.border = "1px solid #000";
+    // Armar el <li>
     li.appendChild(removeBtn);
-    li.appendChild(texto);
+    li.appendChild(cantidadSpan);
+    li.appendChild(nombreSpan);
+    li.appendChild(precioSpan);
+
     cartList.appendChild(li);
 
     total += subtotalProducto;
   }
 
-  document.getElementById('total').value = `$${total.toLocaleString('es-CL')}`;
+  // Input del total con estilo
+  const totalInput = document.getElementById('total');
+  totalInput.value = `$${total.toLocaleString('es-CL')}`;
+  totalInput.style.border = "none";
+  totalInput.style.background = "#fff8e1";
+  totalInput.style.padding = "10px 15px";
+  totalInput.style.borderRadius = "8px";
+  totalInput.style.fontWeight = "bold";
+  totalInput.style.textAlign = "right";
+  totalInput.style.width = "140px";
+  totalInput.style.color = "#d84315";
+
+  // Contenedor del carrito con estilo
+  const cartContainer = document.getElementById('cartContainer');
+  if (cartContainer) {
+    cartContainer.style.background = "linear-gradient(135deg, #fbe9e7, #fff3e0, #f1f8e9)";
+    cartContainer.style.borderRadius = "15px";
+    cartContainer.style.padding = "25px";
+    cartContainer.style.maxWidth = "450px";
+    cartContainer.style.margin = "20px auto";
+    cartContainer.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+    cartContainer.style.fontFamily = "'Segoe UI', sans-serif";
+    cartContainer.style.color = "#333";
+  }
 }
 
 
