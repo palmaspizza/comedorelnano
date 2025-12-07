@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Llevar</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #8B0000, #B22222, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .mesa-container {
+      background: rgba(255,255,255,0.9);
+      border: 5px solid #8B0000;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      max-width: 300px;
+    }
+
+    .mesa-text {
+      font-size: 3em;
+      font-weight: bold;
+      color: #B22222; /* rojo vino */
+      margin: 0;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .mesa-numero {
+      font-size: 5em;
+      font-weight: bold;
+      color: #8B0000; /* rojo oscuro */
+      margin-top: 10px;
+      text-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Animación suave para darle vida */
+    .mesa-container:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #8B0000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    button:hover {
+      background-color: #B22222;
+    }
+  </style>
+</head>
+<body>
+  <div class="mesa-container">
+    <div class="mesa-text">PARA</div>
+    <div class="mesa-numero">LLEVAR</div>
+
+    <button onclick="irAComedor()">Aceptar</button>
+
+    <script>
+      function irAComedor() {
+        const valor = "*PARA LLEVAR*"; // el valor que quieres enviar
+        // Redirige a comedorelnano.html con el valor en la URL
+        window.location.href = "/index.html?direccionInput=" + encodeURIComponent(valor);
+      }
+    </script>
+  </div>
+</body>
+</html>
