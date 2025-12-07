@@ -244,7 +244,7 @@
         margin: 0;
       font-family: Georgia, 'Times New Roman', Times, serif !important;
 
-        background: linear-gradient(to bottom, rgb(172, 0, 0), rgb(75, 75, 75)) !important;
+        background: linear-gradient(to bottom, rgb(172, 0, 0), rgb(83, 0, 0)) !important;
         color: #212121;
       }
 
@@ -740,10 +740,12 @@ setTimeout(() => {
 
             <div class="categoria"onclick="scrollToSection('hamburguesas')">🍽️PLATOS PRINCIPALES</div>
             <div class="categoria" onclick="scrollToSection('bebidas')">🍾Bebidas</div>
+             <div class="categoria"onclick="scrollToSection('hamburguesas')">🍽️PLATOS PRINCIPALES</div>
+            <div class="categoria" onclick="scrollToSection('bebidas')">🍾Bebidas</div>
         </div>
     </nav>
 </header>
-
+<br><br><br>
 
   <div></div>
   <script>
@@ -812,8 +814,7 @@ button {
   text-align: center;
   text-shadow: 1px 9px 1px rgba(0, 0, 0, 0.4);
   margin: 1em 0;
-  animation: latidoSuave 2.5s infinite ease-in-out;
-     
+ 
 
 }
 @keyframes latidoSuave {
@@ -1025,6 +1026,11 @@ button {
       color: #D00000; /* rojo fuerte */
       margin-top: 0;
       text-align: center;
+    }
+    h3 span{
+
+        animation: latidoSuave 2.5s infinite ease-in-out;
+
     }
 
     .opcion {
@@ -1427,7 +1433,39 @@ button {
 
 </center>
  
-    <h3 style="  border: #ffffff00 solid 3px ;" class="category-title">PLATOS PRINCIPALES</h3>
+
+<style>
+@keyframes latidoSuave {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+h3 {
+  border: #ffffff00 solid 3px;
+  background-image: url('https://cdn.discordapp.com/attachments/1419445983842144290/1447090546224136294/00.jpg?ex=69365b97&is=69350a17&hm=75587bbd94c8a48a42399251d14726249380c385cc07db2cca5f1760dafc022e&');
+  background-size: cover;
+  background-position: center 25%; /* oculta el 25% superior */
+  color: white;
+  padding: 35px;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+h3 span {
+  display: inline-block; /* necesario para que la animación funcione */
+  animation: latidoSuave 2.5s infinite ease-in-out;
+  width: 100%;
+}
+</style>
+
+<h3 class="category-title" style="width: 100% !important;">
+  <span style=" -webkit-text-stroke: 0.5px #000; font-family: impact;">PLATOS PRINCIPALES</span>
+</h3>
+
+<img style="position: relative; z-index: -1;" src="" width="100%" alt="">
+<img style="position: relative; z-index: -1;" src="" width="100%" alt="">
 
   <div class="product-card">
 
@@ -1479,6 +1517,9 @@ button {
 
 
 <style>
+  #elspan{
+     animation: latidogrande 2.5s infinite ease-in-out;
+  }
   .modal-proteina {
   display: none;
   position: fixed;
