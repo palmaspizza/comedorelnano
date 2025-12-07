@@ -630,7 +630,7 @@
 <div  id="overlayGlobal" style="z-index: 3000 " class="overlay-global">
   <div class="panel-global">
     
-    <p>Revisa el carrito para ver tu pedido.</p>
+    <p style="color: rgb(172, 73, 73);">Revisa el carrito para ver tu pedido.</p>
  </div>
 
 
@@ -839,6 +839,21 @@ button {
   50% {
     transform: scale(1);
 
+
+  }
+}
+
+
+
+
+@keyframes latidonogrande {
+  0%, 100% {
+    transform: scale(1);
+  
+}
+  
+  50% {
+    transform: scale(0.9);
 
   }
 }
@@ -1190,7 +1205,7 @@ button {
 
         /* Estilo del botón de agregar */
         .add-to-cart-btn {
-            background-color: rgb(172, 0, 0);
+            background-color: rgb(204, 0, 0);
             box-shadow: 1px 1px 5px 2px #000;
             color: white;
             border: none;
@@ -1207,6 +1222,7 @@ button {
             position: absolute;
             bottom: 15px;
             right: 15px;
+            animation: latidonogrande 2.5s infinite ease-in-out; 
         }
         
         .add-to-cart-btn:hover {
@@ -1421,8 +1437,8 @@ button {
         <div class="product-details-section elementor">
             <h3>ENSALADA (ENTRADA)</h3>
             <p class="product-description">Una ensalada fresca que viene acompañado con TODOS los platos.</p>
-            <p class="product-price" style="color: green;">GRATIS</p>
-            <button class="add-to-cart-btn"  onclick="addToCart('ENSALADA (ENTRADA)');abrirOverlayGlobal();">+</button>
+            <p class="product-price" style="color: rgb(0, 153, 0);">GRATIS</p>
+            <button class="add-to-cart-btn" style="background-color: rgb(255, 0, 0);"  onclick="addToCart('ENSALADA (ENTRADA)');abrirOverlayGlobal();">+</button>
         </div>
       </div>
       </div> <br>
