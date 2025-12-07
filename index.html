@@ -568,7 +568,7 @@
 
 <header style="height: 80px !important; positiON: fixed;">
     <div id="header-top" style="height: 0px;">
-        <button id="carritoBoton" onclick="openCart()">
+        <button style="z-index: 40000000 !important;" id="carritoBoton" onclick="openCart();cerrarOverlayGlobal()">
             <span></span>
             <img style="border-radius: 30%;  background-color: rgb(172, 0, 0); border: black solid 2px; width: 60px; padding-right: 5px;" src="https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-red-kawaii-shopping-cart-icon-free-download-image_2291261.jpg" alt="Carrito">
             <span id="contador">0</span>
@@ -626,9 +626,20 @@
     <nav style="position: absolute; margin-top: 90px;" id="categorias">
      <div style="background-color: red; " id="header-bottom" >
         
-        </div>
-           <img  style="box-shadow: 1px 1px 15px #000; position: fixed; " id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
-     <style>
+        </div><!-- Ventana global -->
+<div  id="overlayGlobal" style="z-index: 3000 " class="overlay-global">
+  <div class="panel-global">
+    
+    <p>Revisa el carrito para ver tu pedido.</p>
+ </div>
+
+
+</div>
+
+           <img  style="box-shadow: 0px 0px 30px 5px #000; position: fixed; " id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
+        <span style="position: absolute; margin-top: 160px !important; margin-left: -90px; z-index: 34534534534534534539; font-size: 170%; color: #fff; margin-top: -85px !important;">Mesa</span>
+<center>
+        <input  type="text" name="" style="font-size: 220%; background-color: #ffffff00; color: #fff; border: 0px solid #000; position: fixed;  width: 40px !important; margin-left: -65px; z-index: 34534534534534534539; margin-top: -75px;" readonly  id="resultado"> <style>
               #buscador-container {
             display: flex;
             flex-direction: column;
@@ -727,13 +738,8 @@ setTimeout(() => {
 </script>
         <div d id="categoriasCarrusel" style="width: 100%;">
 
-            <div class="categoria"onclick="scrollToSection('hamburguesas')">🍔Hamburguesas</div>
-            <div class="categoria" onclick="scrollToSection('bebidas')">🍺Bebidas</div>
-            <div class="categoria" onclick="scrollToSection('menuespecial')">⭐🍔Menu ESPECIAL🍔⭐</div>
-             <div class="categoria" onclick="scrollToSection('postres')">🧁Postres</div>
-            <div class="categoria" onclick="scrollToSection('perroscalientes')">🌭Completos</div>
-            <div class="categoria" onclick="scrollToSection('arepones')">🥙Tacos</div>
-            <div class="categoria" onclick="scrollToSection('patacones')">🌯Salchipapas</div>
+            <div class="categoria"onclick="scrollToSection('hamburguesas')">🍽️PLATOS PRINCIPALES</div>
+            <div class="categoria" onclick="scrollToSection('bebidas')">🍾Bebidas</div>
         </div>
     </nav>
 </header>
@@ -742,10 +748,26 @@ setTimeout(() => {
   <div></div>
   <script>
     // CAMBIAR PRECIOS
-  const precios = {
-      'Fettucho 4 Quesos': 9990,
-      'Fettucho Al Pesto': 2000,
-      'TALLARINES SALTADOS': 6000,
+const precios = {
+      'ENSALADA (ENTRADA)': 0,
+      'LOMO SALTADO DE CARNE': 6000,
+      'LOMO SALTADO DE POLLO': 6000,
+      'TALLARINES SALTADOS DE CARNE': 6000,
+      'TALLARINES SALTADOS DE POLLO': 6000,
+      'ARROZ CHAUFA DE CARNE': 6000,
+      'ARROZ CHAUFA DE POLLO': 6000,
+      'COSTILLAR AL HORNO': 6000,
+      'POLLO BROSTER': 6000,
+      'COMBINADO': 6000,
+      'POLLO A LA PLANCHA': 6000,
+      'PESCADO FRITO': 6000,
+      'CARNE AL JUGO': 6000,
+      'BISTEC CON ARROZ Y PAPAS': 6000,
+      'TALLARINES VERDES': 6000,
+      'CHORRILLANA': 6000,
+      'COMPLETO ITALIANO': 6000,
+      'CHURRASCO ITALIANO': 6000,
+      'BISTEC CON ARROZ Y PAPAS': 6000,
   };
   </script>
   <style>
@@ -785,10 +807,10 @@ button {
 }
 .category-title {
   color: #fff;
-  font-size: 155% !important;
+  font-size: 255% !important;
   font-weight: bold;
   text-align: center;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 1px 9px 1px rgba(0, 0, 0, 0.4);
   margin: 1em 0;
   animation: latidoSuave 2.5s infinite ease-in-out;
      
@@ -802,6 +824,20 @@ button {
   
   50% {
     transform: scale(1.05);
+
+
+  }
+}
+
+
+@keyframes latidogrande {
+  0%, 100% {
+    transform: scale(0.8);
+  
+}
+  
+  50% {
+    transform: scale(1);
 
 
   }
@@ -870,7 +906,54 @@ button {
     }
   </style>
 </head>
-<body>
+
+<style>
+  .overlay-global {
+    position: fixed;
+    inset: 0;
+    background: rgba(50, 50, 50, 0.7); /* oscuro translúcido, no negro */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000 !important; /* valor por defecto, puedes cambiarlo */
+  }
+
+  .panel-global {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .close-btn {
+    margin-top: 15px;
+    background: #b30000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  .close-btn:hover { background: #e60000; }
+</style>
+
+<script>
+  function abrirOverlayGlobal(){
+    const overlay = document.getElementById('overlayGlobal');
+    overlay.style.display = 'flex';
+    overlay.style.zIndex = zIndex; // permite cambiar el z-index dinámicamente
+  }
+
+  function cerrarOverlayGlobal(){
+    document.getElementById('overlayGlobal').style.display = 'none';
+  }
+</script>
+
 
 <!-- Fondo oscuro -->
 <div class="fondo" id="fondo"></div>
@@ -878,14 +961,16 @@ button {
 <!-- Ventana principal -->
 <div class="ventana-emergente" id="selectorPedido">
   <h2 style="color: red; text-shadow: 0px 0px 0px #000;">¿Cómo quieres pedir?</h2>
-  <div class="opcion" onclick="cerrarVentana()">
+  <div class="opcion" onclick="cerrarVentana();abrirPanelNumeros();">
     <img src="https://cdn-icons-png.flaticon.com/512/5131/5131602.png" alt="Local">
-    <span>Pedir en local</span>
+    <span>Para Servir</span>
   </div>
-  <div class="opcion" onclick="abrirDireccion()">
+<div >
+      <div class="opcion" onclick="document.getElementById('direccionInput').value = '*PARA LLEVAR*';cerrarVentana();marcarParaLlevar();">
     <img src="https://img.icons8.com/emoji/48/delivery-truck.png" alt="Domicilio">
-    <span>Pedir a domicilio</span>
+    <span>Para llevar</span>
   </div>
+</div>
 </div>
 
 <!-- Ventana de dirección -->
@@ -1006,9 +1091,8 @@ button {
   }
 
   function continuarPedido() {
-    const direccion = document.getElementById("direccionInput").value;
+
     if (direccion.trim() !== "") {
-      document.getElementById("resultado").value = `🚚DELIVERY a -> ${direccion}`;
       document.getElementById("ventanaDireccion").style.display = "none";
       document.getElementById("fondo").style.display = "none";
     } else {
@@ -1016,73 +1100,7 @@ button {
     }
   }
 </script>
-  <section class="products">
-    <input type="text" name="" style="background-color: #ffffff00; color: #fff; border: 0px solid #000;" readonly  id="resultado">
-      <h3 style="border: #ffffff00 solid 3px ;" class="category-title">PLATOS PRINCIPALES</h3>
-       <div class="product-card">
-        
 
-        <div class="product-image-section">
-            <img src="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg" alt="Fettucho 4 Quesos">
-        </div>
-        <div class="product-details-section elementor">
-            <h3>Fettucho 4 Quesos (A la Rueda)</h3>
-            <p class="product-description">Fideos de pasta fresca en salsa de 4 quesos, gratinado con queso ...</p>
-            <p class="product-price">$9.990</p>
-            <button class="add-to-cart-btn" onclick="addToCart('Fettucho 4 Quesos')">+</button>
-        </div>
-    </div>
-
-
-
-
-
-
-       <div class="product-card">
-        
-  
-        <div class="product-image-section">
-            <img src="https://www.hola.com/horizon/landscape/950a4b6188fc-portada-cocina-t.jpg" alt="Fettucho 4 Quesos">
-        </div>
-        <div class="product-details-section elementor">
-            <h3>LOMO SALTADO</h3>
-            <p class="product-description">Fideos de pasta fresca en salsa de 4 quesos, gratinado con queso ...</p>
-            <p class="product-price">$9.990</p>
-            <button class="add-to-cart-btn" onclick="abrirVentanaProteina();">+</button>
-        </div>
-    </div>
-
-    
-
-       <div class="product-card">
-        
-  
-  
-    
-    <div class="product-card">
-        <div class="product-image-section">
-            <img src="https://trexperienceperu.com/sites/default/files/aji_de_gallina.jpg" alt="Fettucho Al Pesto">
-        </div>
-        <div class="product-details-section">
-            <h3>Fettucho Al Pesto</h3>
-            <p class="product-description">Fideos de pasta fresca en un aromático pesto de albahaca fresc</p>
-            <p class="product-price">$7.990</p>
-            <button class="add-to-cart-btn" onclick="abrirVentanaProteina()">+</button>
-            
-        </div>
-    </div>
- 
-   <div id="ventanaProteina" class="modal-proteina">
-  <div class="contenido-proteina">
-    <h2 class="titulo-proteina">Elige tu proteína</h2>
-    <div class="opciones-proteina">
-      <button id="btnCarne" onclick="cerrarModalProteina();addToCart('LOMO SALTADO DE CARNE')">CARNE</button>
-      <button id="btnPollo" onclick="cerrarModalProteina();addToCart('LOMO SALTADO DE POLLO')">POLLO</button>
-    </div>
-    
-  </div>
-        </div>
-    </div>
   <style>
         body {
             font-family:  Georgia, 'Times New Roman', Times, serif;
@@ -1104,7 +1122,7 @@ button {
             display: flex;
             background-color: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0PX 5PX 22PX 5PX #000;
             max-width: 380px;
             width: 100%;
             overflow: hidden;
@@ -1118,11 +1136,13 @@ button {
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 2px solid red;
+            border-right: 0px;
         }
         
         .product-image-section img {
             width: 100%;
-            height: auto;
+            height: 100%;
             object-fit: cover;
             padding: 10px;
         }
@@ -1136,6 +1156,9 @@ button {
             justify-content: center;
             box-sizing: border-box;
             position: relative;
+            
+            border: 2px solid red;
+            border-left: 0px solid;
         }
         
         .product-details-section h3 {
@@ -1190,6 +1213,247 @@ button {
             background-color: #a52a2a;
         }
     </style>
+    <!-- Ventana emergente -->
+<div id="overlayPanel" class="overlay-panel">
+  <div class="panel">
+        <h2>¿Cual es tu número de Mesa?</h2>
+    <div class="grid" id="gridBotones"></div>
+
+  </div>
+</div>
+
+<style>
+  :root {
+    --rojo:#b30000;
+    --rojo-claro:#e60000;
+    --rojo-oscuro:#800000;
+    --blanco:#ffffff;
+    --sombra:rgba(0,0,0,0.6);
+  }
+
+  .overlay-panel {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+  }
+
+  .panel {
+    background:var(--rojo);
+    color:var(--blanco);
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 10px 25px var(--sombra);
+    width:300px;
+    text-align:center;
+  }
+
+  .panel h2 { margin-bottom:15px; }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+  }
+
+  .num-btn {
+    background:var(--blanco);
+    color:var(--rojo);
+    font-weight:bold;
+    border:none;
+    border-radius:8px;
+    padding:12px 0;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+    transition:.2s ease;
+  }
+  .num-btn:hover {
+    background:var(--rojo-claro);
+    color:var(--blanco);
+  }
+  .num-btn:active { transform:translateY(1px); }
+
+  .close-btn {
+    margin-top:15px;
+    background:var(--rojo-oscuro);
+    color:var(--blanco);
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+  }
+  .close-btn:hover { background:var(--rojo-claro); }
+</style>
+
+<script>
+
+  function abrirPanel(){
+    overlay.style.display='flex';
+  }
+  function cerrarPanel(){
+    overlay.style.display='none';
+  }
+
+  // Generar botones 1–10
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.className='num-btn';
+    b.textContent=i;
+    b.addEventListener('click',()=>{
+      // Aquí se asigna el valor al input externo
+      const input = document.getElementById('resultado'); // cambia "resultado" por el id de tu input
+      if(input) input.value=i;
+      cerrarPanel();
+    });
+    grid.appendChild(b);
+  }
+
+  // Exportar función para abrir desde tu código
+  window.abrirPanelNumeros = abrirPanel;
+</script>
+
+<style>
+  :root {
+    --rojo:#b30000;
+    --rojo-claro:#e60000;
+    --rojo-oscuro:#800000;
+    --blanco:#ffffff;
+    --sombra:rgba(0,0,0,0.6);
+  }
+
+  .overlay-panel {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+  }
+
+  .panel {
+    background:var(--rojo);
+    color:var(--blanco);
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 10px 25px var(--sombra);
+    width:300px;
+    text-align:center;
+  }
+
+  .panel h2 { margin-bottom:15px; }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+  }
+
+  .num-btn {
+    background:var(--blanco);
+    color:var(--rojo);
+    font-weight:bold;
+    border:none;
+    border-radius:8px;
+    padding:12px 0;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+    transition:.2s ease;
+  }
+  .num-btn:hover {
+    background:var(--rojo-claro);
+    color:var(--blanco);
+  }
+  .num-btn:active { transform:translateY(1px); }
+
+  .close-btn {
+    margin-top:15px;
+    background:var(--rojo-oscuro);
+    color:var(--blanco);
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+  }
+  .close-btn:hover { background:var(--rojo-claro); }
+</style>
+
+<script>
+  const overlay = document.getElementById('overlayPanel');
+  const grid = document.getElementById('gridBotones');
+
+  function abrirPanelNumeros(){
+    overlay.style.display='flex';
+  }
+  function cerrarPanel(){
+    overlay.style.display='none';
+  }
+
+  // Generar botones 1–10
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.className='num-btn';
+    b.textContent=i;
+    b.addEventListener('click',()=>{
+      const input = document.getElementById('resultado'); // cambia "resultado" por el id de tu input
+      if(input) input.value=i;
+      cerrarPanel();
+    });
+    grid.appendChild(b);
+  }
+</script>
+  <section class="products">
+
+</center>
+ 
+    <h3 style="  border: #ffffff00 solid 3px ;" class="category-title">PLATOS PRINCIPALES</h3>
+
+  <div class="product-card">
+
+   <div class="product-image-section">
+            <img src="https://i.ibb.co/212KbPq5/P1170123.jpg" alt="ENSALADA (ENTRADA)">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ENSALADA (ENTRADA)</h3>
+            <p class="product-description">Una ensalada fresca que viene acompañado con TODOS los platos.</p>
+            <p class="product-price" style="color: green;">GRATIS</p>
+            <button class="add-to-cart-btn"  onclick="addToCart('ENSALADA (ENTRADA)');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div> <br>
+      </div>   <div class="product-card">
+        
+<div class="product-image-section">
+            <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTADO DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>LOMO SALTADO DE CARNE</h3>
+            <p class="product-description">Tiras de carne salteadas con cebolla, tomate y un toque de soya.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTADO DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+       <div class="product-card">
+  <div class="product-image-section">
+            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTADO DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>LOMO SALTADO DE POLLO</h3>
+            <p class="product-description">Tiras de pollo salteadas con cebolla, tomate y un toque de soya.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTADO DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
+
+
+
+
     <script>
         function addToCart(productName) {
             alert('Producto "' + productName + '" agregado al carrito.');
@@ -1348,157 +1612,213 @@ function cerrarModalProteina1() {
       color: rgb(172, 0, 0);
     }
   </style>
-    <div class="product">
-      
-      <h3>POLLO AL JUGO</h3>
-          <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pollo tierno cocido en su propio jugo y aliños caseros.</p>
-      <p class="price">$6.000</p>
-      <button onclick="addToCart('POLLO AL JUGO')">AGREGAR</button>
+  <div class="product-card">
+  <div class="product-image-section">
+            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTADOS DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES SALTADOS DE CARNE</h3>
+            <p class="product-description">Fideos salteados al wok.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTADOS DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+   
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTADOS DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES SALTADOS DE POLLO</h3>
+            <p class="product-description">Fideos salteados al wok.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTADOS DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
     </div>
-    <div class="product">
-      
-      <h3>TALLARINES SALTADOS</h3>
-          <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Fideos salteados al wok con opción de <span style="color: rgb(172, 0, 0);">Carne</span>, <span style="color: rgb(172, 0, 0);">Pollo</span> o <span style="color: rgb(172, 0, 0);">Camarón</span>. cebollín y huevo</p>
-    
-      <p class="price">$6.000</p>
-      <button onclick="abrirVentanaProteina1();">AGREGAR</button>
-   <div id="ventanaProteina1" class="modal-proteina">
-  <div class="contenido-proteina">
-    <h2 class="titulo-proteina">Elige tu proteína</h2>
-    <div class="opciones-proteina">
-      <button id="btnCarne" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE CARNE')">CARNE</button>
-      <button id="btnPollo" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE POLLO')">POLLO</button>
-      <button id="btnCamaron" onclick="cerrarModalProteina1();addToCart('TALLARINES SALTADOS DE CAMARÓN')">CAMARÓN</button>
-    </div>
-    
-  </div>
+
+
+<div class="product-card">
+<div class="product-image-section">
+            <img src="https://i.ibb.co/60vk0kbz/P1170122.jpg" alt="ARROZ CHAUFA DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ARROZ CHAUFA DE CARNE</h3>
+            <p class="product-description">Arroz frito al estilo oriental de carne, cebollín y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/fVLZTppr/P1170104.jpg" alt="ARROZ CHAUFA DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ARROZ CHAUFA DE POLLO</h3>
+            <p class="product-description">Arroz frito al estilo oriental de pollo, cebollín y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/Wvd31Thd/P1170115.jpg" alt="COSTILLAR AL HORNO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COSTILLAR AL HORNO</h3>
+            <p class="product-description">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COSTILLAR AL HORNO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/Kc5TGjQn/P1170125.jpg" alt="POLLO BROSTER">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>POLLO BROSTER</h3>
+            <p class="product-description">Jugoso por dentro y crujiente por fuera, servido caliente y lleno de sabor.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO BROSTER');abrirOverlayGlobal();">+</button>
+        </div>
+      </div> </div>
+
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/DPw48wsH/P1170112.jpg" alt="COMBINADO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COMBINADO</h3>
+            <p class="product-description">Ceviche con papa a la huancaína y tallarines rojos.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COMBINADO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/8gy9CMN0/P1170116.jpg" alt="POLLO A LA PLANCHA">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>POLLO A LA PLANCHA</h3>
+            <p class="product-description">Pechuga de pollo suave y jugosa, cocinada a la plancha para resaltar su sabor natural.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO A LA PLANCHA');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/xqy2T28Q/P1170111.jpg" alt="PESCADO FRITO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>PESCADO FRITO</h3>
+            <p class="product-description">Filete crujiente con ensalada y acompañamiento.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('PESCADO FRITO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/YTXSB5RY/P1170110.jpg" alt="CARNE AL JUGO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CARNE AL JUGO</h3>
+            <p class="product-description">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card"><div class="product-image-section">
+            <img src="https://i.ibb.co/Hf3p6QsX/P1170120.jpg" alt="BISTEC CON ARROZ Y PAPAS">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>BISTEC CON ARROZ Y PAPAS</h3>
+            <p class="product-description">Tierna carne de res sazonada y dorada a la perfección, servida con arroz blanco esponjoso y papas doradas.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/DmY8XzT/P1170106.jpg" alt="TALLARINES VERDES">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES VERDES</h3>
+            <p class="product-description">Pasta al dente mezclada con una cremosa salsa de albahaca y espinaca, realzada con queso fresco y un toque de ajo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES VERDES');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+<div class="product-card">
+<div class="product-image-section">
+            <img src="https://i.ibb.co/dwHt9DTw/P1170103.jpg" alt="COMPLETO ITALIANO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COMPLETO ITALIANO</h3>
+            <p class="product-description">Vianesa, palta fresca, tomate y mayo casera.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COMPLETO ITALIANO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
 </div>
-    </div>
 
-
-
-<div class="product">
-    
-    <h3>AJÍ DE GALLINA</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Crema de pollo deshilachado con ají amarillo, nueces y pan, servido con arroz.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('AJÍ DE GALLINA')">AGREGAR</button>
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="CHURRASCO ITALIANO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CHURRASCO ITALIANO</h3>
+            <p class="product-description">Palta, tomate y mayo sobre carne jugosa.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHURRASCO ITALIANO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
 </div>
 
-<div class="product">
-    
-    <h3>POLLO AL JUGO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pollo tierno cocido en su propio jugo y aliños caseros.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('POLLO AL JUGO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CARNE AL JUGO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('CARNE AL JUGO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>POLLO AL HORNO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Muslo horneado con especias, jugoso por dentro y dorado por fuera.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('POLLO AL HORNO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>PECHUGA A LA PLANCHA</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pechuga de pollo grillada, liviana y sabrosa.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('PECHUGA A LA PLANCHA')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COSTILLAR DE CERDO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('COSTILLAR DE CERDO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>PAPA A LA HUANCAÍNA</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Papa con salsa huancaína cremosa, acompañada de pechuga de pollo.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('PAPA A LA HUANCAÍNA')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>SALCHIPAPAS</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Papas fritas con salchichas doradas, ideal para algo rápido y rico.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('SALCHIPAPAS')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CARNE MECHADA CON PURÉ</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Tradicional carne deshilachada en su jugo con puré casero.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('CARNE MECHADA CON PURÉ')">AGREGAR</button>
-</div>
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>CHULETA CON ACOMPAÑAMIENTOS</h3>
-    <p class="descripcion-product">Chuleta de cerdo a la plancha o frita con arroz o papas.</p>
-    <p class="price">$6.000</p>
-    <button onclick="abrirModalProteina3();">AGREGAR</button>
-  <!-- Modal principal -->
-<div id="ventanaProteina3" class="modal-proteina">
-  <div class="contenido-proteina">
-    <h2 class="titulo-proteina">Elige cómo quieres tu Chuleta de Cerdo.</h2>
-    <div class="opciones-proteina">
-      <button onclick="abrirModalFrita()">FRITA</button>
-      <button onclick="abrirModalPlancha()">A LA PLANCHA</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal FRITA -->
-<div id="modalFrita" class="modal-proteina" style="display:none;">
-  <div class="contenido-proteina">
-    <h2 class="titulo-proteina">¿Con qué acompañamiento?</h2>
-    <div class="opciones-proteina">
-      <button onclick="addToCart('CHULETA FRITA CON ARROZ'); cerrarModalFrita()">Con Arroz</button>
-      <button onclick="addToCart('CHULETA FRITA CON PAPAS'); cerrarModalFrita()">Con Papas</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal A LA PLANCHA -->
-<div id="modalPlancha" class="modal-proteina" style="display:none;">
-  <div class="contenido-proteina">
-    <h2 class="titulo-proteina">¿Con qué acompañamiento?</h2>
-    <div class="opciones-proteina">
-      <button onclick="addToCart('CHULETA A LA PLANCHA CON PAPAS'); cerrarModalPlancha()">Con Papas</button>
-      <button onclick="addToCart('CHULETA A LA PLANCHA CON ARROZ'); cerrarModalPlancha()">Con Arroz</button>
-    </div>
-  </div>
-</div>
-
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/Mxk98My3/P1170105.jpg" alt="CHORRILLANA">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CHORRILLANA</h3>
+            <p class="product-description">Generosa combinación de papas fritas cubiertas con tiras de carne salteada, cebolla dorada y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHORRILLANA');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
 <!-- Scripts para abrir/cerrar modales -->
 <script>
   function abrirModalProteina3() {
@@ -1532,260 +1852,6 @@ function cerrarModalProteina1() {
 
   </div>
 
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>PESCADO FRITO</h3>
-    <p class="descripcion-product">Filete crujiente con ensalada y acompañamiento.</p>
-    <p class="price">$6.000</p>
-    <button onclick="addToCart('PESCADO FRITO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>CEVICHE CLÁSICO</h3>
-    <p class="descripcion-product">Reineta marinado en limón con cebolla morada, cilantro y choclo (cancha).</p>
-    <p class="price">$8.000</p>
-    <button onclick="addToCart('CEVICHE CLÁSICO')">AGREGAR</button>
-</div>
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>SUSHI ROLLS VARIADOS</h3>
-    <p class="descripcion-product">Roll con pollo, camarón o kanikama, acompañado de salsa de soya y wasabi.</p>
-    <p class="price">CONSULTAR</p>
-    <button onclick="addToCart('SUSHI ROLLS VARIADOS')">AGREGAR</button>
-</div>
-
-<h1>HAMBURGUESAS ÑAÑO</h1>
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>CLÁSICA ÑAÑO</h3>
-    <p class="descripcion-product">Pan frica, hamburguesa casera, lechuga, tomate y mayonesa. La de toda la vida, sin enrgb(172, 0, 0)os pero con puro sabor.</p>
-    <p class="price">$3.500</p>
-    <button onclick="addToCart('CLÁSICA ÑAÑO')">AGREGAR</button>
-</div>
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>DOBLE QUESO ÑAÑO</h3>
-    <p class="descripcion-product">Dos hamburguesas, doble queso fundido, tomate y mayonesa. Para los que vienen con hambre y sin miedo.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('DOBLE QUESO ÑAÑO')">AGREGAR</button>
-</div>
-
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>VENEZOLANA ÑAÑO</h3>
-    <p class="descripcion-product">Hamburguesa con queso, papas hilo, salsas mixtas, tomate y lechuga. Una fiesta de texturas y sabor en cada mordida.</p>
-    <p class="price">$4.000</p>
-    <button onclick="addToCart('VENEZOLANA ÑAÑO')">AGREGAR</button>
-</div>
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>CHACARERA ÑAÑO</h3>
-    <p class="descripcion-product">Hamburguesa con porotos verdes, tomate, ají verde y mayo. Bien chilena, con su toque verde y picantito.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('CHACARERA ÑAÑO')">AGREGAR</button>
-</div>
-
-
-
-<div class="product">
-  
-    <h3>BBQ BACON ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Hamburguesa, queso cheddar, tocino crujiente y salsa BBQ. Ahumada y poderosa. El sabor americano, a lo Ñaño.</p>
-    <p class="price">$4.800</p>
-    <button onclick="addToCart('BBQ BACON ÑAÑO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETA ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Hamburguesa, palta, tomate, chucrut, mayo casera y mostaza. Una mezcla chilena con toda la fuerza del completo, pero burguer.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('COMPLETA ÑAÑO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>PICANTITA ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Hamburguesa con jalapeños, queso, tomate y mayonesa de ají. Para los valientes que les gusta sudar con gusto.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('PICANTITA ÑAÑO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>HUEVONA ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Hamburguesa, huevo frito, jamón, queso y mayo. Una bomba de sabor que no falla. Ideal para los de buen diente.</p>
-    <p class="price">$4.800</p>
-    <button onclick="addToCart('HUEVONA ÑAÑO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO ITALIANO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, palta fresca, tomate y mayo casera. Verde, rojo y blanco. Como la bandera, pero más rico.</p>
-    <p class="price">$3.000</p>
-    <button onclick="addToCart('COMPLETO ITALIANO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO CLÁSICO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, tomate picado y mayo casera. El básico que nunca falla.</p>
-    <p class="price">$2.500</p>
-    <button onclick="addToCart('COMPLETO CLÁSICO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CLOMPLETO CHACARERO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, porotos verdes, tomate, ají verde y mayo. Bien chileno y con carácter.</p>
-    <p class="price">$3.500</p>
-    <button onclick="addToCart('CLOMPLETO CHACARERO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO VENEZOLANO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, papas hilo, queso rallado, salsas mixtas. Una mezcla sabrosa con texturas que crujen.</p>
-    <p class="price">$3.000</p>
-    <button onclick="addToCart('COMPLETO VENEZOLANO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO DINÁMICO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, chucrut, tomate, palta, mayo, salsa verde y mostaza. Para el que quiere todo sin dejar nada.</p>
-    <p class="price">$3.500</p>
-    <button onclick="addToCart('COMPLETO DINÁMICO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO AS (CARNE ASADA)</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pan frica, carne asada en vez de vienesa, palta, tomate y mayo. Un lujo callejero. Carne de verdad.</p>
-    <p class="price">$4.000</p>
-    <button onclick="addToCart('COMPLETO AS (CARNE ASADA)')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO QUESO FUNDIDO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, tomate, queso derretido y mayonesa. El toque cremoso que no sabías que necesitabas.</p>
-    <p class="price">$3.500</p>
-    <button onclick="addToCart('COMPLETO QUESO FUNDIDO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>COMPLETO PICANTE ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Vienesa, tomate, ají verde picado, mayo de merkén. Para los que no le temen al fuego.</p>
-    <p class="price">$3.500</p>
-    <button onclick="addToCart('COMPLETO PICANTE ÑAÑO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO CLÁSICO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Carne a la plancha en pan frica con mayonesa. Simple, directo y sabroso. No necesita más.</p>
-    <p class="price">$4.000</p>
-    <button onclick="addToCart('CHURRASCO CLÁSICO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO ITALIANO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Palta, tomate y mayo sobre carne jugosa. El favorito de siempre, pero con carne.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('CHURRASCO ITALIANO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO DINÁMICO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Chucrut, tomate, palta, ají verde, mayonesa y mostaza. El combo completo en un solo pan.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('CHURRASCO DINÁMICO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO LUCO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Churrasco con queso derretido. Sabor tradicional chileno con extra cremosidad.</p>
-    <p class="price">$4.500</p>
-    <button onclick="addToCart('CHURRASCO LUCO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO CHACARERO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Carne, tomate, ají verde, porotos verdes y mayo. Sabroso y con personalidad. Bien chileno.</p>
-    <p class="price">$5.000</p>
-    <button onclick="addToCart('CHURRASCO CHACARERO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO BACON-QUESO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Carne, tocino crujiente, queso cheddar y mayonesa. Para los que quieren más sabor en cada mordida.</p>
-    <p class="price">$5.200</p>
-    <button onclick="addToCart('CHURRASCO BACON-QUESO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO HUEVO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Churrasco con huevo frito, tomate y mayo. Potente y salvador. Ideal para reponerse.</p>
-    <p class="price">$5.000</p>
-    <button onclick="addToCart('CHURRASCO HUEVO')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CHURRASCO ESPECIAL ÑAÑO</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Carne, queso fundido, palta, ají verde, tomate, mayo casera. El top de la casa. Si vas con hambre, este es.</p>
-    <p class="price">$5.500</p>
-    <button onclick="addToCart('CHURRASCO ESPECIAL ÑAÑO')">AGREGAR</button>
-</div>
-
-  <h2 class="titulo-empanada">EMPANADA CHILENA</h2>
-<div class="product">
-    <img class="product-img" src="" alt="">
-    <h3>EMPANADA CHILENA</h3>
-    <p class="descripcion-product">Rellena de pino tradicional con carne, cebolla, huevo y aceituna.</p>
-    <p class="price">$2.500</p>
-    <button onclick="addToCart('EMPANADA CHILENA')">Agregar</button>
-</div>
 <style>
   .titulo-empanada {
   font-size: 3em;
@@ -1802,50 +1868,6 @@ function cerrarModalProteina1() {
 }
 
 </style>
-<div class="product">
-    
-    <h3>PAN CON PALTA Y CAFÉ</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pan tostado con palta fresca y café de máquina.</p>
-    <p class="price">$2.500</p>
-    <button onclick="addToCart('PAN CON PALTA Y CAFÉ')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>PAN CON QUESO + TÉ O CAFÉ</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pan calentito con queso fundido y bebida caliente a elección.</p>
-    <p class="price">$2.500</p>
-    <button onclick="addToCart('PAN CON QUESO + TÉ O CAFÉ')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>SÁNDWICH AL DESAYUNO (JAMÓN/QUESO)</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pan frica, jamón y queso derretido. Ideal para comenzar el día con energía.</p>
-    <p class="price">$2.800</p>
-    <button onclick="addToCart('SÁNDWICH AL DESAYUNO (JAMÓN/QUESO)')">AGREGAR</button>
-</div>
-
-<div class="product">
-    
-    <h3>CAFÉ DE MÁQUINA</h3>
-        <img class="product-img" src="" alt="">
-    <p class="descripcion-product">Pan frica, jamón y queso derretido. Ideal para comenzar el día con energía.</p>
-    <p class="price">$1.500</p>
-    <button onclick="addToCart('CAFÉ DE MÁQUINA')">AGREGAR</button>
-</div>
-
-
-<div class="product">
-    <img src="" alt="Imagen del producto" class="product-img">
-    <h3>TÉ</h3>
-    <p class="descripcion-product">Té calientito.</p>
-    <p class="price">$1.000</p>
-    <button onclick="addToCart('TÉ')">AGREGAR</button>
-</div>
 
   </section>
   <style>
@@ -1904,9 +1926,9 @@ function cerrarModalProteina1() {
   </script>
  <div id="cartModal" class="modal">
   <div style="padding-right: 170px !important; max-width: 160px !important;" class="modal-content">
-    <span class="close-btn" onclick="closeCart()">×</span>
+    <span class="close-btn" style="color: #fff; background-color: green;" id="volver-button" onclick="closeCart()">Volver</span>
  <img  style="width: 90px; margin-top: -20px; position: fixed; margin-left: -40px;" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
-    <h2 style=" margin-left: 200px;">Tu Pedido</h2>
+  <br><br> <br> <h2 style=" margin-left: 200px;">Tu Pedido</h2>
 
     <ul style="margin-left: 50%; max-width: 500px; position: absolute; max-height: 400px !important; border-bottom: 2px solid rgb(172, 0, 0); border-right: 2px solid rgb(172, 0, 0);" id="cartItems" class="cart-list"></ul>
 
@@ -1951,6 +1973,10 @@ function cerrarModalProteina1() {
   </div>
 </div>
 <style>
+#volver-button {
+animation: latidogrande 2.5s infinite ease-in-out; 
+}
+   
 .total-row {
   display: flex;
   align-items: center;
@@ -2020,12 +2046,7 @@ function cerrarModalProteina1() {
     color: #e74c3c;
   }
 
-  h2 {
-    margin-top: 0;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-  }
+
 
   .cart-list {
     list-style: none;
@@ -2122,7 +2143,7 @@ function cerrarModalProteina1() {
   h2 {
     margin-top: 0;
     font-size: 24px;
-    color: #333;
+    color: #fff;
     text-align: center;
   }
 
@@ -2307,6 +2328,8 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
+      animation: latidogrande 2.5s infinite ease-in-out;
+    
 }
 
 #carritoBoton img {
@@ -2315,6 +2338,8 @@ header {
     border: 2px solid #fff;
     width: 50px;
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      animation: latidoSuave 2.5s infinite ease-in-out;
+    
 }
 
 #contador {
@@ -2329,7 +2354,7 @@ header {
 /* Logo */
 #logo {
     position: fixed;
-    top: 20px;
+    top: 19px;
     left: 20px;
     height: 60px !important;
 }
@@ -2440,25 +2465,47 @@ header {
       document.getElementById('cartModal').style.display = 'none';
     }
 
-    function sendOrder() {
-      const name = document.getElementById('clientName').value;
-      const payment = document.getElementById('paymentMethod').value;
-      if (!name || !payment || Object.keys(cart).length === 0) {
-        alert('Completa todos los campos y agrega productos.');
-        return;
-      }
 
-      let orderText = '';
-      for (const item in cart) {
-        orderText += `${cart[item]}\n ${item}`;
-      }
-      
-      const message = `${resultado} Hola, soy ${name}. Quiero pedir:\n${orderText}Forma de pago: ${payment}`;
-      const encodedMessage = encodeURIComponent(message);
-      window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
+  function sendOrder() {
+    const name = document.getElementById('clientName').value;
+    const payment = document.getElementById('paymentMethod').value;
+
+    if (!name || !payment || Object.keys(cart).length === 0) {
+      alert('Completa todos los campos y agrega productos.');
+      return;
     }
-  </script>
-  <style>
+
+    // Construir el texto del pedido
+    let orderText = '';
+    for (const item in cart) {
+      orderText += `${cart[item]} ${item}\n`;
+    }
+
+    // Dirección o tipo de pedido
+    const direccion = document.getElementById("direccionInput").value;
+
+    // Mensaje final con saltos de línea (\n)
+    const message = `Hola, soy ${name}. Quiero pedir:
+${orderText}
+Forma de pago: ${payment}
+*MESA*
+${resultado}
+
+${direccion}`;
+
+    // Codificar para URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Abrir WhatsApp
+    window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
+  }
+
+  // Función para marcar "PARA LLEVAR"
+  function marcarParaLlevar() {
+    document.getElementById("direccionInput").value = "PARA LLEVAR";
+  }
+</script>
+ <style>
 .open-cart-btn {
   background-color: white;
   color: rgb(172, 0, 0);
@@ -2780,6 +2827,7 @@ function updateCart() {
   }
 
   function sendOrder() {
+      const  puerto = document.getElementById('direccionInput').value;
   const name = document.getElementById('clientName').value;
   const resultado = document.getElementById('resultado').value;
   const payment = document.getElementById('paymentMethod').value;
@@ -2799,7 +2847,7 @@ function updateCart() {
   }
 
   // Incluye detalles adicionales si existen
-  const message = `${resultado} Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment}`;
+  const message = ` Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment} ${puerto} `;
   const encodedMessage = encodeURIComponent(message);
   window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
 }
