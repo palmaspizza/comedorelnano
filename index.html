@@ -986,7 +986,17 @@ button {
 
 
 
-
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const valor = localStorage.getItem("direccionInputValue");
+  const input = document.getElementById("direccionInput");
+  if (valor && input) {
+    input.value = valor;
+    // Opcional: limpiar el dato para que no se quede guardado
+    // localStorage.removeItem("direccionInputValue");
+  }
+});
+</script>
 <!-- Ventana de dirección -->
 <div class="ventana-direccion" id="ventanaDireccion">
   <h3>Ingresa tu dirección</h3>
