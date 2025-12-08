@@ -1,0 +1,3025 @@
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comedor | El Ñaño</title>
+      <link rel="icon" href="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" type="image/x-icon">
+<meta property="og:title" content="COMEDOR | El Ñaño">
+<meta property="og:description" content="Pedir">
+<meta property="og:image" content="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png">
+<meta property="og:type" content="website">
+
+  <style>
+      #cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: white;
+  color: var(--rojo);
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 4px 8px;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+  }
+
+  .open-cart-btn:active #cart-count {
+  transform: scale(1.2);
+  }
+  .open-cart-btn {
+  bottom: 20px;
+  right: 20px;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 1em;
+  border-radius: 20% !important;
+  cursor: pointer;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+
+  .open-cart-btn:hover {
+  transform: scale(1.1);
+  background-color: #b71c1c;
+  }
+  :root {
+  --rojo: #c62828;
+  --rojo-oscuro: #b71c1c;
+  --gris-claro: #f5f5f5;
+  --negro: #212121;
+  --fuente: 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  body {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+
+  .product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1em;
+  transition: transform 0.3s ease;
+  }
+  .product-img:hover {
+  transform: scale(1.03);
+  }
+
+  .products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2em;
+  gap: 1.5em;
+  }
+
+  .product {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5em;
+  width: 260px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  }
+  .product:hover {
+  transform: translateY(-5px);
+  }
+
+  .product button {
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .product button:active {
+  transform: scale(0.95);
+  }
+  .product button:hover {
+  background-color: var(--rojo-oscuro);
+  }
+
+  .open-cart-btn {
+  bottom: 20px;
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  .open-cart-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--rojo-oscuro);
+  }
+  .open-cart-btn:active {
+  transform: scale(0.95);
+  }
+
+  /* Modal styles */
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+  }
+
+  .modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 2em;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  animation: slideUp 0.4s ease forwards;
+  }
+  @keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-content h2 {
+  margin-top: 0;
+  color: var(--rojo);
+  }
+
+  .modal-content input, .modal-content select {
+  width: 100%;
+  margin: 0.5em 0;
+  padding: 0.7em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  }
+
+  .modal-content button {
+  background-color: var(--rojo);
+  color: white;
+  border: none;
+  padding: 0.8em;
+  width: 100%;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .modal-content button:hover {
+  background-color: var(--rojo-oscuro);
+  }
+  .modal-content button:active {
+  transform: scale(0.97);
+  }
+
+  .close-btn {
+  float: right;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+  }
+  .close-btn:hover {
+  color: var(--rojo);
+  }
+
+  #animacion-contador {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: bold;
+  color: var(--rojo);
+  opacity: 0;
+  z-index: 10000;
+  pointer-events: none;
+  }
+
+  .animacion-activa {
+  animation: animacion-plus-one 1s ease-out;
+  }
+
+  @keyframes animacion-plus-one {
+  0% {
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  }
+  20% {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+  }
+  50% {
+  transform: translate(-50%, -50%) scale(1.2);
+  opacity: 1;
+  }
+  100% {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
+  }
+  }
+      body {
+        margin: 0;
+      font-family: Georgia, 'Times New Roman', Times, serif !important;
+
+        background: linear-gradient(to bottom, rgb(172, 0, 0), rgb(83, 0, 0)) !important;
+        color: #212121;
+      }
+
+      header img {
+        max-height: 80px;
+      }
+      .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 1em;
+      }
+      .product {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 1em;
+        padding: 1em;
+        width: 250px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .product button {
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .open-cart-btn {
+        bottom: 20px;
+        background-color: #212121;
+        color: white;
+        border: none;
+        padding: 0.7em 1.2em;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      }
+      .modal-content h2 {
+        margin-top: 0;
+        color: #d32f2f;
+      }
+      .modal-content input, .modal-content select {
+        width: 100%;
+        margin: 0.5em 0;
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .modal-content button {
+        background-color: #d32f2f;
+        color: white;
+        border: none;
+        padding: 0.7em;
+        width: 100%;
+        border-radius: 4px;
+        margin-top: 1em;
+      }
+      .close-btn {
+        float: right;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #888;
+      }
+    </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  <script>
+    function buscarProducto() {
+      const input = document.getElementById('buscador').value.toLowerCase();
+      const productos = document.querySelectorAll('.producto');
+
+      productos.forEach(prod => {
+        const texto = prod.textContent;
+        const textoLower = texto.toLowerCase();
+
+        if (input && textoLower.includes(input)) {
+          const inicio = textoLower.indexOf(input);
+          const fin = inicio + input.length;
+          const reSALTEADO = texto.substring(inicio, fin);
+          const nuevoHTML = texto.substring(0, inicio) +
+                            `<span class="reSALTEADO">${reSALTEADO}</span>` +
+                            texto.substring(fin);
+          prod.innerHTML = nuevoHTML;
+        } else {
+          prod.innerHTML = texto;
+        }
+      });
+    }
+  </script>
+  
+    <style>
+      html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+}
+
+ header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #ff0000, #660000);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+        }
+    
+        /* Contenedor principal */
+        #header-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Buscador compacto */
+        #buscador-container {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        
+        #buscador {
+            width: 100%;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Botones de categoría compactos */
+        #categorias {
+            display: flex;
+            gap: 8px;
+        }
+        
+        #categorias button {
+            border: none;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        #categorias button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Efecto activo */
+        #categorias button.active {
+            background-color: white;
+            color: #ff5e00;
+        }
+        
+       
+            
+            #header-content {
+                flex-direction: column;
+            }
+            
+            #logo {
+                margin-bottom: 8px;
+            }
+            
+            #buscador-container {
+                margin: 8px 0;
+                width: 100%;
+            }
+            
+            #categorias {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-top: 89px !important;
+
+            }
+            
+            body {
+                padding-top: 140px; /* Más espacio para header apilado */
+            }
+        
+
+
+
+
+        #header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px; /* Reducir el padding */
+}
+
+#logo {
+    border-radius: 50%;
+
+    
+    margin-top: -10px;
+    z-index: 998;
+    
+}
+
+#buscador-container {
+    flex-grow: 1;
+    margin: 0 10px; /* Menor margen alrededor del buscador */
+}
+
+#categorias button {
+    padding: 1px; /* Reducir tamaño de los botones */
+    font-size: 15px;   /* Disminuir el tamaño del texto */
+    margin-right: 40px !important;
+}
+
+#carritoBoton {
+    margin-top: 0; /* Eliminar márgenes innecesarios */
+}
+
+
+
+
+    .producto {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .reSALTEADO {
+      background-color: rgb(172, 0, 0);
+      color: white;
+      font-weight: bold;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+     #carritoBoton {
+              top: 5px !important;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            border: 2px solid white !important;
+            height: 60px;
+        }
+        #carritoBoton img {
+            width: 40px !important;
+        }
+  </style>
+<style>
+  #carritoBoton {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.6em 1em;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #d32f2f, #800020); /* rojo a rojo vino */
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 4px 0px 1px #ffffff88;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 150px;
+  }
+
+  #carritoBoton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+  }
+
+  #carritoBoton img {
+    width: 40px;
+    height: auto;
+    border-radius: 6px;
+    border: 2px solid #000;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px;
+  }
+
+  #contador {
+    background-color: white;
+    color: #800020;
+    font-weight: bold;
+    padding: 0.2em 0.6em;
+    border-radius: 50%;
+    font-size: 0.9em;
+  }
+
+
+</style>
+
+<header style="height: 80px !important; positiON: fixed;">
+    <div id="header-top" style="height: 0px;">
+        <button style="z-index: 40000000 !important;" id="carritoBoton" onclick="openCart();cerrarOverlayGlobal()">
+            <span></span>
+            <img style="border-radius: 30%;  background-color: rgb(172, 0, 0); border: black solid 2px; width: 60px; padding-right: 5px;" src="https://png.pngtree.com/element_our/20200702/ourlarge/pngtree-red-kawaii-shopping-cart-icon-free-download-image_2291261.jpg" alt="Carrito">
+            <span id="contador">0</span>
+        </button>
+    </div>
+    
+    <style>
+        #buscador::placeholder {
+            color: white; /* Cambia "green" por el color deseado */
+        }
+        #categoriasCarrusel {
+          margin-top: -20px !important;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            position: a; /* Posiciona el carrusel */
+            bottom: 0; /* Lo coloca abajo del header */
+            width: 100%; /* Ocupa todo el ancho disponible */
+            background: linear-gradient(135deg, #ff0000, #7a0000); /* Fondo opcional */
+            z-index: 10; /* Asegura que esté encima de otros elementos si es necesario */
+        }
+        .categoria {
+            display: inline-block;
+            text-align: center;
+            padding: 10px;
+            background-color: rgb(172, 0, 0);
+            border-radius: 5px;
+            font-size: 14px;
+            border: 3px solid #fff;
+            color: #fff;
+        }
+    </style>
+    
+
+
+    
+    <script>
+        function controlarElementos() {
+            const input = document.getElementById('buscador');
+            const elementos = document.querySelectorAll('.elementor');
+            
+            if (input.value.trim() === '') {
+                // Si el valor está vacío, mostrar todos los elementos
+                elementos.forEach(elemento => {
+                    elemento.style.display = 'block';
+                });
+            } else {
+                // Si hay un valor, ocultar todos los elementos
+                elementos.forEach(elemento => {
+                    elemento.style.display = 'none';
+                });
+            }
+        }
+    </script>
+    <nav style="position: absolute; margin-top: 90px;" id="categorias">
+     <div style="background-color: red; " id="header-bottom" >
+        
+        </div><!-- Ventana global -->
+<div  id="overlayGlobal" style="z-index: 3000 " class="overlay-global">
+  <div class="panel-global">
+    
+    <p style="color: rgb(172, 73, 73);">Revisa el carrito para ver tu pedido.</p>
+ </div>
+
+
+</div>
+
+           <img  style="box-shadow: 0px 0px 30px 5px #000; position: fixed; " id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
+        <span style="position: absolute; margin-top: 160px !important; margin-left: -90px; z-index: 34534534534534534539; font-size: 170%; color: #fff; margin-top: -85px !important;">Mesa</span>
+<center>
+        <input  type="text" name="" style="font-size: 220%; background-color: #ffffff00; color: #fff; border: 0px solid #000; position: fixed;  width: 40px !important; margin-left: -65px; z-index: 34534534534534534539; margin-top: -75px;" readonly  id="resultado"> <style>
+              #buscador-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+        }
+        
+
+           #buscador-container {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        
+        #buscador {
+            width: 100%;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+           #buscador::placeholder {
+            color: white; /* Cambia "green" por el color deseado */
+        }
+        </style>
+<script>
+      document.getElementById("buscadorGlobal").addEventListener("input", () => {
+    // Convertir el valor del input a minúsculas y eliminar espacios en blanco
+    const filtro = document.getElementById("buscadorGlobal").value.trim().toLowerCase();
+    const contenedor = document.getElementById("reservas-lista");
+
+    if (!contenedor) return;
+
+    // Primero, eliminar cualquier reSALTEADO de una búsqueda anterior
+    contenedor.querySelectorAll(".reSALTEADO").forEach(span => {
+        const parent = span.parentNode;
+        if (parent) {
+            parent.replaceChild(document.createTextNode(span.textContent), span);
+            parent.normalize();
+        }
+    });
+
+    if (filtro === "") return;
+
+    const elementos = contenedor.querySelectorAll("*");
+    let primeraCoincidencia = null;
+
+    elementos.forEach(el => {
+        el.childNodes.forEach(node => {
+            // Verificar si el nodo es de texto y si su contenido (en minúsculas) incluye el filtro
+            if (node.nodeType === 3 && node.textContent.toLowerCase().includes(filtro)) {
+                // Usar una expresión regular para dividir el texto sin importar mayúsculas
+                const partes = node.textContent.split(new RegExp(filtro, "i"));
+                const fragmento = document.createDocumentFragment();
+
+                partes.forEach((parte, i) => {
+                    fragmento.appendChild(document.createTextNode(parte));
+                    if (i < partes.length - 1) {
+                        const span = document.createElement("span");
+                        span.className = "reSALTEADO";
+                        // Mantener el texto original del filtro en el reSALTEADO
+                        span.textContent = node.textContent.substring(
+                            node.textContent.toLowerCase().indexOf(filtro),
+                            node.textContent.toLowerCase().indexOf(filtro) + filtro.length
+                        );
+                        fragmento.appendChild(span);
+                    }
+                });
+                
+                // Reemplazar el nodo de texto original con el fragmento que contiene el reSALTEADO
+                el.replaceChild(fragmento, node);
+                if (!primeraCoincidencia) primeraCoincidencia = el;
+            }
+        });
+    });
+
+    // Si se encuentra una coincidencia, desplazarse a ella
+    if (primeraCoincidencia) {
+        setTimeout(() => {
+            primeraCoincidencia.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }, 50);
+    }
+});
+
+setTimeout(() => {
+    const primeraCoincidencia = document.querySelector(".reSALTEADO");
+    if (primeraCoincidencia) {
+        primeraCoincidencia.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}, 100);
+</script>
+        <div d id="categoriasCarrusel" style="width: 100%;">
+
+            <div class="categoria"onclick="scrollToSection('PLATOSPRINCIPALES')">🍽️PLATOS PRINCIPALES</div>
+              <div class="categoria" onclick="scrollToSection('CHURRASCOS')">CHURRASCOS🍔</div>
+            <div class="categoria" onclick="scrollToSection('BEBIDAS')">🍾BEBIDAS</div>
+               <div class="categoria" onclick="scrollToSection('COMPLETOS')">🌭COMPLETOS</div>
+  </div>
+    </nav>
+</header>
+<script>
+    // Scroll suave a secciones
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Actualizar botón activo
+            document.querySelectorAll('#categorias button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+</script>
+<br><br><br>
+
+  <div></div>
+  <script>
+    // CAMBIAR PRECIOS
+const precios = {
+      'ENSALADA (ENTRADA)': 0,
+      'LOMO SALTEADO DE CARNE': 6000,
+      'LOMO SALTEADO DE POLLO': 6000,
+      'TALLARINES SALTEADOS DE CARNE': 6000,
+      'TALLARINES SALTEADOS DE POLLO': 6000,
+      'ARROZ CHAUFA DE CARNE': 6000,
+      'ARROZ CHAUFA DE POLLO': 6000,
+      'COSTILLAR AL HORNO': 6000,
+      'POLLO BROSTER': 6000,
+      'COMBINADO': 6000,
+      'POLLO A LA PLANCHA': 6000,
+      'PESCADO FRITO': 6000,
+      'CARNE AL JUGO': 6000,
+      'BISTEC CON ARROZ Y PAPAS': 6000,
+      'TALLARINES VERDES': 6000,
+      'CHORRILLANA': 6000,
+      'COMPLETO ITALIANO': 6000,
+      'CHURRASCO ITALIANO': 6000,
+      'BISTEC CON ARROZ Y PAPAS': 6000,
+  };
+  </script>
+  <style>
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: white;
+  border: 2px solid #ff1c1c;
+  color: #000;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content button {
+  background-color: #ff1c1c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button {
+  font-size: 120%;
+}
+.category-title {
+  color: #fff;
+  font-size: 255% !important;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 9px 1px rgba(0, 0, 0, 0.4);
+  margin: 1em 0;
+ 
+
+}
+@keyframes latidoSuave {
+  0%, 100% {
+    transform: scale(1);
+  
+}
+  
+  50% {
+    transform: scale(1.05);
+
+
+  }
+}
+
+
+@keyframes latidogrande {
+  0%, 100% {
+    transform: scale(0.8);
+  
+}
+  
+  50% {
+    transform: scale(1);
+
+
+  }
+}
+
+
+
+
+@keyframes latidonogrande {
+  0%, 100% {
+    transform: scale(1);
+  
+}
+  
+  50% {
+    transform: scale(0.9);
+
+  }
+}
+
+ .categoria-titulo {
+    color: #fff;
+ font-family: Georgia, serif !important;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    margin: 1em 0;
+    animation: latido 2.5s infinite ease-in-out;
+  }
+  </style>
+  <script>
+    
+  </script>
+  <br><br><br><br><br><br><br>
+  <style>
+    body {
+       font-family: Georgia, serif !important;
+    }
+    .ventana-emergente, .ventana-direccion {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 2px solid #ccc;
+      padding: 20px;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+    .fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      display: none;
+    }
+    .opcion {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .opcion:hover {
+      background: #f0f0f0;
+    }
+    .opcion img {
+      width: 40px;
+      margin-right: 10px;
+    }
+    #direccionInput {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<style>
+  .overlay-global {
+    position: fixed;
+    inset: 0;
+    background: rgba(50, 50, 50, 0.7); /* oscuro translúcido, no negro */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000 !important; /* valor por defecto, puedes cambiarlo */
+  }
+
+  .panel-global {
+    background: #fff;
+    color: #222;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .close-btn {
+    margin-top: 15px;
+    background: #b30000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  .close-btn:hover { background: #e60000; }
+</style>
+
+<script>
+  function abrirOverlayGlobal(){
+    const overlay = document.getElementById('overlayGlobal');
+    overlay.style.display = 'flex';
+    overlay.style.zIndex = zIndex; // permite cambiar el z-index dinámicamente
+  }
+
+  function cerrarOverlayGlobal(){
+    document.getElementById('overlayGlobal').style.display = 'none';
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const valor = localStorage.getItem("resultadoValue");
+    const input = document.getElementById("resultado");
+    if (valor && input) {
+      input.value = valor;
+      // Opcional: limpiar para que no quede guardado
+      localStorage.removeItem("resultadoValue");
+    }
+  });
+</script>
+
+
+ <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const valor = localStorage.getItem("direccionInputValue");
+      const input = document.getElementById("direccionInput");
+      if (valor && input) {
+        input.value = valor;
+        // Opcional: limpiar el valor para que no quede guardado
+        localStorage.removeItem("direccionInputValue");
+      }
+    });
+  </script>
+
+<!-- Ventana de dirección -->
+<div class="ventana-direccion" id="ventanaDireccion">
+  <h3>Ingresa tu dirección</h3>
+  <input type="text" id="direccionInput" placeholder="Ej: Av. Providencia 1234">
+  <button onclick="continuarPedido()">Continuar</button>
+</div>
+<style>
+
+ 
+
+    .fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+      display: none;
+    }
+
+    .ventana-emergente, .ventana-direccion {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 3px solid #8B0000; /* rojo vino */
+      padding: 25px;
+      z-index: 1000;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      display: none;
+      width: 300px;
+    }
+
+    h2, h3 {
+      color: #D00000; /* rojo fuerte */
+      margin-top: 0;
+      text-align: center;
+    }
+    h3 span{
+
+        animation: latidoSuave 2.5s infinite ease-in-out;
+
+    }
+
+    .opcion {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: #f9f9f9;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+           background-color: #fff;
+      border-color: #D00000;
+    }
+
+    .opcion:hover {
+      background-color: #ffe5e5;
+      border-color: #D00000;
+    }
+
+    .opcion img {
+      width: 40px;
+      height: 40px;
+      margin-right: 12px;
+    }
+
+    #direccionInput {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #D00000;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #8B0000;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #8B0000;
+    }
+  </style>
+
+<script>
+  // Mostrar la ventana principal al cargar
+  window.onload = function() {
+    document.getElementById("selectorPedido").style.display = "block";
+    document.getElementById("fondo").style.display = "block";
+  };
+
+  function cerrarVentana() {
+    document.getElementById("selectorPedido").style.display = "none";
+    document.getElementById("fondo").style.display = "none";
+  }
+
+  function abrirDireccion() {
+    document.getElementById("selectorPedido").style.display = "none";
+    document.getElementById("ventanaDireccion").style.display = "block";
+  }
+
+  function continuarPedido() {
+
+    if (direccion.trim() !== "") {
+      document.getElementById("ventanaDireccion").style.display = "none";
+      document.getElementById("fondo").style.display = "none";
+    } else {
+      alert("Por favor ingresa una dirección.");
+    }
+  }
+</script>
+
+  <style>
+        body {
+            font-family:  Georgia, 'Times New Roman', Times, serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Contenedor principal para la lista de productos */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente fila */
+            gap: 20px; /* Espacio entre las tarjetas de producto */
+            justify-content: center; /* Centra las tarjetas en la página */
+        }
+
+        /* Estilos de la tarjeta de producto */
+        .product-card {
+            display: flex;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0PX 5PX 22PX 5PX #000;
+            max-width: 380px;
+            width: 100%;
+            overflow: hidden;
+            flex-shrink: 0; /* Evita que la tarjeta se encoja más de lo necesario */
+        }
+        
+        /* Estilos para la sección de la imagen */
+        .product-image-section {
+            width: 45%;
+            background-color: rgb(172, 0, 0); /* Fondo rojo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid red;
+            border-right: 0px;
+        }
+        
+        .product-image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            padding: 10px;
+        }
+
+        /* Estilos para la sección de los detalles (texto) */
+        .product-details-section {
+            width: 55%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            position: relative;
+            
+            border: 2px solid red;
+            border-left: 0px solid;
+        }
+        
+        .product-details-section h3 {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 5px;
+            line-height: 1.2;
+        }
+        
+        .product-details-section .product-description {
+            font-size: 0.9em;
+            color: #666;
+            margin: 0 0 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .product-details-section .product-price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: rgb(153, 27, 27);
+            margin-top: auto;
+        }
+
+        /* Estilo del botón de agregar */
+        .add-to-cart-btn {
+            background-color: rgb(204, 0, 0);
+            box-shadow: 1px 1px 5px 2px #000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5em;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            animation: latidonogrande 2.5s infinite ease-in-out; 
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #a52a2a;
+        }
+    </style>
+    <!-- Ventana emergente -->
+<div id="overlayPanel" class="overlay-panel">
+  <div class="panel">
+        <h2>¿Cual es tu número de Mesa?</h2>
+    <div class="grid" id="gridBotones"></div>
+
+  </div>
+</div>
+
+<style>
+  :root {
+    --rojo:#b30000;
+    --rojo-claro:#e60000;
+    --rojo-oscuro:#800000;
+    --blanco:#ffffff;
+    --sombra:rgba(0,0,0,0.6);
+  }
+
+  .overlay-panel {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+  }
+
+  .panel {
+    background:var(--rojo);
+    color:var(--blanco);
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 10px 25px var(--sombra);
+    width:300px;
+    text-align:center;
+  }
+
+  .panel h2 { margin-bottom:15px; }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+  }
+
+  .num-btn {
+    background:var(--blanco);
+    color:var(--rojo);
+    font-weight:bold;
+    border:none;
+    border-radius:8px;
+    padding:12px 0;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+    transition:.2s ease;
+  }
+  .num-btn:hover {
+    background:var(--rojo-claro);
+    color:var(--blanco);
+  }
+  .num-btn:active { transform:translateY(1px); }
+
+  .close-btn {
+    margin-top:15px;
+    background:var(--rojo-oscuro);
+    color:var(--blanco);
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+  }
+  .close-btn:hover { background:var(--rojo-claro); }
+</style>
+
+<script>
+
+  function abrirPanel(){
+    overlay.style.display='flex';
+  }
+  function cerrarPanel(){
+    overlay.style.display='none';
+  }
+
+  // Generar botones 1–10
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.className='num-btn';
+    b.textContent=i;
+    b.addEventListener('click',()=>{
+      // Aquí se asigna el valor al input externo
+      const input = document.getElementById('resultado'); // cambia "resultado" por el id de tu input
+      if(input) input.value=i;
+      cerrarPanel();
+    });
+    grid.appendChild(b);
+  }
+
+  // Exportar función para abrir desde tu código
+  window.abrirPanelNumeros = abrirPanel;
+</script>
+
+<style>
+  :root {
+    --rojo:#b30000;
+    --rojo-claro:#e60000;
+    --rojo-oscuro:#800000;
+    --blanco:#ffffff;
+    --sombra:rgba(0,0,0,0.6);
+  }
+
+  .overlay-panel {
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+  }
+
+  .panel {
+    background:var(--rojo);
+    color:var(--blanco);
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 10px 25px var(--sombra);
+    width:300px;
+    text-align:center;
+  }
+
+  .panel h2 { margin-bottom:15px; }
+
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+  }
+
+  .num-btn {
+    background:var(--blanco);
+    color:var(--rojo);
+    font-weight:bold;
+    border:none;
+    border-radius:8px;
+    padding:12px 0;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+    transition:.2s ease;
+  }
+  .num-btn:hover {
+    background:var(--rojo-claro);
+    color:var(--blanco);
+  }
+  .num-btn:active { transform:translateY(1px); }
+
+  .close-btn {
+    margin-top:15px;
+    background:var(--rojo-oscuro);
+    color:var(--blanco);
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    box-shadow:0 4px 10px var(--sombra);
+  }
+  .close-btn:hover { background:var(--rojo-claro); }
+</style>
+
+<script>
+  const overlay = document.getElementById('overlayPanel');
+  const grid = document.getElementById('gridBotones');
+
+  function abrirPanelNumeros(){
+    overlay.style.display='flex';
+  }
+  function cerrarPanel(){
+    overlay.style.display='none';
+  }
+
+  // Generar botones 1–10
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.className='num-btn';
+    b.textContent=i;
+    b.addEventListener('click',()=>{
+      const input = document.getElementById('resultado'); // cambia "resultado" por el id de tu input
+      if(input) input.value=i;
+      cerrarPanel();
+    });
+    grid.appendChild(b);
+  }
+</script>
+  <section class="products">
+
+</center>
+ 
+
+<style>
+@keyframes latidoSuave {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.h33 {
+  border: #ffffff00 solid 3px;
+  background-image: url('https://cdn.discordapp.com/attachments/1419445983842144290/1447090546224136294/00.jpg?ex=69365b97&is=69350a17&hm=75587bbd94c8a48a42399251d14726249380c385cc07db2cca5f1760dafc022e&');
+  background-size: cover;
+  background-position: center 25%; /* oculta el 25% superior */
+  color: white;
+  padding: 35px;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  
+}
+
+h3 span {
+  display: inline-block; /* necesario para que la animación funcione */
+  animation: latidoSuave 2.5s infinite ease-in-out;
+  width: 100%;
+}
+</style>
+
+<script>
+// Leer el parámetro "mesa" de la URL
+const params = new URLSearchParams(window.location.search);
+const mesa = params.get("mesa");
+
+// Insertar el valor en el input
+if (mesa) {
+  document.getElementById("resultado").value = mesa;
+}
+</script>
+<section id="PLATOSPRINCIPALES"></section>
+<br><br><br><br><br><h3  class="h33 category-title" style="width: 120% !important; margin: 0px !important;">
+  <span  style=" -webkit-text-stroke: 0.5px #000; font-family: impact;">PLATOS PRINCIPALES</span>
+</h3>
+
+<img style="position: relative; z-index: -1;" src="" width="100%" alt="">
+<img style="position: relative; z-index: -1;" src="" width="100%" alt="">
+
+  <div class="product-card">
+
+   <div class="product-image-section">
+            <img src="https://i.ibb.co/212KbPq5/P1170123.jpg" alt="ENSALADA (ENTRADA)">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ENSALADA (ENTRADA)</h3>
+            <p class="product-description">Una ensalada fresca que viene acompañado con TODOS los platos.</p>
+            <p class="product-price" style="color: rgb(0, 153, 0);">GRATIS</p>
+            <button class="add-to-cart-btn" style="background-color: rgb(255, 0, 0);"  onclick="addToCart('ENSALADA (ENTRADA)');">+</button>
+        </div>
+      </div>
+      </div> <br>
+      </div>   <div class="product-card">
+        
+<div class="product-image-section">
+            <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTEADO DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>LOMO SALTEADO DE CARNE</h3>
+            <p class="product-description">Tiras de carne salteadas con cebolla, tomate y un toque de soya.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+       <div class="product-card">
+  <div class="product-image-section">
+            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTEADO DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>LOMO SALTEADO DE POLLO</h3>
+            <p class="product-description">Tiras de pollo salteadas con cebolla, tomate y un toque de soya.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
+
+
+
+
+    <script>
+        function addToCart(productName) {
+            alert('Producto "' + productName + '" agregado al carrito.');
+            // Aquí puedes agregar la lógica para el carrito de compras, como enviar un mensaje por WhatsApp.
+        }
+    </script>
+
+
+<style>
+  #elspan{
+     animation: latidogrande 2.5s infinite ease-in-out;
+  }
+  .modal-proteina {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.contenido-proteina {
+  background-color: white;
+  border: 2px solid rgb(172, 0, 0);
+  color: rgb(172, 0, 0);
+  margin: 15% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 60%;
+}
+
+.titulo-proteina {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.opciones-proteina button {
+  background-color: white;
+  color: rgb(172, 0, 0);
+  border: 2px solid rgb(172, 0, 0);
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.opciones-proteina button.seleccionado {
+  background-color: rgb(172, 0, 0);
+  color: white;
+  border: 2px solid black;
+}
+
+</style>
+<script>
+  let proteinaElegida = '';
+
+function abrirVentanaProteina() {
+  document.getElementById('ventanaProteina').style.display = 'block';
+}
+
+function abrirVentanaProteina1() {
+  document.getElementById('ventanaProteina1').style.display = 'block';
+}
+
+function seleccionarProteina(tipo) {
+  proteinaElegida = tipo;
+
+  // Intercala estilos
+  document.getElementById('btnCarne').classList.remove('seleccionado');
+  document.getElementById('btnPollo').classList.remove('seleccionado');
+
+  if (tipo === 'Carne') {
+    document.getElementById('btnCarne').classList.add('seleccionado');
+  } else {
+    document.getElementById('btnPollo').classList.add('seleccionado');
+  }
+}
+
+
+let proteinaSeleccionada = '';
+
+function seleccionarProteina1(tipo) {
+  proteinaSeleccionada = tipo;
+
+  // Desactiva todos
+  document.getElementById('btnCarne').classList.remove('seleccionado');
+  document.getElementById('btnPollo').classList.remove('seleccionado');
+  document.getElementById('btnCamaron').classList.remove('seleccionado');
+
+  // Activa el seleccionado
+  if (tipo === 'Carne') {
+    document.getElementById('btnCarne').classList.add('seleccionado');
+  } else if (tipo === 'Pollo') {
+    document.getElementById('btnPollo').classList.add('seleccionado');
+  } else if (tipo === 'Camarón') {
+    document.getElementById('btnCamaron').classList.add('seleccionado');
+  }
+}
+
+function confirmarProteina() {
+  if (!proteinaSeleccionada) {
+    alert('Selecciona una proteína');
+    return;
+  }
+
+  addToCart(`Proteína: ${proteinaSeleccionada}`);
+  cerrarModalProteina();
+}
+
+function cerrarModalProteina() {
+  document.getElementById('modalProteina').style.display = 'none';
+}
+
+
+function confirmarProteina() {
+  if (!proteinaElegida) {
+    alert('Selecciona una opción');
+    return;
+  }
+
+  const input = document.getElementById('orderText');
+  input.value += `Proteína: ${proteinaElegida}\n`;
+
+  document.getElementById('ventanaProteina').style.display = 'none';
+}
+function cerrarModalProteina() {
+  document.getElementById('ventanaProteina').style.display = 'none';
+}
+
+function cerrarModalProteina1() {
+  document.getElementById('ventanaProteina1').style.display = 'none';
+}
+
+
+</script>
+   
+<script>
+  function addToCart(producto) {
+  window.productoSeleccionado = producto;
+  const modal = document.getElementById('opcionModal');
+  modal.style.display = 'block';
+}
+
+  function addToCart1(producto) {
+  window.productoSeleccionado = producto;
+}
+
+</script>
+
+  </div>
+  <style>
+    body{
+      font-weight: bold; /
+    }
+    .price{
+      color: rgb(172, 0, 0);
+    }
+  </style>
+  <div class="product-card">
+  <div class="product-image-section">
+            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTEADOS DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES SALTEADOS DE CARNE</h3>
+            <p class="product-description">Fideos salteados al wok.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+   
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTEADOS DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES SALTEADOS DE POLLO</h3>
+            <p class="product-description">Fideos salteados al wok.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
+    </div>
+
+
+<div class="product-card">
+<div class="product-image-section">
+            <img src="https://i.ibb.co/60vk0kbz/P1170122.jpg" alt="ARROZ CHAUFA DE CARNE">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ARROZ CHAUFA DE CARNE</h3>
+            <p class="product-description">Arroz frito al estilo oriental de carne, cebollín y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE CARNE');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/fVLZTppr/P1170104.jpg" alt="ARROZ CHAUFA DE POLLO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>ARROZ CHAUFA DE POLLO</h3>
+            <p class="product-description">Arroz frito al estilo oriental de pollo, cebollín y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/Wvd31Thd/P1170115.jpg" alt="COSTILLAR AL HORNO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COSTILLAR AL HORNO</h3>
+            <p class="product-description">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COSTILLAR AL HORNO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/Kc5TGjQn/P1170125.jpg" alt="POLLO BROSTER">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>POLLO BROSTER</h3>
+            <p class="product-description">Jugoso por dentro y crujiente por fuera, servido caliente y lleno de sabor.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO BROSTER');abrirOverlayGlobal();">+</button>
+        </div>
+      </div> </div>
+
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/DPw48wsH/P1170112.jpg" alt="COMBINADO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COMBINADO</h3>
+            <p class="product-description">Ceviche con papa a la huancaína y tallarines rojos.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COMBINADO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/8gy9CMN0/P1170116.jpg" alt="POLLO A LA PLANCHA">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>POLLO A LA PLANCHA</h3>
+            <p class="product-description">Pechuga de pollo suave y jugosa, cocinada a la plancha para resaltar su sabor natural.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO A LA PLANCHA');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/xqy2T28Q/P1170111.jpg" alt="PESCADO FRITO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>PESCADO FRITO</h3>
+            <p class="product-description">Filete crujiente con ensalada y acompañamiento.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('PESCADO FRITO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/YTXSB5RY/P1170110.jpg" alt="CARNE AL JUGO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CARNE AL JUGO</h3>
+            <p class="product-description">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div class="product-card"><div class="product-image-section">
+            <img src="https://i.ibb.co/Hf3p6QsX/P1170120.jpg" alt="BISTEC CON ARROZ Y PAPAS">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>BISTEC CON ARROZ Y PAPAS</h3>
+            <p class="product-description">Tierna carne de res sazonada y dorada a la perfección, servida con arroz blanco esponjoso y papas doradas.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+
+      </div>
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/DmY8XzT/P1170106.jpg" alt="TALLARINES VERDES">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>TALLARINES VERDES</h3>
+            <p class="product-description">Pasta al dente mezclada con una cremosa salsa de albahaca y espinaca, realzada con queso fresco y un toque de ajo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES VERDES');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+
+<div class="product-card">
+<div class="product-image-section">
+            <img src="https://i.ibb.co/dwHt9DTw/P1170103.jpg" alt="COMPLETO ITALIANO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>COMPLETO ITALIANO</h3>
+            <p class="product-description">Vianesa, palta fresca, tomate y mayo casera.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COMPLETO ITALIANO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+</div>
+
+<div class="product-card">
+    <div class="product-image-section">
+            <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="CHURRASCO ITALIANO">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CHURRASCO ITALIANO</h3>
+            <p class="product-description">Palta, tomate y mayo sobre carne jugosa.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHURRASCO ITALIANO');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+</div>
+
+      <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/Mxk98My3/P1170105.jpg" alt="CHORRILLANA">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CHORRILLANA</h3>
+            <p class="product-description">Generosa combinación de papas fritas cubiertas con tiras de carne salteada, cebolla dorada y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHORRILLANA');abrirOverlayGlobal();">+</button>
+        </div>
+      </div>
+      </div>
+<!-- Scripts para abrir/cerrar modales -->
+<script>
+  function abrirModalProteina3() {
+  document.getElementById('ventanaProteina3').style.display = 'block';
+}
+
+
+
+
+  function abrirModalFrita() {
+    document.getElementById('ventanaProteina3').style.display = 'none';
+    document.getElementById('modalFrita').style.display = 'block';
+  }
+
+  function cerrarModalFrita() {
+    document.getElementById('modalFrita').style.display = 'none';
+  }
+
+  function abrirModalPlancha() {
+    document.getElementById('ventanaProteina3').style.display = 'none';
+    document.getElementById('modalPlancha').style.display = 'block';
+  }
+
+  function cerrarModalPlancha() {
+    document.getElementById('modalPlancha').style.display = 'none';
+  }
+
+  
+</script>
+
+
+  </div>
+
+<style>
+  .titulo-empanada {
+  font-size: 3em;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to right, #ff1c1c, #000000); /* rojo a negro */
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+  margin: 30px auto;
+  width: fit-content;
+}
+
+</style>
+
+  </section>
+  <style>
+      #cart-count {
+    position: absolute;
+    background-color: white;
+    color: var(--rojo);
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 4px 8px;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .open-cart-btn:active #cart-count {
+    transform: scale(1.2);
+  }
+
+  </style>
+
+  <script>
+  // La función original de tu código
+  const cart = {};
+
+  function sumarContador() {
+      // A. Lógica para sumar +1 al contador
+      const contadorElemento = document.getElementById('cart-count');
+      let valorActual = parseInt(contadorElemento.textContent);
+      valorActual++;
+      contadorElemento.textContent = valorActual;
+
+      // B. Lógica para la animación
+      const animacionElemento = document.getElementById('animacion-contador');
+
+      // Primero, elimina la clase para poder reactivarla
+      animacionElemento.classList.remove('animacion-activa');
+
+      // Forzar un "reflow" para que la animación se reinicie
+      void animacionElemento.offsetWidth;
+
+      // Agrega la clase para activar la animación
+      animacionElemento.classList.add('animacion-activa');
+  }
+
+  // Ahora, tu función addToCart() debe llamar a la nueva función
+  function addToCart(item) {
+      cart[item] = (cart[item] || 0) + 1;
+      updateCart();
+      sumarContador(); // Llama a la nueva función para actualizar el contador con animación
+  }
+
+  // ... el resto de tu código JavaScript ...
+
+  
+  </script>
+ <div id="cartModal" class="modal">
+  <div style="padding-right: 170px !important; max-width: 160px !important;" class="modal-content">
+    <span class="close-btn" style="color: #fff; background-color: green;" id="volver-button" onclick="closeCart()">Volver</span>
+ <img  style="width: 90px; margin-top: -20px; position: fixed; margin-left: -40px;" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
+  <br><br> <br> <h2 style=" margin-left: 200px;">Tu Pedido</h2>
+
+    <ul style="margin-left: 50%; max-width: 500px; position: absolute; max-height: 400px !important; border-bottom: 2px solid rgb(172, 0, 0); border-right: 2px solid rgb(172, 0, 0);" id="cartItems" class="cart-list"></ul>
+
+<div class="form-group total-row">
+  <label for="total">Total:</label>
+  <input type="text" id="total" readonly>
+</div>
+<script>
+  function replicarTotal() {
+    const totalInput = document.getElementById("total");
+    const visualInput = document.getElementById("total-visual");
+
+    if (totalInput && visualInput) {
+      visualInput.value = totalInput.value;
+    }
+  }
+
+  // 🧠 Opcional: actualiza automáticamente cuando el usuario escribe
+  document.addEventListener("DOMContentLoaded", () => {
+    const totalInput = document.getElementById("total");
+    if (totalInput) {
+      totalInput.addEventListener("input", replicarTotal);
+    }
+  });
+</script>
+
+
+    <div class="form-group">
+      <input type="text" id="clientName" placeholder="Tu nombre">
+    </div>
+
+    <div class="form-group">
+      <select id="paymentMethod">
+        <option value="">Forma de pago</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="Tarjeta">Tarjeta</option>
+      </select>
+    </div>
+
+    <button class="order-btn" onclick="sendOrder()">Pedir</button>
+  </div>
+</div>
+<style>
+#volver-button {
+animation: latidogrande 2.5s infinite ease-in-out; 
+}
+   
+.total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.total-row label {
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px;
+}
+
+#total {
+  flex-grow: 1;
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  text-align: left;
+  color: #27ae60;
+  font-weight: bold;
+padding: 0px;
+width: 90px !important;
+margin-left: 60px;
+position: absolute;
+}
+
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover {
+    color: #e74c3c;
+  }
+
+
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 650px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+
+  .cart-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .order-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-btn:hover {
+    background-color: #219150;
+  }
+  
+  .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .close-btn:hover {
+    color: #e74c3c;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .cart-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+
+  .cart-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .order-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-btn:hover {
+    background-color: #219150;
+  }
+</style>
+<style>
+  .site-header {
+    background-color: #2c2c2c; /* gris oscuro */
+    color: white;
+    padding: 1em 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1em;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    height: 60px;
+  }
+
+  .main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2em;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav a {
+    text-decoration: none;
+    color: #b3003b; /* rojo vino */
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+
+  .open-cart-btn {
+    background-color: #b3003b;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .money-input {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 0 0.5em;
+  }
+
+  .money-input .currency {
+    color: green;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .money-input input {
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+    width: 80px;
+    background: transparent;
+    color: #333;
+  }
+
+  #cart-count {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.6em;
+    font-size: 0.8em;
+
+  }
+
+
+    .main-nav ul {
+      flex-direction: column;
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    .header-actions {
+      margin-top: 1em;
+    }
+  
+
+
+
+/* Estilo general del header */
+header {
+    
+    background: linear-gradient(90deg, red, #7a0000);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    color: white;
+    position: relative;
+    z-index: 100;
+}
+
+/* Parte superior del header */
+#header-top {
+    height: 0px;
+    background: linear-gradient(to right, #7a0000, #ff0000);
+}
+
+/* Botón del carrito */
+#carritoBoton {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+      animation: latidogrande 2.5s infinite ease-in-out;
+    
+}
+
+#carritoBoton img {
+    border-radius: 50%;
+    background-color: #7a0000;
+    border: 2px solid #fff;
+    width: 50px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      animation: latidoSuave 2.5s infinite ease-in-out;
+    
+}
+
+#contador {
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* Logo */
+#logo {
+    position: fixed;
+    top: 19px;
+    left: 20px;
+    height: 60px !important;
+}
+
+/* Buscador */
+#buscador-container {
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+#buscador {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#buscador::placeholder {
+    color: #7a0000;
+}
+
+/* Carrusel de categorías */
+#categoriasCarrusel {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    background: linear-gradient(to right, #530000, #da0000);
+    padding: 10px 0;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+
+}
+
+.categoria {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 0 8px;
+    background: linear-gradient(145deg, #7a0000, #ff0000);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.categoria:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #ff0000, #7a0000);
+}
+</style>
+
+</style>
+
+  <script>
+
+function updateCart() {
+    const cartList = document.getElementById('cartItems');
+    cartList.innerHTML = '';
+    let total = 0; // Inicializa el total en 0
+
+    // Itera sobre el objeto `cart` para mostrar los productos y calcular el total
+    for (const item in cart) {
+        const li = document.createElement('li');
+
+        const precioUnitario = precios[item];
+        const subtotalProducto = cart[item] * precioUnitario;
+
+        // Crear elementos separados para cantidad, nombre y precio
+        const cantidadSpan = document.createElement('span');
+        cantidadSpan.textContent = cart[item];
+        cantidadSpan.style.fontSize = "1.5em";   // más grande
+        cantidadSpan.style.fontWeight = "bold";
+        cantidadSpan.style.marginRight = "8px";
+
+        const nombreSpan = document.createElement('span');
+        nombreSpan.textContent = ` ${item} - `;
+
+        const precioSpan = document.createElement('span');
+        precioSpan.textContent = `$${subtotalProducto.toLocaleString('es-CL')}`;
+        precioSpan.style.color = "#8B0000"; // rojo vino claro
+        precioSpan.style.fontWeight = "bold";
+
+        // Añadir los spans al <li>
+        li.appendChild(cantidadSpan);
+        li.appendChild(nombreSpan);
+        li.appendChild(precioSpan);
+
+        cartList.appendChild(li);
+
+        total += subtotalProducto; // Suma el subtotal al total
+    }
+    
+    // Actualiza el input del total
+    const totalInput = document.getElementById('total');
+    totalInput.value = `$${total.toLocaleString('es-CL')}`;
+}
+
+    function addToCart(item) {
+      cart[item] = (cart[item] || 0) + 1;
+      updateCart();
+      sumarContador();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      cartList.innerHTML = '';
+      for (const item in cart) {
+        const li = document.createElement('li');
+        li.textContent = `${cart[item]} ${item}`;
+        cartList.appendChild(li);
+      }
+    }
+
+    function openCart() {
+      document.getElementById('cartModal').style.display = 'block';
+      updateCart();
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+
+  function sendOrder() {
+    const name = document.getElementById('clientName').value;
+    const payment = document.getElementById('paymentMethod').value;
+
+    if (!name || !payment || Object.keys(cart).length === 0) {
+      alert('Completa todos los campos y agrega productos.');
+      return;
+    }
+
+    // Construir el texto del pedido
+    let orderText = '';
+    for (const item in cart) {
+      orderText += `${cart[item]} ${item}\n`;
+    }
+
+    // Dirección o tipo de pedido
+    const direccion = document.getElementById("direccionInput").value;
+
+    // Mensaje final con saltos de línea (\n)
+    const message = `Hola, soy ${name}. Quiero pedir:
+${orderText}
+Forma de pago: ${payment}
+*MESA*
+${resultado}
+
+${direccion}`;
+
+    // Codificar para URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Abrir WhatsApp
+    window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
+  }
+
+  // Función para marcar "PARA LLEVAR"
+  function marcarParaLlevar() {
+    document.getElementById("direccionInput").value = "PARA LLEVAR";
+  }
+</script>
+ <style>
+.open-cart-btn {
+  background-color: white;
+  color: rgb(172, 0, 0);
+  border: 3px solid rgb(172, 0, 0);
+  padding: 6px 6px !important;
+  cursor: pointer;
+  font-size: 100% !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  white-space: nowrap;
+position: fixed;
+  align-items: center;
+  justify-content: center;
+  margin-top: -95px !important;
+  margin-left: -160px;
+}
+
+/* 🖱 Hover efecto */
+.open-cart-btn:hover {
+  transform: scale(1.05);
+  background-color: #e60000;
+}
+
+/* 📱 Responsive para pantallas pequeñas *
+
+
+  .open-cart-btn:hover {
+    transform: scale(1.1);
+    background-color: #b71c1c;
+  }
+  :root {
+    --rojo: #c62828;
+    --rojo-oscuro: #b71c1c;
+    --gris-claro: #f5f5f5;
+    --negro: #212121;
+    --fuente: 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--fuente);
+
+  }
+
+
+  h1 {
+    font-weight: bold;
+    font-size: 3em;
+    color: lightgrey; /* rojo vino */
+ 
+  p {
+    font-weight: 400;
+    font-size: 1.2em;
+  }
+
+
+  .product-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    transition: transform 0.3s ease;
+  }
+  .product-img:hover {
+    transform: scale(1.03);
+  }
+
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2em;
+    gap: 1.5em;
+  }
+
+  .product {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1.5em;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product button {
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .product button:active {
+    transform: scale(0.95);
+  }
+  .product button:hover {
+    background-color: var(--rojo-oscuro);
+  }
+
+  .open-cart-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--rojo-oscuro);
+  }
+  .open-cart-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2em;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: slideUp 0.4s ease forwards;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    color: var(--rojo);
+  }
+
+  .modal-content input, .modal-content select {
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.7em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+  }
+
+  .modal-content button {
+    background-color: var(--rojo);
+    color: white;
+    border: none;
+    padding: 0.8em;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .modal-content button:hover {
+    background-color: var(--rojo-oscuro);
+  }
+  .modal-content button:active {
+    transform: scale(0.97);
+  }
+
+  .close-btn {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+  }
+  .close-btn:hover {
+    color: var(--rojo);
+  }
+
+  </style>
+  <script></script>
+  <body>
+      <div style="color: green;" id="animacion-contador">✔</div>
+
+  </body>
+  <style>
+    #animacion-contador {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem; /* Tamaño grande para que sea llamativo */
+      font-weight: bold;
+      color: var(--rojo); /* O el color que prefieras */
+      opacity: 0;
+      z-index: 10000;
+      pointer-events: none; /* Permite hacer clic a través del elemento */
+  }
+
+  .animacion-activa {
+      animation: animacion-plus-one 1s ease-out;
+  }
+
+  @keyframes animacion-plus-one {
+      0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0;
+      }
+      20% {
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 1;
+      }
+      50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 1;
+      }
+      100% {
+          transform: translate(-50%, -50%) scale(1.5);
+          opacity: 0;
+      }
+  }
+  </style>
+  <script>
+  function restar1() {
+  const cartCountElement = document.getElementById('contador');
+  let count = parseInt(cartCountElement.textContent, 10);
+
+  if (!isNaN(count) && count > 0) {
+    cartCountElement.textContent = count - 1;
+  }
+}
+
+  function sumarContador() {
+    const contadorElemento = document.getElementById('contador');
+    let valorActual = parseInt(contadorElemento.textContent);
+    valorActual++;
+    contadorElemento.textContent = valorActual;
+
+    const animacionElemento = document.getElementById('animacion-contador');
+    animacionElemento.classList.remove('animacion-activa');
+    void animacionElemento.offsetWidth;
+    animacionElemento.classList.add('animacion-activa');
+  }
+
+  function addToCart(item) {
+    cart[item] = (cart[item] || 0) + 1;
+    updateCart();
+    sumarContador();
+  }
+
+function updateCart() {
+  const cartList = document.getElementById('cartItems');
+  cartList.innerHTML = '';
+  let total = 0;
+
+  for (const item in cart) {
+    const li = document.createElement('li');
+    const precioUnitario = precios[item];
+    const subtotalProducto = cart[item] * precioUnitario;
+
+    // Botón ❌ restar 1
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '❌ restar 1';
+    removeBtn.title = 'Eliminar 1 unidad de este producto';
+    removeBtn.style.color = 'rgb(172, 0, 0)';
+    removeBtn.style.marginBottom = '8px';
+    removeBtn.style.padding = '6px 10px';
+    removeBtn.style.borderRadius = '5px';
+    removeBtn.style.fontSize = '0.9em';
+    removeBtn.style.backgroundColor = '#ffe5e5';
+    removeBtn.style.border = '1px solid #ff4d4d';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.style.textShadow = '1px 0px 3px black';
+    removeBtn.onmouseover = () => removeBtn.style.backgroundColor = '#ffcccc';
+    removeBtn.onmouseout = () => removeBtn.style.backgroundColor = '#ffe5e5';
+
+    removeBtn.onclick = function () {
+      cart[item]--;
+      if (cart[item] <= 0) {
+        delete cart[item];
+      }
+      updateCart();
+      restar1();
+    };
+
+    // Cantidad grande
+    const cantidadSpan = document.createElement('div');
+    cantidadSpan.textContent = ` ${cart[item]}`;
+    cantidadSpan.style.fontSize = "2em";
+    cantidadSpan.style.fontWeight = "bold";
+    cantidadSpan.style.marginBottom = "6px";
+    cantidadSpan.style.color = "#2c3e50";
+    cantidadSpan.style.marginLeft = "50px";
+    
+
+    // Nombre del producto
+    const nombreSpan = document.createElement('div');
+    nombreSpan.textContent = ` ${item}`;
+    nombreSpan.style.marginBottom = "6px";
+    nombreSpan.style.color = "#34495e";
+
+    // Precio en rojo vino claro
+    const precioSpan = document.createElement('div');
+    precioSpan.textContent = ` $${subtotalProducto.toLocaleString('es-CL')}`;
+    precioSpan.style.color = "#8B0000";
+    precioSpan.style.fontWeight = "bold";
+    precioSpan.style.textDecoration = "underline #fff";
+
+    // Estilo del bloque <li>
+    li.style.background = "linear-gradient(180deg, #fff3e0, #ffe0b2, #ffccbc)";
+    li.style.margin = "12px 0";
+    li.style.padding = "12px";
+    li.style.borderRadius = "10px";
+    li.style.boxShadow = "0 4px 5px #000";
+    li.style.display = "flex";
+    li.style.flexDirection = "column"; // 👈 apila los elementos hacia abajo
+    li.style.alignItems = "flex-start";
+li.style.border = "1px solid #000";
+    // Armar el <li>
+    li.appendChild(removeBtn);
+    li.appendChild(cantidadSpan);
+    li.appendChild(nombreSpan);
+    li.appendChild(precioSpan);
+
+    cartList.appendChild(li);
+
+    total += subtotalProducto;
+  }
+
+  // Input del total con estilo
+  const totalInput = document.getElementById('total');
+  totalInput.value = `$${total.toLocaleString('es-CL')}`;
+  totalInput.style.border = "none";
+  totalInput.style.background = "#fff8e1";
+  totalInput.style.padding = "10px 15px";
+  totalInput.style.borderRadius = "8px";
+  totalInput.style.fontWeight = "bold";
+  totalInput.style.textAlign = "right";
+  totalInput.style.width = "140px";
+  totalInput.style.color = "#d84315";
+
+  // Contenedor del carrito con estilo
+  const cartContainer = document.getElementById('cartContainer');
+  if (cartContainer) {
+    cartContainer.style.background = "linear-gradient(135deg, #fbe9e7, #fff3e0, #f1f8e9)";
+    cartContainer.style.borderRadius = "15px";
+    cartContainer.style.padding = "25px";
+    cartContainer.style.maxWidth = "450px";
+    cartContainer.style.margin = "20px auto";
+    cartContainer.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+    cartContainer.style.fontFamily = "'Segoe UI', sans-serif";
+    cartContainer.style.color = "#333";
+  }
+}
+
+
+  function openCart() {
+    document.getElementById('cartModal').style.display = 'block';
+    updateCart();
+  }
+
+  function closeCart() {
+    document.getElementById('cartModal').style.display = 'none';
+  }
+
+  function sendOrder() {
+      const  puerto = document.getElementById('direccionInput').value;
+  const name = document.getElementById('clientName').value;
+  const resultado = document.getElementById('resultado').value;
+  const payment = document.getElementById('paymentMethod').value;
+  const total = document.getElementById('total').value;
+  const extraDetails = document.getElementById('orderText')?.value || ''; // Captura el texto adicional
+
+  if (!name || !payment || Object.keys(cart).length === 0) {
+    alert('Completa todos los campos y agrega productos.');
+    return;
+  }
+
+  let orderText = '';
+  for (const item in cart) {
+    const precioUnitario = precios[item];
+    const subtotalProducto = cart[item] * precioUnitario;
+    orderText += `${cart[item]} ${item} - $${subtotalProducto.toLocaleString('es-CL')}\n`;
+  }
+
+  // Incluye detalles adicionales si existen
+  const message = ` Hola, soy ${name}. Quiero pedir:\n\n${orderText}${extraDetails ? extraDetails + '\n\n' : ''}Total: ${total}\nForma de pago: ${payment} ${puerto} `;
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/56954998792?text=${encodedMessage}`, '_blank');
+}
+
+  </script>
+  </html>
+  </body>
+  </html>
