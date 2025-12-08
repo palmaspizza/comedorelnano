@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mesa 6</title>
+  <style>
+    body { margin:0; height:100vh; display:flex; justify-content:center; align-items:center;
+           background:linear-gradient(135deg,#8B0000,#B22222,#ffffff); font-family:'Segoe UI',sans-serif; }
+    .card { background:rgba(255,255,255,0.92); border:5px solid #8B0000; border-radius:20px;
+            padding:40px; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.3); max-width:320px; }
+    .title { font-size:3em; font-weight:bold; color:#B22222; margin:0 0 10px; }
+    .subtitle { font-size:2.6em; font-weight:bold; color:#8B0000; margin:0 0 20px; }
+    button { padding:12px 22px; font-size:1.1em; font-weight:bold; color:#fff; background-color:#8B0000;
+             border:none; border-radius:10px; cursor:pointer; box-shadow:2px 2px 6px rgba(0,0,0,0.3); }
+    button:hover { background-color:#B22222; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">MESA</div>
+    <div class="subtitle">6</div>
+    <button onclick="aceptarMesa6()">Aceptar</button>
+  </div>
+  <script>
+    function aceptarMesa6() {
+      localStorage.setItem('resultadoValue', '6');
+      window.location.href = '/index.html';
+    }
+  </script>
+</body>
+</html>
