@@ -631,7 +631,7 @@
   <div class="panel-global">
     
     <p style="color: rgb(172, 73, 73);">Revisa el carrito para ver tu pedido.</p>
- </div>
+ <button style="color: #fff; background-color: green; border-radius: 30%; width: auto; padding: 20px;" type="button" onclick="openCart();cerraOverlayGlobal()" class="order-btn">Ver Carrito</button></div>
 
 
 </div>
@@ -765,26 +765,41 @@ setTimeout(() => {
   <script>
     // CAMBIAR PRECIOS
 const precios = {
-      'ENSALADA (ENTRADA)': 0,
-      'LOMO SALTEADO DE CARNE': 6000,
-      'LOMO SALTEADO DE POLLO': 6000,
-      'TALLARINES SALTEADOS DE CARNE': 6000,
-      'TALLARINES SALTEADOS DE POLLO': 6000,
-      'ARROZ CHAUFA DE CARNE': 6000,
-      'ARROZ CHAUFA DE POLLO': 6000,
-      'COSTILLAR AL HORNO': 6000,
-      'POLLO BROSTER': 6000,
-      'COMBINADO': 6000,
-      'POLLO A LA PLANCHA': 6000,
-      'PESCADO FRITO': 6000,
-      'CARNE AL JUGO': 6000,
-      'BISTEC CON ARROZ Y PAPAS': 6000,
-      'TALLARINES VERDES': 6000,
-      'CHORRILLANA': 6000,
-      'COMPLETO ITALIANO': 6000,
-      'CHURRASCO ITALIANO': 6000,
-      'BISTEC CON ARROZ Y PAPAS': 6000,
-  };
+  'ENSALADA (ENTRADA)': 0,
+  'LOMO SALTEADO DE CARNE': 6000,
+  'LOMO SALTEADO DE POLLO': 6000,
+  'TALLARINES SALTEADOS DE CARNE': 6000,
+  'TALLARINES SALTEADOS DE POLLO': 6000,
+  'ARROZ CHAUFA DE CARNE': 6000,
+  'ARROZ CHAUFA DE POLLO': 6000,
+  'COSTILLAR AL HORNO': 6000,
+  'POLLO BROSTER': 6000,
+  'COMBINADO': 6000,
+  'POLLO A LA PLANCHA': 6000,
+  'PESCADO FRITO': 6000,
+  'CARNE AL JUGO': 6000,
+  'BISTEC CON ARROZ Y PAPAS': 6000,
+  'TALLARINES VERDES': 6000,
+  'CHORRILLANA': 6000,
+  'COMPLETO ITALIANO': 2200,
+  'CHURRASCO ITALIANO': 3200,
+  'POLLO ARBERJADO ARROZ Y PAPAS': 6000,
+
+  // Bebidas individuales
+  'COCA-COLA EN LATA': 1200,
+  'JUGO JUMEX EN LATA PIÑA-COCO': 1200,
+  'INCA-COLA': 1200,
+  'SPRITE': 1200,
+  'FANTA': 1200,
+  'COCA-COLA LIGHT': 1200,
+  'COCA-COLA ZERO': 1200,
+   'FANTA EN LATA SABOR POMELO': 1200,
+
+  // Productos con bebida incluida
+  'COMPLETO ITALIANO + BEBIDA EXPRESS': 2600,
+  'CHURRASCO ITALIANO + BEBIDA EXPRESS': 3800
+
+};
   </script>
   <style>
     .modal {
@@ -984,6 +999,17 @@ button {
   }
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const valor = localStorage.getItem("resultadoValue");
+    const input = document.getElementById("resultado");
+    if (valor && input) {
+      input.value = valor;
+      // Opcional: limpiar para que no quede guardado
+      localStorage.removeItem("resultadoValue");
+    }
+  });
+</script>
 
 
  <script>
@@ -1225,7 +1251,7 @@ button {
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
+            width: 95px;
             height: 40px;
             font-size: 1.5em;
             line-height: 1;
@@ -1236,7 +1262,7 @@ button {
             transition: background-color 0.3s ease;
             position: absolute;
             bottom: 15px;
-            right: 15px;
+            right: 1px;
             animation: latidonogrande 2.5s infinite ease-in-out; 
         }
         
@@ -1497,11 +1523,25 @@ if (mesa) {
             <h3>ENSALADA (ENTRADA)</h3>
             <p class="product-description">Una ensalada fresca que viene acompañado con TODOS los platos.</p>
             <p class="product-price" style="color: rgb(0, 153, 0);">GRATIS</p>
-            <button class="add-to-cart-btn" style="background-color: rgb(255, 0, 0);"  onclick="addToCart('ENSALADA (ENTRADA)');">+</button>
+            <button class="add-to-cart-btn" style="background-color: rgb(255, 0, 0);"  onclick="addToCart('ENSALADA (ENTRADA)');">PEDIR</button>
         </div>
       </div>
       </div> <br>
-      </div>   <div class="product-card">
+      </div>  <div class="product-card">
+        <div class="product-image-section">
+            <img src="https://i.ibb.co/Mxk98My3/P1170105.jpg" alt="CHORRILLANA">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>CHORRILLANA</h3>
+            <p class="product-description">Generosa combinación de papas fritas cubiertas con tiras de carne salteada, cebolla dorada y huevo.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHORRILLANA');abrirOverlayGlobal();">PEDIR</button>
+        </div>
+      </div>
+      </div>
+      
+      
+      <div class="product-card">
         
 <div class="product-image-section">
             <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTEADO DE CARNE">
@@ -1510,7 +1550,7 @@ if (mesa) {
             <h3>LOMO SALTEADO DE CARNE</h3>
             <p class="product-description">Tiras de carne salteadas con cebolla, tomate y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1523,7 +1563,7 @@ if (mesa) {
             <h3>LOMO SALTEADO DE POLLO</h3>
             <p class="product-description">Tiras de pollo salteadas con cebolla, tomate y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE POLLO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE POLLO');abrirOverlayGlobal();">PEDIR</button>
         </div>
 
 
@@ -1698,7 +1738,7 @@ function cerrarModalProteina1() {
             <h3>TALLARINES SALTEADOS DE CARNE</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1714,7 +1754,7 @@ function cerrarModalProteina1() {
             <h3>TALLARINES SALTEADOS DE POLLO</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO');abrirOverlayGlobal();">PEDIR</button>
         </div>
     </div>
 
@@ -1727,7 +1767,7 @@ function cerrarModalProteina1() {
             <h3>ARROZ CHAUFA DE CARNE</h3>
             <p class="product-description">Arroz frito al estilo oriental de carne, cebollín y huevo.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE CARNE');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE CARNE');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1741,7 +1781,7 @@ function cerrarModalProteina1() {
             <h3>ARROZ CHAUFA DE POLLO</h3>
             <p class="product-description">Arroz frito al estilo oriental de pollo, cebollín y huevo.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1754,7 +1794,7 @@ function cerrarModalProteina1() {
             <h3>COSTILLAR AL HORNO</h3>
             <p class="product-description">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('COSTILLAR AL HORNO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('COSTILLAR AL HORNO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
       </div>
@@ -1769,7 +1809,7 @@ function cerrarModalProteina1() {
             <h3>POLLO BROSTER</h3>
             <p class="product-description">Jugoso por dentro y crujiente por fuera, servido caliente y lleno de sabor.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('POLLO BROSTER');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO BROSTER');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div> </div>
 
@@ -1783,7 +1823,7 @@ function cerrarModalProteina1() {
             <h3>COMBINADO</h3>
             <p class="product-description">Ceviche con papa a la huancaína y tallarines rojos.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('COMBINADO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('COMBINADO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
       </div>
@@ -1796,7 +1836,7 @@ function cerrarModalProteina1() {
             <h3>POLLO A LA PLANCHA</h3>
             <p class="product-description">Pechuga de pollo suave y jugosa, cocinada a la plancha para resaltar su sabor natural.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('POLLO A LA PLANCHA');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO A LA PLANCHA');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1811,7 +1851,7 @@ function cerrarModalProteina1() {
             <h3>PESCADO FRITO</h3>
             <p class="product-description">Filete crujiente con ensalada y acompañamiento.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('PESCADO FRITO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('PESCADO FRITO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1820,19 +1860,30 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/YTXSB5RY/P1170110.jpg" alt="CARNE AL JUGO">
+            <img src="https://i.ibb.co/jkDbDkrd/P1170174.jpg" alt="CARNE AL JUGO">
         </div>
         <div class="product-details-section elementor">
             <h3>CARNE AL JUGO</h3>
             <p class="product-description">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
       </div>
 
+      <div class="product-card"><div class="product-image-section">
+            <img src="https://i.ibb.co/nNs619Hq/P1170176.jpg" alt="POLLO ARBERJADO ARROZ Y PAPAS">
+        </div>
+        <div class="product-details-section elementor">
+            <h3>POLLO ARBERJADO CON ARROZ Y PAPAS</h3>
+            <p class="product-description">Pollo con arberjas, arroz y papas.</p>
+            <p class="product-price">$6.000</p>
+            <button class="add-to-cart-btn" onclick="addToCart('POLLO ARBERJADO ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
+        </div>
+      </div>
 
+      </div>
       <div class="product-card"><div class="product-image-section">
             <img src="https://i.ibb.co/Hf3p6QsX/P1170120.jpg" alt="BISTEC CON ARROZ Y PAPAS">
         </div>
@@ -1840,7 +1891,7 @@ function cerrarModalProteina1() {
             <h3>BISTEC CON ARROZ Y PAPAS</h3>
             <p class="product-description">Tierna carne de res sazonada y dorada a la perfección, servida con arroz blanco esponjoso y papas doradas.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1854,7 +1905,7 @@ function cerrarModalProteina1() {
             <h3>TALLARINES VERDES</h3>
             <p class="product-description">Pasta al dente mezclada con una cremosa salsa de albahaca y espinaca, realzada con queso fresco y un toque de ajo.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES VERDES');abrirOverlayGlobal();">+</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES VERDES');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
       </div>
@@ -1866,12 +1917,94 @@ function cerrarModalProteina1() {
         <div class="product-details-section elementor">
             <h3>COMPLETO ITALIANO</h3>
             <p class="product-description">Vianesa, palta fresca, tomate y mayo casera.</p>
-            <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('COMPLETO ITALIANO');abrirOverlayGlobal();">+</button>
+            <p class="product-price">$2.200</p>
+            <button class="add-to-cart-btn" onclick="addToCart('COMPLETO ITALIANO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 </div>
 
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://i.ibb.co/dwHt9DTw/P1170103.jpg" alt="COMPLETO + ITALIANO">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>COMPLETO ITALIANO + BEBIDA</h3>
+    <p class="product-description">Vianesa, palta fresca, tomate y mayo casera. + BEBIDA XPRESS COCACOLA/FANTA/SPRITE</p>
+    <p class="product-price">$2.600</p>
+    <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidas').style.display='flex'">PEDIR</button>
+  </div>
+</div>
+
+<script>
+function cerrarVentana35() {
+  document.getElementById('ventanaBebidas').style.display = 'none';
+}
+</script>
+<!-- Ventana emergente -->
+<div style="z-index: 84328494324324;" id="ventanaBebidas" class="ventana">
+  <div class="ventana-contenido">
+    <h2>Elige tu bebida</h2>
+      <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+   <h2 style="color: #000;">Elige tu bebida</h2>
+    <button  onclick="cerrarVentana35();addToCart('COMPLETO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
+      Coca-Cola
+    </button>
+    <button onclick="cerrarVentana35();addToCart('COMPLETO ITALIANO + 1 Fanta EXPRESS')"  class="btn-bebida fanta">
+Fanta
+    </button>
+    <button onclick="cerrarVentana35();addToCart('COMPLETO ITALIANO + 1 Sprite EXPRESS')"  class="btn-bebida sprite">
+     Sprite
+    </button>
+    <span id="cerrarVentana" onclick="document.getElementById('ventanaBebidas').style.display='none'">&times;</span>
+  </div>
+</div>
+
+<style>
+.ventana {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+.ventana-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+.btn-bebida {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.btn-bebida img {
+  width: 30px;
+  height: 30px;
+}
+.coca { background-color: #e50914; animation: latidogrande 2.5s infinite ease-in-out; }   /* Rojo Coca-Cola */
+.fanta { background-color: #f58220; animation: latidogrande 2.5s infinite ease-in-out; }  /* Naranja Fanta */
+.sprite { background-color: #00a550; animation: latidogrande 2.5s infinite ease-in-out; } /* Verde Sprite */
+#cerrarVentana {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
 <div class="product-card">
     <div class="product-image-section">
             <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="CHURRASCO ITALIANO">
@@ -1879,24 +2012,192 @@ function cerrarModalProteina1() {
         <div class="product-details-section elementor">
             <h3>CHURRASCO ITALIANO</h3>
             <p class="product-description">Palta, tomate y mayo sobre carne jugosa.</p>
-            <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('CHURRASCO ITALIANO');abrirOverlayGlobal();">+</button>
+            <p class="product-price">$3.200</p>
+            <button class="add-to-cart-btn" onclick="addToCart('CHURRASCO ITALIANO');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 </div>
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="CHURRASCO ITALIANO">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>CHURRASCO ITALIANO + BEBIDA</h3>
+    <p class="product-description">Palta, tomate y mayo sobre carne jugosa. + BEBIDA XPRESS COCACOLA/FANTA/SPRITE</p>
+    <p class="product-price">$3.600</p>
+    <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidasChurrasco').style.display='flex'">PEDIR</button>
+  </div>
+</div>
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqptun4F9tEMB7uG-wbJEov9h9YCuRBhXPOw&s" alt="Coca-Cola en lata">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>COCA-COLA EN LATA</h3>
+    <p class="product-description">Bebida refrescante Coca-Cola en lata de 350ml.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('COCA-COLA EN LATA');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
 
-      <div class="product-card">
-        <div class="product-image-section">
-            <img src="https://i.ibb.co/Mxk98My3/P1170105.jpg" alt="CHORRILLANA">
-        </div>
-        <div class="product-details-section elementor">
-            <h3>CHORRILLANA</h3>
-            <p class="product-description">Generosa combinación de papas fritas cubiertas con tiras de carne salteada, cebolla dorada y huevo.</p>
-            <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('CHORRILLANA');abrirOverlayGlobal();">+</button>
-        </div>
-      </div>
-      </div>
+<!-- JUGO JUMEX EN LATA PIÑA-COCO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://dojiw2m9tvv09.cloudfront.net/103055/product/302262.png" alt="Jugo Jumex Piña-Coco">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>JUGO JUMEX EN LATA PIÑA-COCO</h3>
+    <p class="product-description">Refrescante jugo Jumex sabor piña-coco en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('JUGO JUMEX EN LATA PIÑA-COCO');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- INCA-COLA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://tofuu.getjusto.com/orioneat-local/resized2/awAhwyYPpQSRoBpBr-2400-x.webp" alt="Inca-Cola">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>INCA-COLA</h3>
+    <p class="product-description">Bebida gaseosa Inca-Cola en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('INCA-COLA');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- SPRITE -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSCt916IzBnhLPsmhEnw9xSTsKZ92_eDegJdKjsd-b53-fg9SVyNjxXKofNr5Nb0WAyYGLdBXcOrebOe9mge4JlXHPPMo639N4EhStFt0wteV94nj_dX_w3nCc" alt="Sprite">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>SPRITE</h3>
+    <p class="product-description">Bebida gaseosa Sprite en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('SPRITE');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- FANTA POMELO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://i.bolder.run/r/czo0MDY0LGc6MTAwMHg/8ed65f6c/1008798-7801610285800.jpg" alt="Fanta en lata sabor pomelo">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>FANTA EN LATA SABOR POMELO</h3>
+    <p class="product-description">Refrescante Fanta sabor pomelo en lata de 350ml.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('FANTA EN LATA SABOR POMELO');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- FANTA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://xmayor.cl/wp-content/uploads/2021/06/FANTA-350CC-LATA.jpg" alt="Fanta">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>FANTA</h3>
+    <p class="product-description">Bebida gaseosa Fanta en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('FANTA');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- COCA-COLA LIGHT -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://dashboard.dondelanegra.cl/images/products/19517_0_coca-lata-350-ligth.jpg" alt="Coca-Cola Light">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>COCA-COLA LIGHT</h3>
+    <p class="product-description">Bebida gaseosa Coca-Cola Light en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('COCA-COLA LIGHT');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- COCA-COLA ZERO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBOG0Z7WlWrFLBubCDrmFfOTzsLyxy143Txg&s" alt="Coca-Cola Zero">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>COCA-COLA ZERO</h3>
+    <p class="product-description">Bebida gaseosa Coca-Cola Zero en lata.</p>
+    <p class="product-price">$1.200</p>
+    <button class="add-to-cart-btn" onclick="addToCart('COCA-COLA ZERO');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+<script>
+function cerrarVentanaChurrasco() {
+  document.getElementById('ventanaBebidasChurrasco').style.display = 'none';
+}
+</script>
+
+<!-- Ventana emergente CHURRASCO -->
+<div style="z-index: 84328494324326;" id="ventanaBebidasChurrasco" class="ventana">
+  <div class="ventana-contenido">
+    <h2>Elige tu bebida</h2>
+    <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+    <h2 style="color: #000;">Elige tu bebida</h2>
+    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
+      Coca-Cola
+    </button>
+    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Fanta EXPRESS')" class="btn-bebida fanta">
+      Fanta
+    </button>
+    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Sprite EXPRESS')" class="btn-bebida sprite">
+      Sprite
+    </button>
+    <span id="cerrarVentanaChurrasco" onclick="cerrarVentanaChurrasco()">&times;</span>
+  </div>
+</div>
+
+<style>
+.ventana {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+.ventana-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+.btn-bebida {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.coca { background-color: #e50914; animation: latidogrande 2.5s infinite ease-in-out; }
+.fanta { background-color: #f58220; animation: latidogrande 2.5s infinite ease-in-out; }
+.sprite { background-color: #00a550; animation: latidogrande 2.5s infinite ease-in-out; }
+#cerrarVentanaChurrasco {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
+     
 <!-- Scripts para abrir/cerrar modales -->
 <script>
   function abrirModalProteina3() {
@@ -2004,7 +2305,7 @@ function cerrarModalProteina1() {
   </script>
  <div id="cartModal" class="modal">
   <div style="padding-right: 170px !important; max-width: 160px !important;" class="modal-content">
-    <span class="close-btn" style="color: #fff; background-color: green;" id="volver-button" onclick="closeCart()">Volver</span>
+    <span class="close-btn" style="color: #fff; background-color: green;" id="volver-button" onclick="closeCart();cerrarOverlayGlobal();">Cerrar</span>
  <img  style="width: 90px; margin-top: -20px; position: fixed; margin-left: -40px;" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
   <br><br> <br> <h2 style=" margin-left: 200px;">Tu Pedido</h2>
 
@@ -2047,7 +2348,7 @@ function cerrarModalProteina1() {
       </select>
     </div>
 
-    <button class="order-btn" onclick="sendOrder()">Pedir</button>
+    <button class="order-btn" onclick="sendOrder()">Finalizar Pedido</button>
   </div>
 </div>
 <style>
@@ -2078,7 +2379,7 @@ animation: latidogrande 2.5s infinite ease-in-out;
   color: #27ae60;
   font-weight: bold;
 padding: 0px;
-width: 90px !important;
+width: 110px !important;
 margin-left: 60px;
 position: absolute;
 }
