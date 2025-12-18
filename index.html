@@ -763,9 +763,24 @@ setTimeout(() => {
 
   <div></div>
   <script>
-    // CAMBIAR PRECIOS
+// CAMBIAR PRECIOS
 const precios = {
+  // Entradas gratis
   'ENSALADA (ENTRADA)': 0,
+  'CONSOME DE POLLO (ENTRADA)': 0,
+  'PAPA A LA HUANCAÍNA (ENTRADA)': 0,
+
+  // Platos principales
+  'POLLO AL JUGO': 6000,
+  'PABELLÓN': 6000,
+  'EMPANADAS JAMÓN Y QUESO': 1500,
+  'SALCHIPAPAS de $1.000': 1000,
+  'SALCHIPAPAS de $2.000': 2000,
+  'SALCHIPAPAS de $3.000': 3000,
+  'SALCHIPAPAS de $4.000': 4000,
+  'BISTEC CON LENTEJAS': 6000,
+  'AJÍ DE GALLINA': 6000,
+  'CHORRILLANA': 6000,
   'LOMO SALTEADO DE CARNE': 6000,
   'LOMO SALTEADO DE POLLO': 6000,
   'TALLARINES SALTEADOS DE CARNE': 6000,
@@ -780,7 +795,6 @@ const precios = {
   'CARNE AL JUGO': 6000,
   'BISTEC CON ARROZ Y PAPAS': 6000,
   'TALLARINES VERDES': 6000,
-  'CHORRILLANA': 6000,
   'COMPLETO ITALIANO': 2200,
   'CHURRASCO ITALIANO': 3200,
   'POLLO ARBERJADO ARROZ Y PAPAS': 6000,
@@ -793,12 +807,17 @@ const precios = {
   'FANTA': 1200,
   'COCA-COLA LIGHT': 1200,
   'COCA-COLA ZERO': 1200,
-   'FANTA EN LATA SABOR POMELO': 1200,
+  'FANTA EN LATA SABOR POMELO': 1200,
 
   // Productos con bebida incluida
   'COMPLETO ITALIANO + BEBIDA EXPRESS': 2600,
-  'CHURRASCO ITALIANO + BEBIDA EXPRESS': 3800
-
+  'CHURRASCO ITALIANO + BEBIDA EXPRESS': 3800,
+  'CHURRASCO ITALIANO + 1 Coca-Cola EXPRESS': 3800,
+  'CHURRASCO ITALIANO + 1 Fanta EXPRESS': 3800,
+   'CHURRASCO ITALIANO + 1 Sprite EXPRESS': 3800,
+     'COMPLETO ITALIANO + 1 Coca-Cola EXPRESS': 2600,
+  'COMPLETO ITALIANO + 1 Fanta EXPRESS': 2600,
+   'COMPLETO ITALIANO + 1 Sprite EXPRESS': 2600,
 };
   </script>
   <style>
@@ -991,7 +1010,7 @@ button {
   function abrirOverlayGlobal(){
     const overlay = document.getElementById('overlayGlobal');
     overlay.style.display = 'flex';
-    overlay.style.zIndex = zIndex; // permite cambiar el z-index dinámicamente
+    overlay.style.zIndex = '3928439243294823948328432849234'; // permite cambiar el z-index dinámicamente
   }
 
   function cerrarOverlayGlobal(){
@@ -1513,6 +1532,31 @@ if (mesa) {
 
 <img style="position: relative; z-index: -1;" src="" width="100%" alt="">
 <img style="position: relative; z-index: -1;" src="" width="100%" alt="">
+<!-- CONSOMÉ DE POLLO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://cdn0.recetasgratis.net/es/posts/7/3/3/consome_de_pollo_26337_orig.jpg" alt="Consomé de pollo">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>CONSOMÉ DE POLLO (ENTRADA)</h3>
+    <p class="product-description">Delicado caldo de pollo, aromático y reconfortante, perfecto para abrir el apetito. Ingredientes: pollo, zanahoria, apio, cebolla, especias.</p>
+    <p class="product-price" style="color: rgb(0, 153, 0);">GRATIS</p>
+    <button class="add-to-cart-btn" onclick="addToCart('CONSOME DE POLLO (ENTRADA)');">PEDIR</button>
+  </div>
+</div>
+
+<!-- PAPA A LA HUANCAÍNA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://perudelights.com/wp-content/uploads/2013/07/papa-a-la-huancaina-lista-1024x768.jpg" alt="Papa a la huancaína">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>PAPA A LA HUANCAÍNA (ENTRADA)</h3>
+    <p class="product-description">Papas bañadas en cremosa salsa huancaína, con un toque picante y fresco. Ingredientes: papa, ají amarillo, queso fresco, leche, galleta de soda.</p>
+    <p class="product-price" style="color: rgb(0, 153, 0);">GRATIS</p>
+    <button class="add-to-cart-btn" onclick="addToCart('PAPA A LA HUANCAÍNA (ENTRADA)');">PEDIR</button>
+  </div>
+</div>
 
   <div class="product-card">
 
@@ -1527,7 +1571,99 @@ if (mesa) {
         </div>
       </div>
       </div> <br>
-      </div>  <div class="product-card">
+      </div> 
+      
+      
+      <!-- POLLO AL JUGO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsD3yoi0D7muA2qiHV5Hy7OCahDJjM8Gnczg&s" alt="Pollo al jugo">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>POLLO AL JUGO</h3>
+    <p class="product-description">Jugoso pollo cocinado lentamente en su propio jugo, acompañado de arroz blanco y papas doradas. Ingredientes: pollo fresco, cebolla, ajo, especias caseras, arroz y papas.</p>
+    <p class="product-price">$6.000</p>
+    <button class="add-to-cart-btn" onclick="addToCart('POLLO AL JUGO');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- PABELLÓN VENEZOLANO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://www.goya.com/wp-content/uploads/2023/10/venezuelan-shredded-beef.jpg" alt="Pabellón Venezolano">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>PABELLÓN</h3>
+    <p class="product-description">Clásico plato venezolano con carne mechada, arroz blanco, caraotas negras y plátano frito. Ingredientes: carne de res desmechada, arroz, porotos negros, plátano maduro.</p>
+    <p class="product-price">$6.000</p>
+    <button class="add-to-cart-btn" onclick="addToCart('PABELLÓN');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+
+<!-- EMPANADAS JAMÓN Y QUESO -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://cocina-casera.com/wp-content/uploads/2023/06/empanadas-jamon-queso.jpeg" alt="Empanadas jamón y queso">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>EMPANADAS JAMÓN Y QUESO</h3>
+    <p class="product-description">Crujientes empanadas rellenas de jamón y queso derretido. Ingredientes: masa casera, jamón, queso mantecoso.</p>
+    <p class="product-price">$1.500</p>
+    <button class="add-to-cart-btn" onclick="addToCart('EMPANADAS JAMÓN Y QUESO');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- SALCHIPAPAS -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://imag.bonviveur.com/emplatado-final-de-las-salchipapas.jpg" alt="Salchipapas">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>SALCHIPAPAS</h3>
+    <p class="product-description">Clásico plato callejero con papas fritas y salchichas, acompañado de salsas. Ingredientes: papas fritas, salchichas, mayonesa, ketchup, mostaza.</p>
+    <p class="product-price">Selecciona tu porción</p>
+    <div>
+      <button style="border-top: 4px solid #000; border-bottom: 4px solid #000; box-shadow: 0px 0px 5px 0px #000;" onclick="addToCart('SALCHIPAPAS de $1.000');abrirOverlayGlobal();">PEDIR de $1.000</button>
+      <button style="border-bottom: 4px solid #000; box-shadow: 0px 0px 5px 0px #000;" onclick="addToCart('SALCHIPAPAS de $2.000');abrirOverlayGlobal();">PEDIR de $2.000</button>
+      <button style="border-bottom: 4px solid #000; box-shadow: 0px 0px 5px 0px #000;" onclick="addToCart('SALCHIPAPAS de $3.000');abrirOverlayGlobal();">PEDIR de $3.000</button>
+      <button style="border-bottom: 4px solid #000; box-shadow: 0px 0px 5px 0px #000;" onclick="addToCart('SALCHIPAPAS de $4.000');abrirOverlayGlobal();">PEDIR de $4.000</button>
+    </div>
+  </div>
+</div>
+
+<!-- BISTEC CON LENTEJAS -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://i.ytimg.com/vi/T-6hOtirH48/sddefault.jpg" alt="Bistec con lentejas">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>BISTEC CON LENTEJAS</h3>
+    <p class="product-description">Sabroso bistec acompañado de un guiso de lentejas caseras. Ingredientes: carne de res, lentejas, cebolla, zanahoria, especias.</p>
+    <p class="product-price">$6.000</p>
+    <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON LENTEJAS');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+<!-- AJÍ DE GALLINA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://gourmet.iprospect.cl/wp-content/uploads/2016/09/Aji-gallina.jpg" alt="Ají de gallina">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>AJÍ DE GALLINA</h3>
+    <p class="product-description">Plato peruano tradicional con pollo desmenuzado en cremosa salsa de ají amarillo. Ingredientes: pollo, ají amarillo, pan remojado, leche, nueces, queso parmesano.</p>
+    <p class="product-price">$6.000</p>
+    <button class="add-to-cart-btn" onclick="addToCart('AJÍ DE GALLINA');abrirOverlayGlobal();">PEDIR</button>
+  </div>
+</div>
+
+
+
+      
+      
+      
+      <div class="product-card">
         <div class="product-image-section">
             <img src="https://i.ibb.co/Mxk98My3/P1170105.jpg" alt="CHORRILLANA">
         </div>
@@ -1928,8 +2064,8 @@ function cerrarModalProteina1() {
     <img src="https://i.ibb.co/dwHt9DTw/P1170103.jpg" alt="COMPLETO + ITALIANO">
   </div>
   <div class="product-details-section elementor">
-    <h3>COMPLETO ITALIANO + BEBIDA</h3>
-    <p class="product-description">Vianesa, palta fresca, tomate y mayo casera. + BEBIDA XPRESS COCACOLA/FANTA/SPRITE</p>
+    <h3>COMPLETO ITALIANO + BEBIDA <h3 style="border-top: 3px solid red; border-radius: 30px; color: red;" onclick="document.getElementById('ventanaBebidas').style.display='flex'">COCACOLA</h3><h3 onclick="document.getElementById('ventanaBebidas').style.display='flex'" style="color: orangered;  ">FANTA</h3><h3 style="color: green; border-bottom: 3px solid green; border-radius: 30px;" onclick="document.getElementById('ventanaBebidas').style.display='flex'">SPRITE</h3></h3>
+    <p class="product-description">Vianesa, palta fresca, tomate y mayo casera. </p>
     <p class="product-price">$2.600</p>
     <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidas').style.display='flex'">PEDIR</button>
   </div>
@@ -1938,6 +2074,12 @@ function cerrarModalProteina1() {
 <script>
 function cerrarVentana35() {
   document.getElementById('ventanaBebidas').style.display = 'none';
+}
+
+
+function cerrarVentana37() {
+
+  document.getElementById('ventanaBebidasChurrasco').style.display = 'none';
 }
 </script>
 <!-- Ventana emergente -->
@@ -2022,8 +2164,8 @@ Fanta
     <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="CHURRASCO ITALIANO">
   </div>
   <div class="product-details-section elementor">
-    <h3>CHURRASCO ITALIANO + BEBIDA</h3>
-    <p class="product-description">Palta, tomate y mayo sobre carne jugosa. + BEBIDA XPRESS COCACOLA/FANTA/SPRITE</p>
+    <h3>CHURRASCO ITALIANO + BEBIDA <h3 style="border-top: 3px solid red; border-radius: 30px; color: red;" onclick="document.getElementById('ventanaBebidasChurrasco').style.display='flex'">COCACOLA</h3><h3 style="color: orangered;  " onclick="document.getElementById('ventanaBebidasChurrasco').style.display='flex'">FANTA</h3><h3 style="color: green; border-bottom: 3px solid green; border-radius: 30px;" onclick="document.getElementById('ventanaBebidasChurrasco').style.display='flex'">SPRITE</h3></h3>
+    <p class="product-description">Palta, tomate y mayo sobre carne jugosa. + BEBIDA EXPRESS COCACOLA/FANTA/SPRITE</p>
     <p class="product-price">$3.600</p>
     <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidasChurrasco').style.display='flex'">PEDIR</button>
   </div>
@@ -2142,13 +2284,13 @@ function cerrarVentanaChurrasco() {
     <h2>Elige tu bebida</h2>
     <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
     <h2 style="color: #000;">Elige tu bebida</h2>
-    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
+    <button onclick="abrirOverlayGlobal();cerrarVentana37();addToCart('CHURRASCO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
       Coca-Cola
     </button>
-    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Fanta EXPRESS')" class="btn-bebida fanta">
+    <button onclick="abrirOverlayGlobal();cerrarVentana37();addToCart('CHURRASCO ITALIANO + 1 Fanta EXPRESS')" class="btn-bebida fanta">
       Fanta
     </button>
-    <button onclick="cerrarVentanaChurrasco();addToCart('CHURRASCO ITALIANO + 1 Sprite EXPRESS')" class="btn-bebida sprite">
+    <button onclick="abrirOverlayGlobal();cerrarVentana37();addToCart('CHURRASCO ITALIANO + 1 Sprite EXPRESS')" class="btn-bebida sprite">
       Sprite
     </button>
     <span id="cerrarVentanaChurrasco" onclick="cerrarVentanaChurrasco()">&times;</span>
@@ -2308,8 +2450,7 @@ function cerrarVentanaChurrasco() {
     <span class="close-btn" style="color: #fff; background-color: green;" id="volver-button" onclick="closeCart();cerrarOverlayGlobal();">Cerrar</span>
  <img  style="width: 90px; margin-top: -20px; position: fixed; margin-left: -40px;" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
   <br><br> <br> <h2 style=" margin-left: 200px;">Tu Pedido</h2>
-
-    <ul style="margin-left: 50%; max-width: 500px; position: absolute; max-height: 400px !important; border-bottom: 2px solid rgb(172, 0, 0); border-right: 2px solid rgb(172, 0, 0);" id="cartItems" class="cart-list"></ul>
+  <ul style="margin-left: 50%; max-width: 500px; position: absolute; max-height: 400px !important; border-bottom: 2px solid rgb(172, 0, 0); border-right: 2px solid rgb(172, 0, 0);" id="cartItems" class="cart-list"></ul>
 
 <div class="form-group total-row">
   <label for="total">Total:</label>
@@ -2336,7 +2477,7 @@ function cerrarVentanaChurrasco() {
 
 
     <div class="form-group">
-      <input type="text" id="clientName" placeholder="Tu nombre">
+      <input type="text" id="clientName" style="border: 1px solid red;" placeholder="Tu nombre">
     </div>
 
     <div class="form-group">
