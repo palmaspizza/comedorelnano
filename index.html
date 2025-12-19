@@ -634,6 +634,161 @@
  <button style="color: #fff; background-color: green; border-radius: 30%; width: auto; padding: 20px;" type="button" onclick="openCart();cerraOverlayGlobal()" class="order-btn">Ver Carrito</button></div>
 
 
+
+<!-- Ventana emergente -->
+<div id="ventanaAcomp" class="ventana-royal" aria-hidden="true">
+  <div class="ventana-royal-contenido">
+    <span class="cerrar-royal" onclick="cerrarVentanaAcomp()" title="Cerrar">&times;</span>
+
+    <h2 class="titulo-royal">¿Quieres tu plato con…?</h2>
+    <p class="subtitulo-royal">Selecciona una o ambas opciones:</p>
+
+    <div class="grid-opciones-royal">
+      <button type="button" onclick="abrirOverlayGlobal();addToCart('SIN ARROZ');cerrarVentanaAcomp();"  style="background-color: darkred; color: #fff; border-radius: 30%;">SIN ARROZ</button>
+     <button type="button" onclick="abrirOverlayGlobal();addToCart('SIN PAPAS FRITAS');cerrarVentanaAcomp();"  style="background-color: darkred; color: #fff; border-radius: 30%;">SIN PAPAS FRITAS</button></div>
+ <br><button type="button" onclick="abrirOverlayGlobal();cerrarVentanaAcomp();"  style="background-color: darkred; color: #fff; border-radius: 30%;">CON ARROZ Y PAPAS FRITAS</button></div>
+
+
+    <div id="msgAcomp" class="mensaje-royal" role="status"></div>
+  </div>
+</div>
+
+<script>
+let seleccionAcomp = [];
+
+function abrirVentanaAcomp() {
+  document.getElementById('ventanaAcomp').style.display = 'flex';
+}
+
+function cerrarVentanaAcomp() {
+  document.getElementById('ventanaAcomp').style.display = 'none';
+  seleccionAcomp = [];
+  document.getElementById('opPapas').classList.remove('selected');
+  document.getElementById('opArroz').classList.remove('selected');
+  document.getElementById('msgAcomp').textContent = '';
+}
+
+function toggleOpcion(nombre) {
+  const index = seleccionAcomp.indexOf(nombre);
+  if (index > -1) {
+    seleccionAcomp.splice(index, 1);
+  } else {
+    seleccionAcomp.push(nombre);
+  }
+
+  // Visual feedback
+  if (nombre.includes('PAPAS')) {
+    document.getElementById('opPapas').classList.toggle('selected');
+  }
+  if (nombre.includes('ARROZ')) {
+    document.getElementById('opArroz').classList.toggle('selected');
+  }
+
+  document.getElementById('msgAcomp').textContent =
+    seleccionAcomp.length > 0
+      ? 'Seleccionado: ' + seleccionAcomp.join(' + ')
+      : 'Debes elegir al menos una opción.';
+}
+
+function confirmarAcomp() {
+  if (seleccionAcomp.length === 0) {
+    document.getElementById('msgAcomp').textContent = 'Debes elegir al menos una opción.';
+    return;
+  }
+  alert("Tu plato será servido con: " + seleccionAcomp.join(' + '));
+  cerrarVentanaAcomp();
+}
+
+function confirmarSinAcomp() {
+  alert("Tu plato será servido SIN acompañamiento.");
+  cerrarVentanaAcomp();
+}
+</script>
+
+<style>
+.btn-opciones-royal {
+  background: linear-gradient(135deg, #8B0000, #b22222);
+  color: #fff;
+  font-weight: 800;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+.btn-opciones-royal:hover { filter: brightness(1.1); }
+
+.ventana-royal {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center; align-items: center;
+  z-index: 99999;
+}
+.ventana-royal-contenido {
+  background: #fff;
+  color: #111;
+  width: 90%; max-width: 480px;
+  border-radius: 18px;
+  box-shadow: 0 14px 40px rgba(139,0,0,0.35);
+  border: 2px solid #8B0000;
+  position: relative;
+  padding: 20px;
+}
+.cerrar-royal {
+  position: absolute; top: 10px; right: 14px;
+  font-size: 26px; color: #8B0000; cursor: pointer;
+}
+.titulo-royal { color: red; font-weight: 900; text-align: center; }
+.subtitulo-royal { text-align: center; margin-bottom: 16px; }
+
+.grid-opciones-royal {
+  display: flex; gap: 14px; justify-content: center;
+}
+.card-opcion-royal {
+  flex: 1;
+  background: #fff;
+  border-radius: 16px;
+  border: 2px solid #111;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  cursor: pointer;
+  text-align: center;
+  padding: 12px;
+}
+.card-opcion-royal.selected {
+  border-color: #cc0000;
+  box-shadow: 0 0 0 4px rgba(204,0,0,0.15);
+}
+.icono-royal { font-size: 24px; }
+.nombre-royal { font-weight: 900; margin-top: 6px; }
+.desc-royal { font-size: 12px; color: #333; }
+
+.acciones-royal {
+  display: flex; gap: 10px; justify-content: center;
+  margin-top: 20px;
+}
+.btn-confirmar-royal, .btn-sin-royal {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.btn-confirmar-royal {
+  background: red; color: #fff;
+}
+.btn-sin-royal {
+  background: #111; color: #fff;
+}
+.mensaje-royal {
+  text-align: center;
+  color: #8B0000;
+  font-weight: 800;
+  margin-top: 12px;
+}
+</style>
+ 
 </div>
 
            <img  style="box-shadow: 0px 0px 30px 5px #000; position: fixed; " id="logo" src="https://comedorelnano.cl/wp-content/uploads/2025/04/tranparenteRecurso-34@0.5x.png" >
@@ -771,7 +926,7 @@ const precios = {
   'PAPA A LA HUANCAÍNA (ENTRADA)': 0,
 
   // Platos principales
-  'POLLO AL JUGO': 6000,
+  'POLLO AL JUGO CON ARROZ Y PAPAS': 6000,
   'PABELLÓN': 6000,
   'EMPANADAS JAMÓN Y QUESO': 1500,
   'SALCHIPAPAS de $1.000': 1000,
@@ -780,19 +935,19 @@ const precios = {
   'SALCHIPAPAS de $4.000': 4000,
   'BISTEC CON LENTEJAS': 6000,
   'AJÍ DE GALLINA': 6000,
-  'CHORRILLANA': 6000,
+  'CHORRILLANA': 7000,
   'LOMO SALTEADO DE CARNE': 6000,
-  'LOMO SALTEADO DE POLLO': 6000,
-  'TALLARINES SALTEADOS DE CARNE': 6000,
-  'TALLARINES SALTEADOS DE POLLO': 6000,
+  'LOMO SALTEADO DE POLLO CON PAPAS': 6000,
+  'TALLARINES SALTEADOS DE CARNE CON  PAPAS': 6000,
+  'TALLARINES SALTEADOS DE POLLO CON  PAPAS': 6000,
   'ARROZ CHAUFA DE CARNE': 6000,
-  'ARROZ CHAUFA DE POLLO': 6000,
-  'COSTILLAR AL HORNO': 6000,
-  'POLLO BROSTER': 6000,
+  'ARROZ CHAUFA DE POLLO CON  PAPAS': 6000,
+  'COSTILLAR AL HORNO CON ARROZ Y PAPAS': 6000,
+  'POLLO BROSTER CON ARROZ Y PAPAS': 6000,
   'COMBINADO': 6000,
-  'POLLO A LA PLANCHA': 6000,
-  'PESCADO FRITO': 6000,
-  'CARNE AL JUGO': 6000,
+  'POLLO A LA PLANCHA CON ARROZ Y PAPAS': 6000,
+  'PESCADO FRITO CON ARROZ Y PAPAS': 6000,
+  'CARNE AL JUGO CON PAPAS': 6000,
   'BISTEC CON ARROZ Y PAPAS': 6000,
   'TALLARINES VERDES': 6000,
   'COMPLETO ITALIANO': 2200,
@@ -818,6 +973,14 @@ const precios = {
      'COMPLETO ITALIANO + 1 Coca-Cola EXPRESS': 2600,
   'COMPLETO ITALIANO + 1 Fanta EXPRESS': 2600,
    'COMPLETO ITALIANO + 1 Sprite EXPRESS': 2600,
+
+
+
+
+
+   'SIN ARROZ': 0,
+   'SIN PAPAS FRITAS': 0,
+   'CON ARROZ Y PAPAS FRITAS': 0,
 };
   </script>
   <style>
@@ -1574,16 +1737,16 @@ if (mesa) {
       </div> 
       
       
-      <!-- POLLO AL JUGO -->
+      <!-- POLLO AL JUGO CON ARROZ Y PAPAS -->
 <div class="product-card">
   <div class="product-image-section">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsD3yoi0D7muA2qiHV5Hy7OCahDJjM8Gnczg&s" alt="Pollo al jugo">
   </div>
   <div class="product-details-section elementor">
-    <h3>POLLO AL JUGO</h3>
+    <h3>POLLO AL JUGO CON ARROZ Y PAPAS</h3>
     <p class="product-description">Jugoso pollo cocinado lentamente en su propio jugo, acompañado de arroz blanco y papas doradas. Ingredientes: pollo fresco, cebolla, ajo, especias caseras, arroz y papas.</p>
     <p class="product-price">$6.000</p>
-    <button class="add-to-cart-btn" onclick="addToCart('POLLO AL JUGO');abrirOverlayGlobal();">PEDIR</button>
+    <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('POLLO AL JUGO CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
   </div>
 </div>
 
@@ -1670,7 +1833,7 @@ if (mesa) {
         <div class="product-details-section elementor">
             <h3>CHORRILLANA</h3>
             <p class="product-description">Generosa combinación de papas fritas cubiertas con tiras de carne salteada, cebolla dorada y huevo.</p>
-            <p class="product-price">$6.000</p>
+            <p class="product-price">$7.000</p>
             <button class="add-to-cart-btn" onclick="addToCart('CHORRILLANA');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
@@ -1683,23 +1846,23 @@ if (mesa) {
             <img src="https://i.ibb.co/sdHbb8pV/P1170117.jpg" alt="LOMO SALTEADO DE CARNE">
         </div>
         <div class="product-details-section elementor">
-            <h3>LOMO SALTEADO DE CARNE</h3>
-            <p class="product-description">Tiras de carne salteadas con cebolla, tomate y un toque de soya.</p>
+            <h3>LOMO SALTEADO DE CARNE CON ARROZ Y PAPAS</h3>
+            <p class="product-description">Tiras de carne salteadas con cebolla, tomate, arroz y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('LOMO SALTEADO DE CARNE');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
 
        <div class="product-card">
   <div class="product-image-section">
-            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTEADO DE POLLO">
+            <img src="https://i.ibb.co/8gMfzYfQ/P1170119.jpg" alt="LOMO SALTEADO DE POLLO CON PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>LOMO SALTEADO DE POLLO</h3>
-            <p class="product-description">Tiras de pollo salteadas con cebolla, tomate y un toque de soya.</p>
+            <h3>LOMO SALTEADO DE POLLO CON ARROZ PAPAS</h3>
+            <p class="product-description">Tiras de pollo salteadas con cebolla, tomate, arroz y un toque de soya.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('LOMO SALTEADO DE POLLO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('LOMO SALTEADO DE POLLO CON PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
 
 
@@ -1708,6 +1871,10 @@ if (mesa) {
     <script>
         function addToCart(productName) {
             alert('Producto "' + productName + '" agregado al carrito.');
+            // Aquí puedes agregar la lógica para el carrito de compras, como enviar un mensaje por WhatsApp.
+        }
+           function addToCartinput(productNameinput) {
+            alert('Producto "' + productNameinput + '" agregado al carrito.');
             // Aquí puedes agregar la lógica para el carrito de compras, como enviar un mensaje por WhatsApp.
         }
     </script>
@@ -1868,13 +2035,13 @@ function cerrarModalProteina1() {
   </style>
   <div class="product-card">
   <div class="product-image-section">
-            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTEADOS DE CARNE">
+            <img src="https://i.ibb.co/0j7SP3mt/P1170113.jpg" alt="TALLARINES SALTEADOS DE CARNE CON  PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>TALLARINES SALTEADOS DE CARNE</h3>
+            <h3>TALLARINES SALTEADOS DE CARNE CON  PAPAS</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE CARNE CON  PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1884,13 +2051,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTEADOS DE POLLO">
+            <img src="https://i.ibb.co/hFPgj6FY/P1170129.jpg" alt="TALLARINES SALTEADOS DE POLLO CON  PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>TALLARINES SALTEADOS DE POLLO</h3>
+            <h3>TALLARINES SALTEADOS DE POLLO CON  PAPAS</h3>
             <p class="product-description">Fideos salteados al wok.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="addToCart('TALLARINES SALTEADOS DE POLLO CON  PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
     </div>
 
@@ -1911,26 +2078,26 @@ function cerrarModalProteina1() {
 
 <div class="product-card">
     <div class="product-image-section">
-            <img src="https://i.ibb.co/fVLZTppr/P1170104.jpg" alt="ARROZ CHAUFA DE POLLO">
+            <img src="https://i.ibb.co/fVLZTppr/P1170104.jpg" alt="ARROZ CHAUFA DE POLLO CON  PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>ARROZ CHAUFA DE POLLO</h3>
+            <h3>ARROZ CHAUFA DE POLLO CON  PAPAS</h3>
             <p class="product-description">Arroz frito al estilo oriental de pollo, cebollín y huevo.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="addToCart('ARROZ CHAUFA DE POLLO CON  PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
 
 <div class="product-card">
     <div class="product-image-section">
-            <img src="https://i.ibb.co/Wvd31Thd/P1170115.jpg" alt="COSTILLAR AL HORNO">
+            <img src="https://i.ibb.co/Wvd31Thd/P1170115.jpg" alt="COSTILLAR AL HORNO CON ARROZ Y PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>COSTILLAR AL HORNO</h3>
+            <h3>COSTILLAR AL HORNO CON ARROZ Y PAPAS</h3>
             <p class="product-description">Costillas cocidas al horno, acompañadas de arroz y papas fritas.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('COSTILLAR AL HORNO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('COSTILLAR AL HORNO CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
       </div>
@@ -1939,13 +2106,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/Kc5TGjQn/P1170125.jpg" alt="POLLO BROSTER">
+            <img src="https://i.ibb.co/Kc5TGjQn/P1170125.jpg" alt="POLLO BROSTER CON ARROZ Y PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>POLLO BROSTER</h3>
+            <h3>POLLO BROSTER CON ARROZ Y PAPAS</h3>
             <p class="product-description">Jugoso por dentro y crujiente por fuera, servido caliente y lleno de sabor.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('POLLO BROSTER');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('POLLO BROSTER CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div> </div>
 
@@ -1957,7 +2124,7 @@ function cerrarModalProteina1() {
         </div>
         <div class="product-details-section elementor">
             <h3>COMBINADO</h3>
-            <p class="product-description">Ceviche con papa a la huancaína y tallarines rojos.</p>
+            <p class="product-description">Ceviche de pescado con papa a la huancaína y tallarines rojos y canchita peruana.</p>
             <p class="product-price">$6.000</p>
             <button class="add-to-cart-btn" onclick="addToCart('COMBINADO');abrirOverlayGlobal();">PEDIR</button>
         </div>
@@ -1966,13 +2133,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/8gy9CMN0/P1170116.jpg" alt="POLLO A LA PLANCHA">
+            <img src="https://i.ibb.co/8gy9CMN0/P1170116.jpg" alt="POLLO A LA PLANCHA CON ARROZ Y PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>POLLO A LA PLANCHA</h3>
+            <h3>POLLO A LA PLANCHA CON ARROZ Y PAPAS</h3>
             <p class="product-description">Pechuga de pollo suave y jugosa, cocinada a la plancha para resaltar su sabor natural.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('POLLO A LA PLANCHA');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('POLLO A LA PLANCHA CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1981,13 +2148,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/xqy2T28Q/P1170111.jpg" alt="PESCADO FRITO">
+            <img src="https://i.ibb.co/xqy2T28Q/P1170111.jpg" alt="PESCADO FRITO CON ARROZ Y PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>PESCADO FRITO</h3>
+            <h3>PESCADO FRITO CON ARROZ Y PAPAS</h3>
             <p class="product-description">Filete crujiente con ensalada y acompañamiento.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('PESCADO FRITO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('PESCADO FRITO CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -1996,13 +2163,13 @@ function cerrarModalProteina1() {
 
       <div class="product-card">
         <div class="product-image-section">
-            <img src="https://i.ibb.co/jkDbDkrd/P1170174.jpg" alt="CARNE AL JUGO">
+            <img src="https://i.ibb.co/jkDbDkrd/P1170174.jpg" alt="CARNE AL JUGO CON PAPAS">
         </div>
         <div class="product-details-section elementor">
-            <h3>CARNE AL JUGO</h3>
+            <h3>CARNE AL JUGO CON PAPAS</h3>
             <p class="product-description">Corte de carne cocinado lentamente hasta quedar blando y sabroso.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="addToCart('CARNE AL JUGO CON PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -2015,7 +2182,7 @@ function cerrarModalProteina1() {
             <h3>POLLO ARBERJADO CON ARROZ Y PAPAS</h3>
             <p class="product-description">Pollo con arberjas, arroz y papas.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('POLLO ARBERJADO ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('POLLO ARBERJADO ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -2027,7 +2194,7 @@ function cerrarModalProteina1() {
             <h3>BISTEC CON ARROZ Y PAPAS</h3>
             <p class="product-description">Tierna carne de res sazonada y dorada a la perfección, servida con arroz blanco esponjoso y papas doradas.</p>
             <p class="product-price">$6.000</p>
-            <button class="add-to-cart-btn" onclick="addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
+            <button class="add-to-cart-btn" onclick="abrirVentanaAcomp();addToCart('BISTEC CON ARROZ Y PAPAS');abrirOverlayGlobal();">PEDIR</button>
         </div>
       </div>
 
@@ -2085,8 +2252,7 @@ function cerrarVentana37() {
 <!-- Ventana emergente -->
 <div style="z-index: 84328494324324;" id="ventanaBebidas" class="ventana">
   <div class="ventana-contenido">
-    <h2>Elige tu bebida</h2>
-      <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+        <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
    <h2 style="color: #000;">Elige tu bebida</h2>
     <button  onclick="abrirOverlayGlobal();cerrarVentana35();addToCart('COMPLETO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
       Coca-Cola
@@ -2146,6 +2312,109 @@ Fanta
   font-size: 20px;
   cursor: pointer;
 }
+</style>
+<!-- AS ITALIANO + BEBIDA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://comidaschilenas.com/wp-content/uploads/2019/05/Receta-de-as-italiano.jpg.webp" alt="AS Italiano">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>AS ITALIANO + BEBIDA 
+      <h3 style="border-top: 3px solid red; border-radius: 30px; color: red;" onclick="document.getElementById('ventanaBebidasASItaliano').style.display='flex'">COCACOLA</h3>
+      <h3 onclick="document.getElementById('ventanaBebidasASItaliano').style.display='flex'" style="color: orangered;">FANTA</h3>
+      <h3 style="color: green; border-bottom: 3px solid green; border-radius: 30px;" onclick="document.getElementById('ventanaBebidasASItaliano').style.display='flex'">SPRITE</h3>
+    </h3>
+    <p class="product-description">Delicioso AS Italiano con palta fresca, churrasco, tomate y mayo casera. + BEBIDA EXPRESS COCACOLA/FANTA/SPRITE</p>
+    <p class="product-price">$3.600</p>
+    <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidasASItaliano').style.display='flex'">PEDIR</button>
+  </div>
+</div>
+
+<script>
+function cerrarVentanaASItaliano() {
+  document.getElementById('ventanaBebidasASItaliano').style.display = 'none';
+}
+</script>
+
+<div id="ventanaBebidasASItaliano" class="ventana" style="z-index: 999999;">
+  <div class="ventana-contenido">
+        <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+    <h2 style="color: #000;">Elige tu bebida</h2>
+    <button onclick="cerrarVentanaASItaliano();addToCart('AS ITALIANO + 1 COCA-COLA EXPRESS')" class="btn-bebida coca">Coca-Cola</button>
+    <button onclick="cerrarVentanaASItaliano();addToCart('AS ITALIANO + 1 FANTA EXPRESS')" class="btn-bebida fanta">Fanta</button>
+    <button onclick="cerrarVentanaASItaliano();addToCart('AS ITALIANO + 1 SPRITE EXPRESS')" class="btn-bebida sprite">Sprite</button>
+    <span onclick="cerrarVentanaASItaliano()" style="cursor:pointer;position:absolute;top:10px;right:15px;font-size:20px;">&times;</span>
+  </div>
+</div>
+
+
+<!-- AS CHURRASCO + BEBIDA -->
+<div class="product-card">
+  <div class="product-image-section">
+    <img src="https://i.ibb.co/dsNKSyYW/P1170132.jpg" alt="AS Churrasco">
+  </div>
+  <div class="product-details-section elementor">
+    <h3>AS CHURRASCO + BEBIDA 
+      <h3 style="border-top: 3px solid red; border-radius: 30px; color: red;" onclick="document.getElementById('ventanaBebidasASChurrasco').style.display='flex'">COCACOLA</h3>
+      <h3 style="color: orangered;" onclick="document.getElementById('ventanaBebidasASChurrasco').style.display='flex'">FANTA</h3>
+      <h3 style="color: green; border-bottom: 3px solid green; border-radius: 30px;" onclick="document.getElementById('ventanaBebidasASChurrasco').style.display='flex'">SPRITE</h3>
+    </h3>
+    <p class="product-description">Sabroso AS Churrasco con carne jugosa, palta y tomate fresco. + BEBIDA EXPRESS COCACOLA/FANTA/SPRITE</p>
+    <p class="product-price">$3.600</p>
+    <button class="add-to-cart-btn" onclick="document.getElementById('ventanaBebidasASChurrasco').style.display='flex'">PEDIR</button>
+  </div>
+</div>
+
+<script>
+function cerrarVentanaASChurrasco() {
+  document.getElementById('ventanaBebidasASChurrasco').style.display = 'none';
+}
+</script>
+
+<div id="ventanaBebidasASChurrasco" class="ventana" style="z-index: 999999;">
+  <div class="ventana-contenido">
+        <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+    <h2 style="color: #000;">Elige tu bebida</h2>
+    <button onclick="cerrarVentanaASChurrasco();addToCart('AS CHURRASCO + 1 COCA-COLA EXPRESS')" class="btn-bebida coca">Coca-Cola</button>
+    <button onclick="cerrarVentanaASChurrasco();addToCart('AS CHURRASCO + 1 FANTA EXPRESS')" class="btn-bebida fanta">Fanta</button>
+    <button onclick="cerrarVentanaASChurrasco();addToCart('AS CHURRASCO + 1 SPRITE EXPRESS')" class="btn-bebida sprite">Sprite</button>
+    <span onclick="cerrarVentanaASChurrasco()" style="cursor:pointer;position:absolute;top:10px;right:15px;font-size:20px;">&times;</span>
+  </div>
+</div>
+
+
+<!-- CSS para ventanas -->
+<style>
+.ventana {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+.ventana-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+.btn-bebida {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.coca { background-color: #e50914; }
+.fanta { background-color: #f58220; }
+.sprite { background-color: #00a550; }
 </style>
 <div class="product-card">
     <div class="product-image-section">
@@ -2281,9 +2550,9 @@ function cerrarVentanaChurrasco() {
 <!-- Ventana emergente CHURRASCO -->
 <div style="z-index: 84328494324326;" id="ventanaBebidasChurrasco" class="ventana">
   <div class="ventana-contenido">
-    <h2>Elige tu bebida</h2>
-    <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
+        <img style="width: 80%;" src="https://cdnx.jumpseller.com/socomep/image/64943124/RETORNABLE-EXPRESS-ANDINA.jpg?1750996587" alt="">
     <h2 style="color: #000;">Elige tu bebida</h2>
+
     <button onclick="abrirOverlayGlobal();cerrarVentana37();addToCart('CHURRASCO ITALIANO + 1 Coca-Cola EXPRESS')" class="btn-bebida coca">
       Coca-Cola
     </button>
@@ -3308,7 +3577,9 @@ position: fixed;
     updateCart();
     sumarContador();
   }
-
+ function addToCartinput(item) {
+    updateCart();
+  }
 function updateCart() {
   const cartList = document.getElementById('cartItems');
   cartList.innerHTML = '';
