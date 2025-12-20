@@ -1455,6 +1455,33 @@ button {
     <!-- Ventana emergente -->
 <div id="overlayPanel" class="overlay-panel">
   <div class="panel">
+    <a    href="https://comedorelnano.netlify.app/para-llevar" 
+   target="_blank" 
+   class="btn-para-llevar" >
+   🛍️QUIERO PARA LLEVAR
+</a>
+<br><br><br>
+<style>
+  .btn-para-llevar {
+    background-color: green; /* rojo vino */
+    color: #FFFFFF; /* letras blancas */
+    border: 2px solid #000000; /* toque negro */
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px; /* esquinas redondeadas */
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0px 0px 5px 4px #fff;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+
+  .btn-para-llevar:hover {
+    background-color: #A52A2A; /* tono más claro al pasar el mouse */
+    transform: scale(1.05);
+  }
+</style>
         <h2>¿Cual es tu número de Mesa?</h2>
     <div class="grid" id="gridBotones"></div>
 
@@ -1529,30 +1556,32 @@ button {
 </style>
 
 <script>
+  const overlay = document.getElementById('overlayPanel');
+  const grid = document.getElementById('gridBotones');
 
   function abrirPanel(){
-    overlay.style.display='flex';
+    if (overlay) overlay.style.display='flex';
   }
   function cerrarPanel(){
-    overlay.style.display='none';
+    if (overlay) overlay.style.display='none';
   }
 
-  // Generar botones 1–10
   for(let i=1;i<=10;i++){
     const b=document.createElement('button');
     b.className='num-btn';
     b.textContent=i;
     b.addEventListener('click',()=>{
-      // Aquí se asigna el valor al input externo
-      const input = document.getElementById('resultado'); // cambia "resultado" por el id de tu input
-      if(input) input.value=i;
-      cerrarPanel();
+      try {
+        const url = `https://comedorelnano.netlify.app/mesa-${i}`;
+        window.open(url, '_blank');
+      } finally {
+        cerrarPanel();
+      }
     });
     grid.appendChild(b);
   }
 
-  // Exportar función para abrir desde tu código
-  window.abrirPanelNumeros = abrirPanel;
+  document.addEventListener('DOMContentLoaded', abrirPanel);
 </script>
 
 <style>
